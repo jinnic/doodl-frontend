@@ -26,20 +26,20 @@ class App extends Component {
     let copiedDoodle = JSON.parse(this.state.doodle);
     copiedDoodle["user_id"] = 1
     copiedDoodle["name"] = "test"
-    console.log(typeof copiedDoodle, copiedDoodle)
+    console.log(copiedDoodle)
 
 
-    // const config = {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Accept": "application/json"
-    // },
-    //     body: JSON.stringify(newDood)
-    // }
-    // fetch('http://localhost:3000/doodles')
-    // .then(r => r.json())
-    // .then(console.log)
+    const config = {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    },
+        body: JSON.stringify(copiedDoodle)
+    }
+    fetch('http://localhost:3000/doodles', config)
+    .then(r => r.json())
+    .then(console.log)
   }
   
   render() {
@@ -125,6 +125,23 @@ class App extends Component {
             canvasWidth={this.state.width}
             canvasHeight={this.state.height}
           />
+          <button
+          onClick={() => {
+            this.loadableCanvas.loadSaveData(
+              console.log(localStorage.getItem("savedDrawing"))
+            );
+          }}
+        >
+          Load what you saved previously into the following canvas. Either by
+          calling `loadSaveData()` on the component's reference or passing it
+          the `saveData` prop:
+        </button>
+        <CanvasDraw
+          disabled
+          hideGrid
+          ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
+          saveData={localStorage.getItem("savedDrawing")}
+        />
       </div>
     );
   }
