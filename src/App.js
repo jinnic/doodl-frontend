@@ -24,22 +24,22 @@ class App extends Component {
 
   sendDoodleData = () => {
     let copiedDoodle = JSON.parse(this.state.doodle);
-    copiedDoodle["user_id"] = 1
+    copiedDoodle["user_id"] = 14
     copiedDoodle["name"] = "test"
     console.log(typeof copiedDoodle, copiedDoodle)
 
 
-    // const config = {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Accept": "application/json"
-    // },
-    //     body: JSON.stringify(newDood)
-    // }
-    // fetch('http://localhost:3000/doodles')
-    // .then(r => r.json())
-    // .then(console.log)
+    const config = {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    },
+        body: JSON.stringify(copiedDoodle)
+    }
+    fetch('http://localhost:3000/doodles', config)
+    .then(r => r.json())
+    .then(console.log)
   }
   
   render() {
