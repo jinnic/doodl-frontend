@@ -23,19 +23,24 @@ class App extends Component {
   }
 
   sendDoodleData = () => {
-    let copiedDoodle = JSON.parse(this.state.doodle);
-    copiedDoodle["user_id"] = 14
-    copiedDoodle["name"] = "test"
-    console.log(copiedDoodle)
+    // let copiedDoodle = JSON.parse(this.state.doodle);
+
+    let newObj = {}
+    newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
+    newObj["user_id"] = 1
+    newObj["name"] = "test"
+    newObj.width = JSON.parse(this.state.doodle).width
+    newObj.height = JSON.parse(this.state.doodle).height
 
 
+    console.log(newObj)
     const config = {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
     },
-        body: JSON.stringify(copiedDoodle)
+        body: JSON.stringify(newObj)
     }
     fetch('http://localhost:3000/doodles', config)
     .then(r => r.json())
