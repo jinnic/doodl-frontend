@@ -5,9 +5,10 @@ import DoodleCanvas from "./DoodleCanvas"
 import DoodleCard from "./DoodleCard"
 
 class DoodleContainer extends Component {
-  // state = {
-  //   doodles: []
-  // }
+  state = {
+    editable: false,
+    doodleData: ''
+  }
 
   // //Fetch all saved Doodle
   // componentDidMount() {
@@ -22,23 +23,40 @@ class DoodleContainer extends Component {
   // }
   
   //Render Doodle passing stringified JSON as doodle : doodle={JSON.stringify(doodle.doodle_data)}
-  renderDoodle=()=>{
-    return this.props.doodles.map(doodle =>  <DoodleCard key={doodle.id} doodle={doodle}/>)
+
+
+
+  handleEditCanvas = (doodleData, clicked) => {
+      this.setState({
+        editable: clicked,
+        doodleData: doodleData
+      })
+
   }
 
-  // addNewDoodle=(doodle)=>{
-  //   this.setState(preState =>({
-  //     doodles: [doodle, ...preState.doodles]
-  //   }),
-  //   ()=>console.log('Add New Doodles ',this.state.doodles)
-  //   )
-  // }
+  renderDoodleCanvas = () => {
+    if (this.state.editable === true) {
+        return (
+        <CanvasDraw
+        hideGrid
+        canvasWidth={400}
+        canvasHeight={400}
+        ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
+        saveData={this.state.doodleData}
+      />
+      )
+    }
+  }
+
+  renderDoodle=()=>{
+    return this.props.doodles.map(doodle =>  <DoodleCard handleEditCanvas={this.handleEditCanvas} handleDelete={this.props.handleDelete} page={this.props.page} key={doodle.id} doodle={doodle}/>)
+  }
   
   render() {
     console.log(this.props.doodles)
     return (
       <div>
-        {/* <DoodleCanvas addNewDoodle={this.addNewDoodle} />*/}
+        {this.renderDoodleCanvas()}
         {this.renderDoodle()} 
       </div>
     )

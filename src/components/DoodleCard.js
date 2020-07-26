@@ -30,41 +30,29 @@ class Doodle extends Component {
 
       // debugger
   }
+
+  handleEdit = () => {
+    const doodle = this.props.doodle
+    const doodleData = JSON.stringify(doodle.doodle_data)
+    const clicked = true 
+    this.props.handleEditCanvas(doodleData, clicked)
+  }
+
+  renderButtons = () => {
+    if (this.props.page === "profile") {
+     return <> 
+      <button onClick={this.handleEdit}>edit</button>
+      <button onClick={() => this.props.handleDelete(this.props.doodle.id)}>delete</button> 
+     </>
+    }
+  }
+
   render() {
     console.log("Doodle props : ", this.props)
     const doodle = this.props.doodle
     const doodleData = JSON.stringify(doodle.doodle_data)
     return (
-      <div onClick={this.handleClick}>
-        {/* <button
-          onClick={() => {
-            console.log(this)
-            //fetch particular doodle data with ID and render
-            this.getDoodleData()
-            //this : Doodle class
-
-            //loadSaveData(saveData: String, immediate: Boolean) loads a previously saved drawing
-            //using the saveData string, as well as an optional boolean flag to load it immediately,
-            //instead of live-drawing it. 
-            // this.loadableCanvas.loadSaveData(
-            //   // this.getDoodleData()
-            //   // localStorage.getItem("savedDrawing")
-            // )
-
-            //console.log('this.getDoodleData()=> ', this.getDoodleData())
-            //console.log('localStorage.getItem("savedDrawing")=> ',localStorage.getItem("savedDrawing"))
-
-            //localStorage.getItem('key you set with setItem() function') is a JS function that gets item
-            //set by localStorage.setItem('key', value) 
-            //ref : https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
-            //getItem returns 'String'
-            //localStorage.getItem("savedDrawing")
-          }}
-        >
-          Load what you saved previously into the following canvas. Either by
-          calling `loadSaveData()` on the component's reference or passing it
-          the `saveData` prop:
-        </button> */}
+      <div>
 
         {/* you can hideGrid or disabled for editting */}
         <h2>Title : {doodle.name}</h2>
@@ -77,6 +65,7 @@ class Doodle extends Component {
           saveData={doodleData}
           
         />
+        {this.renderButtons()}
       </div>
     )
   }

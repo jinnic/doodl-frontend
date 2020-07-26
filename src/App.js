@@ -14,8 +14,14 @@ class App extends Component {
   state = {
     page: "home",
     doodles: [],
-    searchTerm: ""
+    searchTerm: "",
+    currentUser: {
+      id: 1, 
+      user_name: "hi",
+      bio: "im bashir"
+    }
   }
+
   componentDidMount() {
     fetch('http://localhost:3000/doodles')
         .then(r=>r.json())
@@ -25,6 +31,26 @@ class App extends Component {
                               )
         )
   }
+
+  handleUpdate = (id) => {
+    // fetch(`http://localhost:3000/doodles/${id}`, config)
+  }
+
+  handleDelete = (id) => {
+    fetch(`http://localhost:3000/doodles/${id}`, {
+      method: 'DELETE'
+    })
+    .then(r => r.json())
+    .then(this.removeFromState(id))
+  }
+
+  removeFromState = (id) => {
+    const filtered = this.state.doodles.filter(d => d.id !== id)
+    this.setState({
+      doodles: filtered
+    })
+  }
+
   //NAV FUNCTIONS
   navChange = (page) => {
     this.setState({
@@ -40,6 +66,8 @@ class App extends Component {
     })
   }
 
+  //FILTER
+
   filterDoodles=()=>{
     const doodles = this.state.doodles
     const searchTerm = this.state.searchTerm
@@ -52,23 +80,39 @@ class App extends Component {
     }
   }
 
+  filterByUser = () => {
+    const doodles = this.state.doodles 
+    const currentUser = this.state.currentUser
+    const filtered = doodles.filter(d => d.user_id === currentUser.id)
+    return filtered
+  }
+
+  addNewDoodle=(doodle)=>{
+    this.setState(preState =>({
+      doodles: [doodle, ...preState.doodles]
+    }),
+
+    ()=>console.log('Add New Doodles ',this.state.doodles)
+    )
+  }
+
   renderPage = () => {
     //switch statements?
     const page = this.state.page 
     if (page === "profile") {
-       return <Profile />
+       return <Profile page={this.state.page} handleDelete={this.handleDelete} user={this.state.currentUser} doodles={this.filterByUser()}/>
     }
     else if (page === "sign") {
       return <SignUpIn />
     }
     else if (page === "new") {
-      return <DoodleCanvas />
+      return <DoodleCanvas addNewDoodle={this.addNewDoodle} />
     }
     else if (page === "home") {
       return (   
           <>    
             <Search getSearchTerm={this.getSearchTerm}/> 
-            <DoodleContainer doodles={this.filterDoodles()}/>
+            <DoodleContainer page={this.state.page} doodles={this.filterDoodles()}/>
           </>
         )
     }
