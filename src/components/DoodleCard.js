@@ -33,9 +33,9 @@ class Doodle extends Component {
 
   handleEdit = () => {
     const doodle = this.props.doodle
-    const doodleData = JSON.stringify(doodle.doodle_data)
+    const doodleData = doodle.doodle_data
     const clicked = true 
-    this.props.handleEditCanvas(doodleData, clicked)
+    this.props.handleEditCanvas(doodle, clicked)
   }
 
   renderButtons = () => {

@@ -40,6 +40,29 @@ class DoodleCanvas extends Component {
     .then(newDoodle => this.props.addNewDoodle(newDoodle))
   }
 
+  patchDoodleData=()=>{
+    let newObj = {}
+    newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
+    newObj["user_id"] = 1
+    newObj.name = this.state.name
+    newObj.width = this.state.width
+    newObj.height = this.state.height
+
+
+    console.log("**********", newObj)
+    const config = {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    },
+        body: JSON.stringify(newObj)
+    }
+    // fetch(`http://localhost:3000/doodles/${this.props.doodle.id}`, config)
+    // .then(r => r.json())
+    // .then(newDoodle => this.props.addNewDoodle(newDoodle))
+  }
+
   handleSave=()=>{
     //save it to doodle state
     //update new doodle in backend
@@ -47,15 +70,31 @@ class DoodleCanvas extends Component {
     //new returned obj
     this.setState({
       doodle: this.saveableCanvas.getSaveData()
-      }, 
-      ()=> this.sendDoodleData()
+      }
     )
+
+    // if(this.props.closeCanvas){
+    //   this.props.closeCanvas()
+    //   this.setState({
+    //     doodle: this.saveableCanvas.getSaveData()
+    //     }, 
+    //     ()=> this.patchDoodleData()
+    //   )
+
+    // }else{
+    //   this.setState({
+    //     doodle: this.saveableCanvas.getSaveData()
+    //     }, 
+    //     ()=> this.sendDoodleData()
+    //   )
+    // }
 
     //clear canvas
     this.saveableCanvas.clear()
   }
 
   render() {
+    console.log("++++++**********",this.state.doodle)
     return (
       <div>
         <p>Try it out! Draw something, hit "Save" and then "Load".</p>
@@ -162,6 +201,7 @@ class DoodleCanvas extends Component {
             lazyRadius={this.state.lazyRadius}
             canvasWidth={this.state.width}
             canvasHeight={this.state.height}
+            saveData={this.props.doodle ? JSON.stringify(this.props.doodle.doodle_data) : ''}
           />
       </div>
     )

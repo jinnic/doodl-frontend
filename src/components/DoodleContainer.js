@@ -7,7 +7,7 @@ import DoodleCard from "./DoodleCard"
 class DoodleContainer extends Component {
   state = {
     editable: false,
-    doodleData: ''
+    doodle: {}
   }
 
   // //Fetch all saved Doodle
@@ -26,24 +26,30 @@ class DoodleContainer extends Component {
 
 
 
-  handleEditCanvas = (doodleData, clicked) => {
+  handleEditCanvas = (doodle, clicked) => {
       this.setState({
         editable: clicked,
-        doodleData: doodleData
+        doodle: doodle
       })
 
   }
 
+  closeCanvas=()=>{
+    this.setState({
+      editable : false
+    })
+  }
   renderDoodleCanvas = () => {
     if (this.state.editable === true) {
         return (
-        <CanvasDraw
-        hideGrid
-        canvasWidth={400}
-        canvasHeight={400}
-        ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
-        saveData={this.state.doodleData}
-      />
+      //   <CanvasDraw
+      //   hideGrid
+      //   canvasWidth={400}
+      //   canvasHeight={400}
+      //   ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
+      //   saveData={this.state.doodleData}
+      // />
+       <DoodleCanvas closeCanvas={this.closeCanvas} doodle={this.state.doodle}/>
       )
     }
   }
