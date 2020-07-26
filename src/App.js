@@ -12,14 +12,44 @@ import './App.css';
 class App extends Component {
 
   state = {
-    page: "home"
+    page: "home",
+    doodles: [],
+    searchTerm: ""
   }
-
+  componentDidMount() {
+    fetch('http://localhost:3000/doodles')
+        .then(r=>r.json())
+        .then(doodles => this.setState(
+                                {doodles: doodles.reverse()},
+                                ()=>console.log('Fetched all saved Doodles ',this.state.doodles)
+                              )
+        )
+  }
   //NAV FUNCTIONS
   navChange = (page) => {
     this.setState({
       page: page
     })
+  }
+
+  //SEARCH FUNCTIONS
+  getSearchTerm =(e)=>{
+    // console.log(e.target.value)
+    this.setState({
+      searchTerm: e.target.value
+    })
+  }
+
+  filterDoodles=()=>{
+    const doodles = this.state.doodles
+    const searchTerm = this.state.searchTerm
+    
+    if(searchTerm === ''){
+      return doodles
+    }else{
+      const filtered = doodles.filter(doodle => doodle.name.includes(searchTerm))
+      return filtered
+    }
   }
 
   renderPage = () => {
@@ -37,8 +67,8 @@ class App extends Component {
     else if (page === "home") {
       return (   
           <>    
-            <Search /> 
-            <DoodleContainer />
+            <Search getSearchTerm={this.getSearchTerm}/> 
+            <DoodleContainer doodles={this.filterDoodles()}/>
           </>
         )
     }

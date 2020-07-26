@@ -31,8 +31,9 @@ class Doodle extends Component {
       // debugger
   }
   render() {
-    //console.log("Doodle props : ", this.props)
-   
+    console.log("Doodle props : ", this.props)
+    const doodle = this.props.doodle
+    const doodleData = JSON.stringify(doodle.doodle_data)
     return (
       <div onClick={this.handleClick}>
         {/* <button
@@ -66,13 +67,14 @@ class Doodle extends Component {
         </button> */}
 
         {/* you can hideGrid or disabled for editting */}
+        <h2>Title : {doodle.name}</h2>
         <CanvasDraw
           disabled
           hideGrid
-          canvasWidth={this.props.width}
-          canvasHeight={this.props.height}
+          canvasWidth={doodle.width}
+          canvasHeight={doodle.height}
           ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
-          saveData={this.props.doodle}
+          saveData={doodleData}
           
         />
       </div>
