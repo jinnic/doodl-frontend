@@ -16,12 +16,25 @@ class Doodle extends Component {
   // renderDoodle=(doodle)=>{
   //   this.loadableCanvas.loadSaveData(doodle)
   // }
+  handleClick=(e)=>{
+      // let dataURL = canvas.toDataURL('image/png');
+      // button.href = dataURL;
+      // debugger
+      let div = e.target.tagName === 'div' ? e.target : e.target.closest('div')
+      let imgData = div.querySelectorAll('canvas')[1].toDataURL()
+      let w=window.open('about:blank','image from canvas');
+      w.document.write("<img src='"+imgData+"' alt='image from canvas'/>");
+      console.log(imgData)
+      // return imgData
+      
 
+      // debugger
+  }
   render() {
     //console.log("Doodle props : ", this.props)
    
     return (
-      <div onClick={()=>console.log('canvas clicked')}>
+      <div onClick={this.handleClick}>
         {/* <button
           onClick={() => {
             console.log(this)
