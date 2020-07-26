@@ -11,6 +11,7 @@ class DoodleCanvas extends Component {
     height: 400,
     brushRadius: 10,
     lazyRadius: 12,
+    name: '',
     doodle: {}
   };
 
@@ -20,9 +21,9 @@ class DoodleCanvas extends Component {
     let newObj = {}
     newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
     newObj["user_id"] = 1
-    newObj["name"] = "test"
-    newObj.width = JSON.parse(this.state.doodle).width
-    newObj.height = JSON.parse(this.state.doodle).height
+    newObj.name = this.state.name
+    newObj.width = this.state.width
+    newObj.height = this.state.height
 
 
     console.log(newObj)
@@ -103,6 +104,16 @@ class DoodleCanvas extends Component {
             >
               Random Color
             </button>
+            <div>
+              <label>Title:</label>
+              <input
+                type="text"
+                value={this.state.name}
+                onChange={e =>
+                  this.setState({ name: e.target.value},()=>console.log(this.state.name))
+                }
+              />
+            </div>
             <div>
               <label>Width:</label>
               <input

@@ -18,10 +18,10 @@ class Doodle extends Component {
   // }
 
   render() {
-
+    //console.log("Doodle props : ", this.props)
    
     return (
-      <div>
+      <div onClick={()=>console.log('canvas clicked')}>
         {/* <button
           onClick={() => {
             console.log(this)
@@ -52,11 +52,15 @@ class Doodle extends Component {
           the `saveData` prop:
         </button> */}
 
+        {/* you can hideGrid or disabled for editting */}
         <CanvasDraw
           disabled
           hideGrid
+          canvasWidth={this.props.width}
+          canvasHeight={this.props.height}
           ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
           saveData={this.props.doodle}
+          
         />
       </div>
     )

@@ -15,7 +15,7 @@ class DoodleContainer extends Component {
     fetch('http://localhost:3000/doodles')
         .then(r=>r.json())
         .then(doodles => this.setState(
-                                {doodles: doodles},
+                                {doodles: doodles.reverse()},
                                 ()=>console.log('Fetched all saved Doodles ',this.state.doodles)
                               )
         )
@@ -23,12 +23,12 @@ class DoodleContainer extends Component {
   
   //Render Doodle passing stringified JSON as doodle
   renderDoodle=()=>{
-    return this.state.doodles.map(doodle =>  <Doodle doodle={JSON.stringify(doodle.doodle_data)}/>)
+    return this.state.doodles.map(doodle =>  <Doodle key={doodle.id} width={doodle.width} height={doodle.height} doodle={JSON.stringify(doodle.doodle_data)}/>)
   }
 
   addNewDoodle=(doodle)=>{
     this.setState(preState =>({
-      doodles: [...preState.doodles, doodle]
+      doodles: [doodle, ...preState.doodles]
     }),
     ()=>console.log('Add New Doodles ',this.state.doodles)
     )
