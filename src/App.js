@@ -1,63 +1,54 @@
 import React, { Component } from 'react';
-import DoodleContainer from './DoodleContainer';
+import DoodleContainer from './components/DoodleContainer';
+import Nav from './components/Nav';
+import Profile from './components/Profile';
+import Search from './components/Search';
+import DoodleCanvas from './components/DoodleCanvas';
+import SignUpIn from './components/SignUpIn';
 import ReactDOM from "react-dom";
 import CanvasDraw from "react-canvas-draw";
 import './App.css';
 
 class App extends Component {
-  
-  componentDidMount() {
-    // let's change the color randomly every 2 seconds. fun!
-    // window.setInterval(() => {
-    //   this.setState({
-    //     color: "#" + Math.floor(Math.random() * 16777215).toString(16)
-    //   });
-    // }, 2000);
+
+  state = {
+    page: "home"
   }
 
-  sendDoodleData = () => {
-    // let copiedDoodle = JSON.parse(this.state.doodle);
+  //NAV FUNCTIONS
+  navChange = (page) => {
+    this.setState({
+      page: page
+    })
+  }
 
-    let newObj = {}
-    newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
-    newObj["user_id"] = 1
-    newObj["name"] = "test"
-    newObj.width = JSON.parse(this.state.doodle).width
-    newObj.height = JSON.parse(this.state.doodle).height
-
-
-    console.log(newObj)
-    const config = {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-    },
-        body: JSON.stringify(newObj)
+  renderPage = () => {
+    //switch statements?
+    const page = this.state.page 
+    if (page === "profile") {
+       return <Profile />
     }
-    fetch('http://localhost:3000/doodles', config)
-    .then(r => r.json())
-    .then(console.log)
-  }
-
-  getDoodleData =()=>{
-    fetch('http://localhost:3000/doodles')
-      .then(r=>r.json())
-      .then(doodles => JSON.stringify(doodles[0].doodle_data))
-
-  }
-
-  testLoadSaveData=()=>{
-
-  }
-  renderDoodle=(doodleObj)=>{
-
+    else if (page === "sign") {
+      return <SignUpIn />
+    }
+    else if (page === "new") {
+      return <DoodleCanvas />
+    }
+    else if (page === "home") {
+      return (   
+          <>    
+            <Search /> 
+            <DoodleContainer />
+          </>
+        )
+    }
   }
   
   render() {
     return (
       <div>
-        <DoodleContainer />
+        <Nav navChange={this.navChange} />
+        {this.renderPage()}
       </div>
     )
   }
