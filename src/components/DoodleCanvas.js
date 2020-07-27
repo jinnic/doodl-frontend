@@ -14,20 +14,26 @@ class DoodleCanvas extends Component {
     doodle: {}
   }
 
-  handleSave = () => {
-    if (this.props.addNewDoodle) {
+  //set title state when it's edit
+  componentDidMount() {
+    if(this.props.doodle){
       this.setState({
-        doodle: this.saveableCanvas.getSaveData()
-      }, this.getNewObj)
-    }
-    else {
-      this.setState({
-        doodle: this.saveableCanvas.getSaveData()
-      }, this.getEditObj)
+        name: this.props.doodle.name
+      })
     }
   }
 
-  getEditObj = () => {
+  handleSave = () => {
+
+    this.setState({
+      doodle: this.saveableCanvas.getSaveData()
+    }, this.addOrUpdate)
+
+    //clear canvas
+    this.saveableCanvas.clear()
+  }
+
+  addOrUpdate =()=>{
     let newObj = {}
     newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
     newObj["user_id"] = 1
@@ -35,21 +41,14 @@ class DoodleCanvas extends Component {
     newObj.width = this.state.width
     newObj.height = this.state.height
 
-    this.props.handleUpdate(newObj, this.props.doodle.id)
-    this.props.closeCanvas()
-  }
-
-  getNewObj = () => {
-      let newObj = {}
-      newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
-      newObj["user_id"] = 1
-      newObj.name = this.state.name
-      newObj.width = this.state.width
-      newObj.height = this.state.height
-
+    if (this.props.addNewDoodle){
       this.props.addNewDoodle(newObj)
+    }else{
+      this.props.handleUpdate(newObj, this.props.doodle.id)
+      this.props.closeCanvas()
+    }
+    
   }
-
 
   render() {
     return (

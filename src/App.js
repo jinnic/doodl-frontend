@@ -30,7 +30,29 @@ class App extends Component {
                               )
         )
   }
+  /**
+   * FUCTION PROPS : FETCH
+   */
+  
+   //HANDLE ADD
+  addNewDoodle = (doodle) => {
+    const config = {
+      method: 'POST',
+      headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(doodle)
+    }
+    fetch('http://localhost:3000/doodles', config)
+    .then(r => r.json())
+    .then(newDoodle => this.addToState(newDoodle))
+    
+    //change page to profile after adding new doodle
+    this.navChange('profile')
+  }
 
+  //HANDLE UPDATE
   handleUpdate = (doodle, id) => {
     const config = {
       method: 'PATCH',
@@ -45,6 +67,7 @@ class App extends Component {
     .then(updatedObj => this.updateState(updatedObj))
   }
 
+  //HANDLE DELETE
   handleDelete = (id) => {
     fetch(`http://localhost:3000/doodles/${id}`, {
       method: 'DELETE'
@@ -53,20 +76,17 @@ class App extends Component {
     .then(this.removeFromState(id))
   }
 
-  addNewDoodle = (doodle) => {
-      const config = {
-        method: 'POST',
-        headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(doodle)
-      }
-      fetch('http://localhost:3000/doodles', config)
-      .then(r => r.json())
-      .then(newDoodle => this.addToState(newDoodle))
+  /**
+   * STATE FUCTIONS : MANIPULATING DOODLES ARRAY
+   */
+  //ADD
+  addToState = (newDoodle) => {
+    this.setState({
+      doodles: [newDoodle, ...this.state.doodles]
+    })
   }
 
+  //UPDATE
   updateState = (updatedDoodle) => {
     const updatedDoods = this.state.doodles.map(doodle => {
       if (doodle.id === updatedDoodle.id) {
@@ -74,18 +94,13 @@ class App extends Component {
       } else {
         return doodle
       }
-  }) 
+    }) 
     this.setState({
       doodles: updatedDoods
     })
   }
 
-  addToState = (newDoodle) => {
-    this.setState({
-      doodles: [newDoodle, ...this.state.doodles]
-    })
-  }
-
+  //DELETE
   removeFromState = (id) => {
     const filtered = this.state.doodles.filter(d => d.id !== id)
     this.setState({
@@ -93,23 +108,25 @@ class App extends Component {
     })
   }
 
-  //NAV FUNCTIONS
+  //NAV FUNCTIONS : UPDATE PAGE STATE
   navChange = (page) => {
     this.setState({
       page: page
     })
   }
 
-  //SEARCH FUNCTIONS
+  //SEARCH FUNCTIONS : UPDATE searchTerm STATE
   getSearchTerm =(e)=>{
     // console.log(e.target.value)
     this.setState({
-      searchTerm: e.target.value
+      searchTerm: e.target.value.toLowerCase()
     })
   }
 
-  //FILTER
-
+  /**
+   * FILTER FUCTIONS : RETURN FILTERED DOODLES  ARRAY
+   */
+  //by searchTerm
   filterDoodles=()=>{
     const doodles = this.state.doodles
     const searchTerm = this.state.searchTerm
@@ -117,11 +134,11 @@ class App extends Component {
     if(searchTerm === ''){
       return doodles
     }else{
-      const filtered = doodles.filter(doodle => doodle.name.includes(searchTerm))
+      const filtered = doodles.filter(doodle => doodle.name.toLowerCase().includes(searchTerm))
       return filtered
     }
   }
-
+  //by USER ID
   filterByUser = () => {
     const doodles = this.state.doodles 
     const currentUser = this.state.currentUser
@@ -129,7 +146,9 @@ class App extends Component {
     return filtered
   }
 
-
+  /**
+   * RENDER FUCTIONS : RENDER PROFILE/ SIGNUPIN/ NEW DOODLE/ HOME
+   */
   renderPage = () => {
     //switch statements?
     const page = this.state.page 
