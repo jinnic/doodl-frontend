@@ -43,8 +43,7 @@ class DoodleCanvas extends Component {
   }
 
   patchDoodleData=()=>{
-    const {doodle, closeCanvas} = this.props
-    debugger
+    const {doodle, closeCanvas, updateDoodle} = this.props
     let newObj = {}
     newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
     newObj["user_id"] = 1
@@ -64,7 +63,7 @@ class DoodleCanvas extends Component {
     }
     fetch(`http://localhost:3000/doodles/${doodle.id}`, config)
     .then(r => r.json())
-    .then(newDoodle => this.props.updateDoodle(newDoodle))
+    .then(newDoodle =>updateDoodle(newDoodle))
     closeCanvas()
   }
 
