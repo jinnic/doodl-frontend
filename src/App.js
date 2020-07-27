@@ -5,8 +5,6 @@ import Profile from './components/Profile';
 import Search from './components/Search';
 import DoodleCanvas from './components/DoodleCanvas';
 import SignUpIn from './components/SignUpIn';
-import ReactDOM from "react-dom";
-import CanvasDraw from "react-canvas-draw";
 import './App.css';
 
 class App extends Component {
@@ -15,14 +13,26 @@ class App extends Component {
     page: "home",
     doodles: [],
     searchTerm: "",
-    currentUser: {
-      id: 1, 
-      user_name: "hi",
-      bio: "im bashir"
-    }
+    currentUser: {}
   }
 
   componentDidMount() {
+    const token = localStorage.getItem("token")
+    if(token){
+      fetch(`http://localhost:3000/auto_login`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(resp => resp.json())
+      .then(data => {
+        this.setState({
+          currentUser: data
+        })
+        // console.log(data)
+      })
+    }
+
     fetch('http://localhost:3000/doodles')
         .then(r=>r.json())
         .then(doodles => this.setState(
@@ -30,6 +40,13 @@ class App extends Component {
                               )
         )
   }
+
+  handleLogin=(user)=>{
+    this.setState({
+      currentUser: user
+    })
+  }
+
   /**
    * FUCTION PROPS : FETCH
    */
@@ -161,10 +178,10 @@ class App extends Component {
        handleNew={this.handleAddNewDoodle}/>
     }
     else if (page === "sign") {
-      return <SignUpIn />
+      return <SignUpIn handleLogin={this.handleLogin}/>
     }
     else if (page === "new") {
-      return <DoodleCanvas addNewDoodle={this.addNewDoodle} />
+      return <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
     }
     else if (page === "home") {
       return (   
@@ -177,6 +194,7 @@ class App extends Component {
   }
   
   render() {
+    console.log(this.state.currentUser)
     return (
       <div>
         <Nav navChange={this.navChange} />

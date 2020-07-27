@@ -35,8 +35,9 @@ class DoodleCanvas extends Component {
 
   addOrUpdate =()=>{
     let newObj = {}
+    console.log("New Drawing PRops : ", this.props.user)
     newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
-    newObj["user_id"] = 1
+    newObj["user_id"] = this.props.user.id
     newObj.name = this.state.name
     newObj.width = this.state.width
     newObj.height = this.state.height
