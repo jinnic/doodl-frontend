@@ -3,21 +3,31 @@ import ReactDOM from "react-dom";
 import CanvasDraw from "react-canvas-draw";
 
 
-
 class DoodleCanvas extends Component {
   state = {
     color: "#ffc600",
     width: 400,
     height: 400,
     brushRadius: 10,
-    lazyRadius: 12,
+    lazyRadius: 0,
     name: '',
     doodle: {}
-  };
+  }
 
-  sendDoodleData = () => {
-    // let copiedDoodle = JSON.parse(this.state.doodle);
+  handleSave = () => {
+    if (this.props.addNewDoodle) {
+      this.setState({
+        doodle: this.saveableCanvas.getSaveData()
+      }, this.getNewObj)
+    }
+    else {
+      this.setState({
+        doodle: this.saveableCanvas.getSaveData()
+      }, this.getEditObj)
+    }
+  }
 
+  getEditObj = () => {
     let newObj = {}
     newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
     newObj["user_id"] = 1
@@ -25,115 +35,36 @@ class DoodleCanvas extends Component {
     newObj.width = this.state.width
     newObj.height = this.state.height
 
-
-    console.log(newObj)
-    const config = {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-    },
-        body: JSON.stringify(newObj)
-    }
-    fetch('http://localhost:3000/doodles', config)
-    .then(r => r.json())
-    .then(newDoodle => this.props.addNewDoodle(newDoodle))
+    this.props.handleUpdate(newObj, this.props.doodle.id)
+    this.props.closeCanvas()
   }
 
-  patchDoodleData=()=>{
-    let newObj = {}
-    newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
-    newObj["user_id"] = 1
-    newObj.name = this.state.name
-    newObj.width = this.state.width
-    newObj.height = this.state.height
+  getNewObj = () => {
+      let newObj = {}
+      newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
+      newObj["user_id"] = 1
+      newObj.name = this.state.name
+      newObj.width = this.state.width
+      newObj.height = this.state.height
 
-
-    console.log("**********", newObj)
-    const config = {
-      method: 'PATCH',
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-    },
-        body: JSON.stringify(newObj)
-    }
-    // fetch(`http://localhost:3000/doodles/${this.props.doodle.id}`, config)
-    // .then(r => r.json())
-    // .then(newDoodle => this.props.addNewDoodle(newDoodle))
+      this.props.addNewDoodle(newObj)
   }
 
-  handleSave=()=>{
-    //save it to doodle state
-    //update new doodle in backend
-    //and send it back to DoodleContainer with 
-    //new returned obj
-    this.setState({
-      doodle: this.saveableCanvas.getSaveData()
-      }
-    )
-
-    // if(this.props.closeCanvas){
-    //   this.props.closeCanvas()
-    //   this.setState({
-    //     doodle: this.saveableCanvas.getSaveData()
-    //     }, 
-    //     ()=> this.patchDoodleData()
-    //   )
-
-    // }else{
-    //   this.setState({
-    //     doodle: this.saveableCanvas.getSaveData()
-    //     }, 
-    //     ()=> this.sendDoodleData()
-    //   )
-    // }
-
-    //clear canvas
-    this.saveableCanvas.clear()
-  }
 
   render() {
-    console.log("++++++**********",this.state.doodle)
     return (
       <div>
-        <p>Try it out! Draw something, hit "Save" and then "Load".</p>
           <div>
             <button onClick={this.handleSave}> save and fetch</button>
-            {/* <button onClick={this.sendDoodleData}>
-              send data
-            </button>
-            <button
-              onClick={() => {
-                //localStorate.setItem('key', )
-                //getSaveData() returns the drawing's save-data as a stringified object
-                localStorage.setItem(
-                  "savedDrawing",
-                  this.saveableCanvas.getSaveData()
-                );
-
-                this.setState({
-                  doodle: this.saveableCanvas.getSaveData()
-                }, ()=>console.log('save button clicked set doodle state: ', this.state.doodle))
-              }}
-            >
-              Save
-            </button> */}
             
-            <button
-              onClick={() => {
-                this.saveableCanvas.clear();
-              }}
-            >
+            <button onClick={() => this.saveableCanvas.clear()}>
               Clear
             </button>
-            <button
-              onClick={() => {
-                this.saveableCanvas.undo();
-              }}
-            >
+
+            <button onClick={() => this.saveableCanvas.undo()}>
               Undo
             </button>
+
             <button
               onClick={() => {
                 this.setState({
@@ -143,36 +74,18 @@ class DoodleCanvas extends Component {
             >
               Random Color
             </button>
+
             <div>
               <label>Title:</label>
               <input
                 type="text"
                 value={this.state.name}
                 onChange={e =>
-                  this.setState({ name: e.target.value},()=>console.log(this.state.name))
+                  this.setState({name: e.target.value})
                 }
               />
             </div>
-            <div>
-              <label>Width:</label>
-              <input
-                type="number"
-                value={this.state.width}
-                onChange={e =>
-                  this.setState({ width: parseInt(e.target.value, 10) })
-                }
-              />
-            </div>
-            <div>
-              <label>Height:</label>
-              <input
-                type="number"
-                value={this.state.height}
-                onChange={e =>
-                  this.setState({ height: parseInt(e.target.value, 10) })
-                }
-              />
-            </div>
+            
             <div>
               <label>Brush-Radius:</label>
               <input
@@ -183,16 +96,7 @@ class DoodleCanvas extends Component {
                 }
               />
             </div>
-            <div>
-              <label>Lazy-Radius:</label>
-              <input
-                type="number"
-                value={this.state.lazyRadius}
-                onChange={e =>
-                  this.setState({ lazyRadius: parseInt(e.target.value, 10) })
-                }
-              />
-            </div>
+
           </div>
           <CanvasDraw
             ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
@@ -210,3 +114,51 @@ class DoodleCanvas extends Component {
 }
 
 export default DoodleCanvas
+
+  // sendDoodleData = () => {
+  //   // let copiedDoodle = JSON.parse(this.state.doodle);
+
+  //   let newObj = {}
+  //   newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
+  //   newObj["user_id"] = 1
+  //   newObj.name = this.state.name
+  //   newObj.width = this.state.width
+  //   newObj.height = this.state.height
+
+
+  //   console.log(newObj)
+  //   const config = {
+  //     method: 'POST',
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Accept": "application/json"
+  //   },
+  //       body: JSON.stringify(newObj)
+  //   }
+  //   fetch('http://localhost:3000/doodles', config)
+  //   .then(r => r.json())
+  //   .then(newDoodle => this.props.addNewDoodle(newDoodle))
+  // }
+
+  // patchDoodleData=()=>{
+  //   let newObj = {}
+  //   newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
+  //   newObj["user_id"] = 1
+  //   newObj.name = this.state.name
+  //   newObj.width = this.state.width
+  //   newObj.height = this.state.height
+
+
+  //   console.log("**********", newObj)
+  //   const config = {
+  //     method: 'PATCH',
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Accept": "application/json"
+  //   },
+  //       body: JSON.stringify(newObj)
+  //   }
+  //   // fetch(`http://localhost:3000/doodles/${this.props.doodle.id}`, config)
+  //   // .then(r => r.json())
+  //   // .then(newDoodle => this.props.addNewDoodle(newDoodle))
+  // }

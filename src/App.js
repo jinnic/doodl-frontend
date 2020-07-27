@@ -27,13 +27,22 @@ class App extends Component {
         .then(r=>r.json())
         .then(doodles => this.setState(
                                 {doodles: doodles.reverse()},
-                                ()=>console.log('Fetched all saved Doodles ',this.state.doodles)
                               )
         )
   }
 
-  handleUpdate = (id) => {
-    // fetch(`http://localhost:3000/doodles/${id}`, config)
+  handleUpdate = (doodle, id) => {
+    const config = {
+      method: 'PATCH',
+      headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(doodle)
+    }
+    fetch(`http://localhost:3000/doodles/${id}`, config)
+    .then(r => r.json())
+    .then(updatedObj => this.updateState(updatedObj))
   }
 
   handleDelete = (id) => {
@@ -42,6 +51,39 @@ class App extends Component {
     })
     .then(r => r.json())
     .then(this.removeFromState(id))
+  }
+
+  addNewDoodle = (doodle) => {
+      const config = {
+        method: 'POST',
+        headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(doodle)
+      }
+      fetch('http://localhost:3000/doodles', config)
+      .then(r => r.json())
+      .then(newDoodle => this.addToState(newDoodle))
+  }
+
+  updateState = (updatedDoodle) => {
+    const updatedDoods = this.state.doodles.map(doodle => {
+      if (doodle.id === updatedDoodle.id) {
+        return updatedDoodle
+      } else {
+        return doodle
+      }
+  }) 
+    this.setState({
+      doodles: updatedDoods
+    })
+  }
+
+  addToState = (newDoodle) => {
+    this.setState({
+      doodles: [newDoodle, ...this.state.doodles]
+    })
   }
 
   removeFromState = (id) => {
@@ -87,20 +129,17 @@ class App extends Component {
     return filtered
   }
 
-  addNewDoodle=(doodle)=>{
-    this.setState(preState =>({
-      doodles: [doodle, ...preState.doodles]
-    }),
-
-    ()=>console.log('Add New Doodles ',this.state.doodles)
-    )
-  }
 
   renderPage = () => {
     //switch statements?
     const page = this.state.page 
     if (page === "profile") {
-       return <Profile page={this.state.page} handleDelete={this.handleDelete} user={this.state.currentUser} doodles={this.filterByUser()}/>
+       return <Profile page={this.state.page} 
+       handleDelete={this.handleDelete} 
+       handleUpdate={this.handleUpdate}
+       user={this.state.currentUser} 
+       doodles={this.filterByUser()}
+       handleNew={this.handleAddNewDoodle}/>
     }
     else if (page === "sign") {
       return <SignUpIn />
