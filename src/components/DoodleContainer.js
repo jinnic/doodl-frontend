@@ -28,7 +28,7 @@ class DoodleContainer extends Component {
 
   renderDoodleCanvas = () => {
     if (this.state.editable === true) {
-        return <DoodleCanvas closeCanvas={this.closeCanvas} handleUpdate ={this.props.handleUpdate} doodle={this.state.doodle}/>
+        return <DoodleCanvas user={this.props.user} closeCanvas={this.closeCanvas} handleUpdate ={this.props.handleUpdate} doodle={this.state.doodle}/>
     }
   }
 

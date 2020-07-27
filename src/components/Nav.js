@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 
 class Nav extends Component {
-  
+
+
     render() {
-    const navChange = this.props.navChange
+    const { navChange, handleLogout } = this.props
 
       return (
         <div>
@@ -11,6 +12,7 @@ class Nav extends Component {
                 <li onClick={() => navChange("profile")}>Profile</li>
                 <li onClick={() => navChange("home")}>DOODL</li>
                 <li onClick={() => navChange("sign")}>sign in / sign up</li>
+                <li onClick={handleLogout}> logout </li>
                 <li onClick={() => navChange("new")}>create new doodle</li>
             </ul>
         </div>

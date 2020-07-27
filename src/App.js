@@ -41,9 +41,27 @@ class App extends Component {
         )
   }
 
+  handleAuthClick = () => {
+    const token = localStorage.getItem("token")
+    fetch('http://localhost:3000/user_is_authed', {
+      header: {
+        "Authorization": `Bearer ${token}`
+      }
+      .then(r => r.json())
+      .then(console.log)
+    })
+  }
+
   handleLogin=(user)=>{
     this.setState({
       currentUser: user
+    })
+  }
+
+  handleLogout = () => {
+    window.localStorage.removeItem('token');
+    this.setState({
+      currentUser: {}
     })
   }
 
@@ -53,11 +71,14 @@ class App extends Component {
   
    //HANDLE ADD
   addNewDoodle = (doodle) => {
+    const token = localStorage.getItem("token")
+
     const config = {
       method: 'POST',
       headers: {
       "Content-Type": "application/json",
-      "Accept": "application/json"
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
     },
     body: JSON.stringify(doodle)
     }
@@ -71,11 +92,14 @@ class App extends Component {
 
   //HANDLE UPDATE
   handleUpdate = (doodle, id) => {
+    const token = localStorage.getItem("token")
+
     const config = {
       method: 'PATCH',
       headers: {
       "Content-Type": "application/json",
-      "Accept": "application/json"
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
     },
     body: JSON.stringify(doodle)
     }
@@ -86,8 +110,13 @@ class App extends Component {
 
   //HANDLE DELETE
   handleDelete = (id) => {
+    const token = localStorage.getItem("token")
     fetch(`http://localhost:3000/doodles/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+      
     })
     .then(r => r.json())
     .then(this.removeFromState(id))
@@ -197,7 +226,7 @@ class App extends Component {
     console.log(this.state.currentUser)
     return (
       <div>
-        <Nav navChange={this.navChange} />
+        <Nav navChange={this.navChange} handleLogout={this.handleLogout} />
         {this.renderPage()}
       </div>
     )
