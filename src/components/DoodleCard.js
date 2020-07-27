@@ -48,7 +48,7 @@ class Doodle extends Component {
   }
 
   render() {
-    console.log("Doodle props : ", this.props)
+    // console.log("Doodle props : ", this.props)
     const doodle = this.props.doodle
     const doodleData = JSON.stringify(doodle.doodle_data)
     return (

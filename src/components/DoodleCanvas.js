@@ -15,9 +15,11 @@ class DoodleCanvas extends Component {
     doodle: {}
   };
 
+  
+  
   sendDoodleData = () => {
     // let copiedDoodle = JSON.parse(this.state.doodle);
-
+    
     let newObj = {}
     newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
     newObj["user_id"] = 1
@@ -41,6 +43,8 @@ class DoodleCanvas extends Component {
   }
 
   patchDoodleData=()=>{
+    const {doodle, closeCanvas} = this.props
+    debugger
     let newObj = {}
     newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
     newObj["user_id"] = 1
@@ -58,9 +62,10 @@ class DoodleCanvas extends Component {
     },
         body: JSON.stringify(newObj)
     }
-    // fetch(`http://localhost:3000/doodles/${this.props.doodle.id}`, config)
-    // .then(r => r.json())
-    // .then(newDoodle => this.props.addNewDoodle(newDoodle))
+    fetch(`http://localhost:3000/doodles/${doodle.id}`, config)
+    .then(r => r.json())
+    .then(newDoodle => this.props.updateDoodle(newDoodle))
+    closeCanvas()
   }
 
   handleSave=()=>{
@@ -72,28 +77,28 @@ class DoodleCanvas extends Component {
       doodle: this.saveableCanvas.getSaveData()
       }
     )
+    if(this.props.closeCanvas !== null){
+      
+      this.setState({
+        doodle: this.saveableCanvas.getSaveData()
+        }, 
+        ()=> this.patchDoodleData()
+      )
 
-    // if(this.props.closeCanvas){
-    //   this.props.closeCanvas()
-    //   this.setState({
-    //     doodle: this.saveableCanvas.getSaveData()
-    //     }, 
-    //     ()=> this.patchDoodleData()
-    //   )
-
-    // }else{
-    //   this.setState({
-    //     doodle: this.saveableCanvas.getSaveData()
-    //     }, 
-    //     ()=> this.sendDoodleData()
-    //   )
-    // }
+    }else{
+      this.setState({
+        doodle: this.saveableCanvas.getSaveData()
+        }, 
+        ()=> this.sendDoodleData()
+      )
+    }
 
     //clear canvas
     this.saveableCanvas.clear()
   }
 
   render() {
+    console.log("++++++**********DoodleCanvas Props : ",this.props)
     console.log("++++++**********",this.state.doodle)
     return (
       <div>

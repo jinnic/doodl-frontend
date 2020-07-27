@@ -36,6 +36,20 @@ class App extends Component {
     // fetch(`http://localhost:3000/doodles/${id}`, config)
   }
 
+  updateDoodle=(doodle)=>{
+    const updatedDoodles = this.state.doodles.map(d => {
+      if (d.id === doodle.id) {
+        return doodle
+      } else {
+        return d
+      }
+    })
+
+    this.setState({
+      doodles: updatedDoodles
+    })
+  }
+
   handleDelete = (id) => {
     fetch(`http://localhost:3000/doodles/${id}`, {
       method: 'DELETE'
@@ -100,7 +114,7 @@ class App extends Component {
     //switch statements?
     const page = this.state.page 
     if (page === "profile") {
-       return <Profile page={this.state.page} handleDelete={this.handleDelete} user={this.state.currentUser} doodles={this.filterByUser()}/>
+       return <Profile page={this.state.page} updateDoodle={this.updateDoodle} handleDelete={this.handleDelete} user={this.state.currentUser} doodles={this.filterByUser()}/>
     }
     else if (page === "sign") {
       return <SignUpIn />

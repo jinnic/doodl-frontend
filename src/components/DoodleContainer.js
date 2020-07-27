@@ -40,6 +40,7 @@ class DoodleContainer extends Component {
     })
   }
   renderDoodleCanvas = () => {
+    console.log('renderDoodleCavas props : ', this.props.updateDoodle)
     if (this.state.editable === true) {
         return (
       //   <CanvasDraw
@@ -49,7 +50,7 @@ class DoodleContainer extends Component {
       //   ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
       //   saveData={this.state.doodleData}
       // />
-       <DoodleCanvas closeCanvas={this.closeCanvas} doodle={this.state.doodle}/>
+       <DoodleCanvas closeCanvas={this.closeCanvas} doodle={this.state.doodle} updateDoodle={this.props.updateDoodle}/>
       )
     }
   }
@@ -59,7 +60,7 @@ class DoodleContainer extends Component {
   }
   
   render() {
-    console.log(this.props.doodles)
+    // console.log(this.props.doodles)
     return (
       <div>
         {this.renderDoodleCanvas()}
