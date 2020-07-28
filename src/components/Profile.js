@@ -21,7 +21,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { doodles, user, handleDelete, handleUpdate} = this.props
+    const { doodles, user, handleDelete, handleUpdate, userUpdate } = this.props
     return (
       <div>
         <div>

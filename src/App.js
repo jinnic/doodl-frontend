@@ -218,46 +218,42 @@ class App extends Component {
     const doodles = this.state.doodles 
     const currentUser = this.state.currentUser
     const filtered = doodles.filter(d => d.user_id === currentUser.id)
-    if (filtered.length > 0)
     return filtered
-    else {
-      return this.state.doodles
-    }
   }
 
   /**
    * RENDER FUCTIONS : RENDER PROFILE/ SIGNUPIN/ NEW DOODLE/ HOME
    */
-  renderPage = () => {
+  // renderPage = () => {
     
-    const page = this.state.page 
-    //switch statements?
-    switch (page) {
-      case "home":
-        return(
-          <>    
-            <Search getSearchTerm={this.getSearchTerm}/> 
-            <DoodleContainer page={this.state.page} doodles={this.filterDoodles()}/>
-          </>
-        )
-      case "profile": 
-        return <Profile page={this.state.page} 
-        handleDelete={this.handleDelete} 
-        handleUpdate={this.handleUpdate}
-        user={this.state.currentUser} 
-        doodles={this.filterByUser()}
-        handleNew={this.handleAddNewDoodle}
-        userUpdate={this.userUpdate}
-        userDelete={this.userDelete}
-        />
-      case "sign":
-        return <SignUpIn handleLogin={this.handleLogin}/>
-      case "new":
-        return <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
-      default:
-        return <h1>404 Not Found</h1>
-    }
-  }
+  //   const page = this.state.page 
+  //   //switch statements?
+  //   switch (page) {
+  //     case "home":
+  //       return(
+  //         <>    
+  //           <Search getSearchTerm={this.getSearchTerm}/> 
+  //           <DoodleContainer page={this.state.page} doodles={this.filterDoodles()}/>
+  //         </>
+  //       )
+  //     case "profile": 
+  //       return <Profile page={this.state.page} 
+  //       handleDelete={this.handleDelete} 
+  //       handleUpdate={this.handleUpdate}
+  //       user={this.state.currentUser} 
+  //       doodles={this.filterByUser()}
+  //       handleNew={this.handleAddNewDoodle}
+  //       userUpdate={this.userUpdate}
+  //       userDelete={this.userDelete}
+  //       />
+  //     case "sign":
+  //       return <SignUpIn handleLogin={this.handleLogin}/>
+  //     case "new":
+  //       return <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
+  //     default:
+  //       return <h1>404 Not Found</h1>
+  //   }
+  // }
   
   render() {
     console.log('App token : ',localStorage.getItem('token'))
@@ -276,11 +272,13 @@ class App extends Component {
               )} />
             <Route path="/profile" render={() =>(
                 <Profile page={this.state.page} 
-                          handleDelete={this.handleDelete} 
-                          handleUpdate={this.handleUpdate}
-                          user={this.state.currentUser} 
-                          doodles={this.filterByUser()}
-                          handleNew={this.handleAddNewDoodle}
+                  handleDelete={this.handleDelete} 
+                  handleUpdate={this.handleUpdate}
+                  user={this.state.currentUser} 
+                  doodles={this.filterByUser()}
+                  handleNew={this.handleAddNewDoodle}
+                  userUpdate={this.userUpdate}
+                  userDelete={this.userDelete}
                 />
               )} />
             <Route path="/sign" render={()=>(

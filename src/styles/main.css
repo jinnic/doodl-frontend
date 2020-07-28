@@ -1,0 +1,31 @@
+/* @import '~bootstrap/dist/css/bootstrap.css'; */
+
+* {
+    /* border: 1px solid; */
+    padding: 0; 
+    margin: 0;
+}
+
+nav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 20;
+    background-color: rgb(219, 219, 219);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0;
+}
+
+nav #search-container {
+    text-align: center;
+}
+
+#nav-link-container {
+    display: flex;
+    justify-content: space-around;
+}
