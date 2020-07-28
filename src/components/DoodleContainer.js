@@ -35,6 +35,7 @@ class DoodleContainer extends Component {
   renderDoodle = () => {
     return (
       this.props.doodles.map(doodle =>  <DoodleCard 
+        key={doodle.id}
         showEditCanvas={this.showEditCanvas} 
         handleUpdate={this.props.handleUpdate}
         handleDelete={this.props.handleDelete} 
