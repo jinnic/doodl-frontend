@@ -39,7 +39,7 @@ class Profile extends Component {
                         </button>
                         </div>
                         <div class="modal-body">
-                          hi
+                          
                         <ProfileEditForm userDelete={this.props.userDelete} userUpdate={this.props.userUpdate} user={this.props.user}/>
 
                         </div>

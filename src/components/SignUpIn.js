@@ -5,7 +5,8 @@ class SignUpIn extends Component {
     state = {
       user_name: '',
       password: '',
-      bio: ''
+      bio: '',
+      toggle: false
     }
 
     handleChange=(e)=>{
@@ -14,6 +15,9 @@ class SignUpIn extends Component {
       })
     }
 
+    handleToggle =()=>{
+      this.setState(prevState =>({toggle: !prevState.toggle}), ()=>console.log(this.state.toggle))
+    }
     handleSignIn =(e)=>{
       e.preventDefault()
       console.log('Im logged in')
@@ -66,33 +70,45 @@ class SignUpIn extends Component {
 
     render() {
       return (
-        <div >
-          <h1>Sign Up</h1>
-          <form className="ui form" onSubmit={this.handleSubmit}>
-              <div className="field">
-                  <label>Username</label>
-                  <input name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text" placeholder="username"/>
-              </div>
-              <div className="field">
-                  <label>Password</label>
-                  <input name='password' value={this.state.password} onChange={this.handleChange} type="password" placeholder="password"/>
-              </div>
-              <button name='signUp' className="ui button" type="submit">Sign Up</button>
-          </form>
-          <br/>
-          <h1>Log In</h1>
-          <form className="ui form" onSubmit={this.handleSignIn}>
-              <div className="field">
-                  <label>Username</label>
-                  <input name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text" placeholder="username"/>
-              </div>
-              <div className="field">
-                  <label>Password</label>
-                  <input name='password' value={this.state.password} onChange={this.handleChange} type="password" placeholder="password"/>
-              </div>
-              
-              <button name='logIn' className="ui button" type="submit">Log In</button>
-          </form>
+        <div class="modal fade" id="signModal" tabindex="-1" role="dialog" aria-labelledby="signModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title " id="signModalLabel">{!this.state.toggle ? 'Hello' : 'Welcome Back'}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="form-group">
+                                <label>Username</label>
+                                <input className='form-control' name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text" placeholder="username"/>
+                            </div>
+                            <div className="form-group">
+                                <label>Password</label>
+                                <input className='form-control' name='password' value={this.state.password} onChange={this.handleChange} type="password" placeholder="password"/>
+                            </div>
+                            <button name='signUp' className="btn btn-primary mx-auto d-block" type="submit">{!this.state.toggle ? 'Sign up' : 'Log In'}</button>
+                        </form>
+                        <hr className="hr-text" data-content="or"/>
+                            {/* <div className="form-group">
+                                <label>Username</label>
+                                <input className='form-control' name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text" placeholder="username"/>
+                            </div>
+                            <div className="form-group">
+                                <label>Password</label>
+                                <input className='form-control' name='password' value={this.state.password} onChange={this.handleChange} type="password" placeholder="password"/>
+                            </div> */}
+                            
+                            <p className="text-center stretched-link"><a onClick={this.handleToggle} type="click">{this.state.toggle ? 'Sign up' : 'Log In'}</a></p>
+                      </div>
+                      {/* <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                      </div> */}
+                  </div>
+                </div>
         </div>
       )
     }

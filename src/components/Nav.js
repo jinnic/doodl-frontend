@@ -15,7 +15,11 @@ class Nav extends Component {
               <Link to='/' onClick={() => navChange("home")}>DOODL</Link>
             </li>
             {!currentUser.id ? 
-              <li><Link to='/sign'onClick={() => navChange("sign")}>Log In | Sign Up</Link> </li>
+
+              <li>
+              {/* onClick={() => navChange("sign")} */}
+                <Link to='/'  data-toggle="modal" data-target="#signModal" >Log In | Sign Up</Link> 
+              </li>
               :  
               <>
                 <li id="nav-link-container"><Link to='/profile' onClick={() => navChange("profile")}>Profile</Link>

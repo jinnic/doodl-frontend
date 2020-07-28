@@ -265,7 +265,10 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path="/" render={() => (
+              <>
+                  <SignUpIn handleLogin={this.handleLogin}/>
                   <DoodleContainer page={this.state.page} doodles={this.filterDoodles()}/>
+              </>
               )} />
             <Route path="/profile" render={() =>(
                 <Profile page={this.state.page} 
@@ -278,9 +281,9 @@ class App extends Component {
                   userDelete={this.userDelete}
                 />
               )} />
-            <Route path="/sign" render={()=>(
-              <SignUpIn handleLogin={this.handleLogin}/>
-            )} />
+            {/* <Route path="/profile" render={()=>(
+              
+            )} /> */}
             <Route path="/new" render={()=>(
               <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
             )} />
