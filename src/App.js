@@ -183,6 +183,7 @@ class App extends Component {
    * RENDER FUCTIONS : RENDER PROFILE/ SIGNUPIN/ NEW DOODLE/ HOME
    */
   renderPage = () => {
+    
     const page = this.state.page 
     //switch statements?
     switch (page) {
@@ -211,6 +212,7 @@ class App extends Component {
   }
   
   render() {
+    console.log('App token : ',localStorage.getItem('token'))
     console.log(this.state.currentUser)
     return (
       <div>

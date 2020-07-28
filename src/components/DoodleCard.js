@@ -32,6 +32,16 @@ class DoodleCard extends Component {
     }
   }
 
+  renderInfo =()=>{
+    const doodle = this.props.doodle
+    if (this.props.page === "home") {
+      return <> 
+        <h2>Title : {doodle.name}</h2>
+        <h5>Created by : {doodle.username}</h5>
+      </>
+     }
+     return <h2>Title : {doodle.name}</h2>
+  }
   render() {
 
     const doodle = this.props.doodle
@@ -40,7 +50,7 @@ class DoodleCard extends Component {
     return (
       <div>
 
-        <h2>Title : {doodle.name}</h2>
+        {this.renderInfo()}
         <CanvasDraw
           disabled
           hideGrid
@@ -50,7 +60,7 @@ class DoodleCard extends Component {
           saveData={doodleData}
           
         />
-
+        
         {this.renderButtons()}
       </div>
     )

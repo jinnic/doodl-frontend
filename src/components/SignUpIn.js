@@ -26,7 +26,7 @@ class SignUpIn extends Component {
         })
         .then(resp => resp.json())
         .then(data => {
-            localStorage.setItem("token", data.jwt)
+            localStorage.setItem("token", data.token)
             this.props.handleLogin(data.user)
             
         })
@@ -53,7 +53,7 @@ class SignUpIn extends Component {
         })
         .then(resp => resp.json())
         .then(data => {
-            localStorage.setItem("token", data.jwt)
+            localStorage.setItem("token", data.token)
             this.props.handleLogin(data.user)
         })
       
