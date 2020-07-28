@@ -35,10 +35,12 @@ class DoodleCard extends Component {
   renderInfo =()=>{
     const doodle = this.props.doodle
     if (this.props.page === "home") {
-      return <> 
-        <h2>Title : {doodle.name}</h2>
-        <h5>Created by : {doodle.username}</h5>
-      </>
+      return (
+        <> 
+          <h2>Title : {doodle.name}</h2>
+          <h5>Created by : {doodle.username}</h5>
+        </>
+      )
      }
      return <h2>Title : {doodle.name}</h2>
   }
@@ -48,8 +50,7 @@ class DoodleCard extends Component {
     const doodleData = JSON.stringify(doodle.doodle_data)
 
     return (
-      <div>
-
+      <div className="col-lg-4 col-md-6 col-sm-6 col-12 enlarge doodle-card">
         {this.renderInfo()}
         <CanvasDraw
           disabled
@@ -58,7 +59,7 @@ class DoodleCard extends Component {
           canvasHeight={doodle.height}
           ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
           saveData={doodleData}
-          
+          className="img-fluid img-thumbnail"
         />
         
         {this.renderButtons()}

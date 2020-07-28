@@ -40,15 +40,19 @@ class DoodleContainer extends Component {
         handleUpdate={this.props.handleUpdate}
         handleDelete={this.props.handleDelete} 
         page={this.props.page} key={doodle.id} 
-        doodle={doodle}/>)
+        doodle={doodle}
+
+        />)
       )
   }
   
   render() {
     return (
-      <div>
-        {this.renderDoodleCanvas()}
-        {this.renderDoodle()} 
+      <div className="container-fluid">
+        <div class="row text-center text-lg-left">
+          {this.renderDoodleCanvas()}
+          {this.renderDoodle()} 
+        </div>
       </div>
     )
   }

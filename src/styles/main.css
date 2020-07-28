@@ -5,7 +5,9 @@
     padding: 0; 
     margin: 0;
 }
-
+main {
+    margin-top: 70px;
+}
 nav {
     position: fixed;
     width: 100%;
@@ -20,6 +22,9 @@ nav ul {
     justify-content: space-between;
     margin-bottom: 0;
 }
+nav li a {
+    padding: 0 10px;
+}
 
 nav #search-container {
     text-align: center;
@@ -28,4 +33,9 @@ nav #search-container {
 #nav-link-container {
     display: flex;
     justify-content: space-around;
+}
+
+.doodle-card {
+    background-color: floralwhite;
+    border: 1px solid ;
 }

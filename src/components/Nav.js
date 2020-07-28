@@ -6,7 +6,7 @@ class Nav extends Component {
 
 
     render() {
-    const { navChange, handleLogout, currentUser} = this.props
+    const { navChange, handleLogout, currentUser, getSearchTerm} = this.props
       // debugger
       return (
         <nav>
@@ -25,7 +25,7 @@ class Nav extends Component {
             }
           </ul>
           <div id="search-container">
-            <Search />
+            <Search getSearchTerm={getSearchTerm}/>
           </div>
         </nav>
       )

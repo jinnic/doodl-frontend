@@ -259,16 +259,13 @@ class App extends Component {
     console.log('App token : ',localStorage.getItem('token'))
     console.log(this.state.currentUser)
     return (
-      <div>
-        <Nav currentUser={this.state.currentUser} handleLogout={this.handleLogout} navChange={this.navChange} />
+      <>
+        <Nav getSearchTerm={this.getSearchTerm} currentUser={this.state.currentUser} handleLogout={this.handleLogout} navChange={this.navChange} />
         {/* {this.renderPage()} */}
         <main>
           <Switch>
             <Route exact path="/" render={() => (
-                <>    
-                  <Search getSearchTerm={this.getSearchTerm}/> 
                   <DoodleContainer page={this.state.page} doodles={this.filterDoodles()}/>
-                </>
               )} />
             <Route path="/profile" render={() =>(
                 <Profile page={this.state.page} 
@@ -290,7 +287,7 @@ class App extends Component {
           </Switch>
 
         </main>
-      </div>
+      </>
     )
   }
 }
