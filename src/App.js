@@ -71,8 +71,8 @@ class App extends Component {
   
    //HANDLE ADD
   addNewDoodle = (doodle) => {
+    
     const token = localStorage.getItem("token")
-
     const config = {
       method: 'POST',
       headers: {
@@ -108,6 +108,27 @@ class App extends Component {
     .then(updatedObj => this.updateState(updatedObj))
   }
 
+  userUpdate = (user, id) => {
+    const token = localStorage.getItem("token")
+
+    const config = {
+      method: 'PATCH',
+      headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify(user)
+    }
+    fetch(`http://localhost:3000/users/${id}`, config)
+    .then(r => r.json())
+    .then(updatedUser => {
+      this.setState({
+        currentUser: updatedUser
+      })
+    })
+  }
+
   //HANDLE DELETE
   handleDelete = (id) => {
     const token = localStorage.getItem("token")
@@ -116,10 +137,21 @@ class App extends Component {
       headers: {
         "Authorization": `Bearer ${token}`
       }
-      
     })
     .then(r => r.json())
     .then(this.removeFromState(id))
+  }
+
+  userDelete = (id) => {
+    const token = localStorage.getItem("token")
+    fetch(`http://localhost:3000/users/${id}`, {
+      method: 'DELETE',
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    .then(r => r.json())
+    .then(this.handleLogout(), this.removeUserDoodles(id))
   }
 
   /**
@@ -153,6 +185,14 @@ class App extends Component {
       doodles: filtered
     })
   }
+
+  removeUserDoodles = (id) => {
+    const filtered = this.state.doodles.filter(d => d.user_id !== id)
+    this.setState({
+      doodles: filtered
+    })
+  }
+
 
   //NAV FUNCTIONS : UPDATE PAGE STATE
   navChange = (page) => {
@@ -189,7 +229,11 @@ class App extends Component {
     const doodles = this.state.doodles 
     const currentUser = this.state.currentUser
     const filtered = doodles.filter(d => d.user_id === currentUser.id)
+    if (filtered.length > 0)
     return filtered
+    else {
+      return this.state.doodles
+    }
   }
 
   /**
@@ -204,7 +248,9 @@ class App extends Component {
        handleUpdate={this.handleUpdate}
        user={this.state.currentUser} 
        doodles={this.filterByUser()}
-       handleNew={this.handleAddNewDoodle}/>
+       handleNew={this.handleAddNewDoodle}
+       userUpdate={this.userUpdate}
+       userDelete={this.userDelete}/>
     }
     else if (page === "sign") {
       return <SignUpIn handleLogin={this.handleLogin}/>

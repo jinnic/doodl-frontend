@@ -33,18 +33,19 @@ class DoodleCanvas extends Component {
     this.saveableCanvas.clear()
   }
 
-  addOrUpdate =()=>{
+  addOrUpdate = () => {
     let newObj = {}
-    console.log("New Drawing PRops : ", this.props.user)
+    
     newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
     newObj["user_id"] = this.props.user.id
     newObj.name = this.state.name
     newObj.width = this.state.width
     newObj.height = this.state.height
 
-    if (this.props.addNewDoodle){
+    if (this.props.addNewDoodle) {
       this.props.addNewDoodle(newObj)
-    }else{
+    } else {
+      
       this.props.handleUpdate(newObj, this.props.doodle.id)
       this.props.closeCanvas()
     }
@@ -115,51 +116,3 @@ class DoodleCanvas extends Component {
 }
 
 export default DoodleCanvas
-
-  // sendDoodleData = () => {
-  //   // let copiedDoodle = JSON.parse(this.state.doodle);
-
-  //   let newObj = {}
-  //   newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
-  //   newObj["user_id"] = 1
-  //   newObj.name = this.state.name
-  //   newObj.width = this.state.width
-  //   newObj.height = this.state.height
-
-
-  //   console.log(newObj)
-  //   const config = {
-  //     method: 'POST',
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Accept": "application/json"
-  //   },
-  //       body: JSON.stringify(newObj)
-  //   }
-  //   fetch('http://localhost:3000/doodles', config)
-  //   .then(r => r.json())
-  //   .then(newDoodle => this.props.addNewDoodle(newDoodle))
-  // }
-
-  // patchDoodleData=()=>{
-  //   let newObj = {}
-  //   newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
-  //   newObj["user_id"] = 1
-  //   newObj.name = this.state.name
-  //   newObj.width = this.state.width
-  //   newObj.height = this.state.height
-
-
-  //   console.log("**********", newObj)
-  //   const config = {
-  //     method: 'PATCH',
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Accept": "application/json"
-  //   },
-  //       body: JSON.stringify(newObj)
-  //   }
-  //   // fetch(`http://localhost:3000/doodles/${this.props.doodle.id}`, config)
-  //   // .then(r => r.json())
-  //   // .then(newDoodle => this.props.addNewDoodle(newDoodle))
-  // }
