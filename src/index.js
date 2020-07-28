@@ -4,7 +4,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 // import 'jquery'
 import 'bootstrap/js/dist/modal';
-import './styles/main.css'
+import './styles/main.scss'
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker';

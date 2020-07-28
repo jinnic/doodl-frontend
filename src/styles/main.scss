@@ -1,4 +1,10 @@
 /* @import '~bootstrap/dist/css/bootstrap.css'; */
+$primary: rgb(182, 182, 182);
+$dark-accent: rgb(59, 59, 59);
+$light-accent: rgb(245, 245, 245);
+
+$font-color: black;
+
 
 * {
     /* border: 1px solid; */
@@ -13,7 +19,6 @@ nav {
     width: 100%;
     top: 0;
     z-index: 20;
-    background-color: rgb(219, 219, 219);
 }
 
 nav ul {
@@ -36,6 +41,5 @@ nav #search-container {
 }
 
 .doodle-card {
-    background-color: floralwhite;
     border: 1px solid ;
 }
