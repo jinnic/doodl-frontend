@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom'
 import DoodleContainer from './components/DoodleContainer';
 import Nav from './components/Nav';
 import Profile from './components/Profile';
@@ -8,7 +9,7 @@ import SignUpIn from './components/SignUpIn';
 import './App.css';
 
 class App extends Component {
-
+  
   state = {
     page: "home",
     doodles: [],
@@ -41,30 +42,19 @@ class App extends Component {
         )
   }
 
-  handleAuthClick = () => {
-    const token = localStorage.getItem("token")
-    fetch('http://localhost:3000/user_is_authed', {
-      header: {
-        "Authorization": `Bearer ${token}`
-      }
-      .then(r => r.json())
-      .then(console.log)
-    })
-  }
-
   handleLogin=(user)=>{
     this.setState({
       currentUser: user
     })
+    
   }
 
-  handleLogout = () => {
-    window.localStorage.removeItem('token');
+  handleLogout=()=>{
     this.setState({
       currentUser: {}
     })
+    localStorage.removeItem("token")
   }
-
   /**
    * FUCTION PROPS : FETCH
    */
@@ -93,7 +83,6 @@ class App extends Component {
   //HANDLE UPDATE
   handleUpdate = (doodle, id) => {
     const token = localStorage.getItem("token")
-
     const config = {
       method: 'PATCH',
       headers: {
@@ -136,7 +125,7 @@ class App extends Component {
       method: 'DELETE',
       headers: {
         "Authorization": `Bearer ${token}`
-      }
+      },
     })
     .then(r => r.json())
     .then(this.removeFromState(id))
@@ -240,40 +229,69 @@ class App extends Component {
    * RENDER FUCTIONS : RENDER PROFILE/ SIGNUPIN/ NEW DOODLE/ HOME
    */
   renderPage = () => {
-    //switch statements?
+    
     const page = this.state.page 
-    if (page === "profile") {
-       return <Profile page={this.state.page} 
-       handleDelete={this.handleDelete} 
-       handleUpdate={this.handleUpdate}
-       user={this.state.currentUser} 
-       doodles={this.filterByUser()}
-       handleNew={this.handleAddNewDoodle}
-       userUpdate={this.userUpdate}
-       userDelete={this.userDelete}/>
-    }
-    else if (page === "sign") {
-      return <SignUpIn handleLogin={this.handleLogin}/>
-    }
-    else if (page === "new") {
-      return <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
-    }
-    else if (page === "home") {
-      return (   
+    //switch statements?
+    switch (page) {
+      case "home":
+        return(
           <>    
             <Search getSearchTerm={this.getSearchTerm}/> 
             <DoodleContainer page={this.state.page} doodles={this.filterDoodles()}/>
           </>
         )
+      case "profile": 
+        return <Profile page={this.state.page} 
+        handleDelete={this.handleDelete} 
+        handleUpdate={this.handleUpdate}
+        user={this.state.currentUser} 
+        doodles={this.filterByUser()}
+        handleNew={this.handleAddNewDoodle}
+        userUpdate={this.userUpdate}
+        userDelete={this.userDelete}
+        />
+      case "sign":
+        return <SignUpIn handleLogin={this.handleLogin}/>
+      case "new":
+        return <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
+      default:
+        return <h1>404 Not Found</h1>
     }
   }
   
   render() {
+    console.log('App token : ',localStorage.getItem('token'))
     console.log(this.state.currentUser)
     return (
       <div>
-        <Nav navChange={this.navChange} handleLogout={this.handleLogout} />
-        {this.renderPage()}
+        <Nav currentUser={this.state.currentUser} handleLogout={this.handleLogout} navChange={this.navChange} />
+        {/* {this.renderPage()} */}
+        <main>
+          <Switch>
+            <Route exact path="/" render={() => (
+                <>    
+                  <Search getSearchTerm={this.getSearchTerm}/> 
+                  <DoodleContainer page={this.state.page} doodles={this.filterDoodles()}/>
+                </>
+              )} />
+            <Route path="/profile" render={() =>(
+                <Profile page={this.state.page} 
+                          handleDelete={this.handleDelete} 
+                          handleUpdate={this.handleUpdate}
+                          user={this.state.currentUser} 
+                          doodles={this.filterByUser()}
+                          handleNew={this.handleAddNewDoodle}
+                />
+              )} />
+            <Route path="/sign" render={()=>(
+              <SignUpIn handleLogin={this.handleLogin}/>
+            )} />
+            <Route path="/new" render={()=>(
+              <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
+            )} />
+          </Switch>
+
+        </main>
       </div>
     )
   }

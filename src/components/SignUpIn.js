@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useHistory } from "react-router-dom";
 
 class SignUpIn extends Component {
     state = {
@@ -27,8 +28,8 @@ class SignUpIn extends Component {
         .then(resp => resp.json())
         .then(data => {
             localStorage.setItem("token", data.token)
-            debugger
             this.props.handleLogin(data.user)
+            
         })
 
         //reset state
@@ -36,6 +37,7 @@ class SignUpIn extends Component {
           user_name: '',
           password: ''
         })
+        
     }
 
     handleSubmit = (evt) => {
@@ -55,8 +57,6 @@ class SignUpIn extends Component {
             localStorage.setItem("token", data.token)
             this.props.handleLogin(data.user)
         })
-      
-
       //reset state
       this.setState({
         user_name: '',
