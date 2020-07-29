@@ -17,7 +17,7 @@ class Nav extends Component {
               <Link to='/sign'>Log In | Sign Up</Link> :  
               <>
                 <Link to='/profile' >Profile</Link>
-                <Link to='/' data-toggle="modal" data-target="#canvasModal">Draw Doodle</Link>
+                <button data-toggle="modal" data-target="#canvasModal">Draw Doodle</button>
                 {/* <Link to='/new'>Draw Doodle</Link> */}
                 <Link to='/'>Log Out</Link>
               </>

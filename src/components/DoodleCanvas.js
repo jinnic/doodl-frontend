@@ -41,13 +41,18 @@ class DoodleCanvas extends Component {
     newObj.name = this.state.name
     newObj.width = this.state.width
     newObj.height = this.state.height
+    // debugger
 
-    if (this.props.addNewDoodle){
+    if (Object.entries(this.props.doodle).length === 0){
+      console.log("adding")
       this.props.addNewDoodle(newObj)
-      this.props.history.push(`/profile`)
+      //** to redirect in the future : not working yet */
+      // this.props.history.push(`/profile`)
     }else{
+      console.log('edit this : ', this.props.doodle)
       this.props.handleUpdate(newObj, this.props.doodle.id)
-      this.props.closeCanvas()
+      this.props.emptyDoodleEdit()
+      // this.props.closeCanvas()
     }
     
   }

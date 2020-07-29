@@ -14,7 +14,8 @@ class App extends Component {
     // page: "home",
     doodles: [],
     searchTerm: "",
-    currentUser: {}
+    currentUser: {},
+    doodleEdit: {}
   }
 
   componentDidMount() {
@@ -79,6 +80,10 @@ class App extends Component {
 
   //HANDLE UPDATE
   handleUpdate = (doodle, id) => {
+    // this.setState({
+    //   doodleEdit: {}
+    // })
+    
     const token = localStorage.getItem("token")
     const config = {
       method: 'PATCH',
@@ -91,7 +96,31 @@ class App extends Component {
     }
     fetch(`http://localhost:3000/doodles/${id}`, config)
     .then(r => r.json())
-    .then(updatedObj => this.updateState(updatedObj))
+    .then(updatedObj => {
+      
+      // this.updateState(updatedObj)
+      const updatedDoods = this.state.doodles.map(doodle => {
+        if (doodle.id === updatedObj.id) {
+          return updatedObj
+        } else {
+          return doodle
+        }
+      }) 
+      this.setState(
+        {
+          doodles: updatedDoods
+        })
+      
+    }
+    )
+
+    
+  }
+
+  emptyDoodleEdit =()=>{
+    this.setState(
+      {doodleEdit: {} }
+    )
   }
 
   //HANDLE DELETE
@@ -107,6 +136,13 @@ class App extends Component {
     .then(this.removeFromState(id))
   }
 
+  //EDITTING DOODLE
+  renderExisting = (dood) => {
+    this.setState({
+      doodleEdit: dood
+    })
+  }
+
   /**
    * STATE FUCTIONS : MANIPULATING DOODLES ARRAY
    */
@@ -114,6 +150,7 @@ class App extends Component {
   addToState = (newDoodle) => {
     this.setState({
       doodles: [newDoodle, ...this.state.doodles]
+      // doodleEdit: {}
     })
   }
 
@@ -126,9 +163,12 @@ class App extends Component {
         return doodle
       }
     }) 
-    this.setState({
-      doodles: updatedDoods
-    })
+    this.setState(prevState => (
+      {
+        doodles: updatedDoods,
+        doodleEdit: ''
+      }
+    ))
   }
 
   //DELETE
@@ -179,14 +219,13 @@ class App extends Component {
     return (
       <div>
         <Nav currentUser={this.state.currentUser} handleLogout={this.handleLogout}/>
-        
+        <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} handleUpdate={this.handleUpdate} emptyDoodleEdit={this.emptyDoodleEdit} doodle={this.state.doodleEdit}/>
         <main>
           <Switch>
             <Route exact path="/" render={() => (
                 <>    
                   <Search getSearchTerm={this.getSearchTerm}/> 
                   <DoodleContainer doodles={this.filterDoodles()}/>
-                  <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
                 </>
               )} />
             <Route path="/profile" render={routeProps =>(
@@ -196,15 +235,14 @@ class App extends Component {
                           user={this.state.currentUser} 
                           doodles={this.filterByUser()}
                           handleNew={this.handleAddNewDoodle}
+                          renderExisting={this.renderExisting}
                           {...routeProps}
                 />
+                
               )} />
             <Route path="/sign" render={()=>(
               <SignUpIn handleLogin={this.handleLogin}/>
             )} />
-            {/* <Route path="/new" render={routeProps=>(
-              <DoodleCanvas {...routeProps} user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
-            )} /> */}
           </Switch>
 
         </main>

@@ -41,7 +41,9 @@ class DoodleContainer extends Component {
         handleDelete={this.props.handleDelete} 
         match = {this.props.match}
         page={this.props.page} key={doodle.id} 
-        doodle={doodle}/>)
+        doodle={doodle}
+        renderExisting={this.props.renderExisting}
+        />)
       )
   }
   
