@@ -56,29 +56,40 @@ class DoodleCanvas extends Component {
     console.log(this.props)
     return (
       <div>
+          <div class="modal fade" id="canvasModal" tabindex="-1" role="dialog" aria-labelledby="#canvasModal" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  {/* <section className="clear-undo-container"> */}
+                    <button onClick={() => this.saveableCanvas.clear()}>
+                      clear
+                    </button>
+                    <button onClick={() => this.saveableCanvas.undo()}>
+                      undo
+                    </button>
+                  {/* </section> */}
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <div class="modal-body"></div>
           <div>
-            <button onClick={this.handleSave}> save and fetch</button>
-            
-            <button onClick={() => this.saveableCanvas.clear()}>
-              Clear
-            </button>
 
-            <button onClick={() => this.saveableCanvas.undo()}>
-              Undo
-            </button>
-
-            <button
-              onClick={() => {
-                this.setState({
-                  color: "#" + Math.floor(Math.random() * 16777215).toString(16)
-                })
-              }}
-            >
-              Random Color
-            </button>
-
-            <div>
-              <label>Title:</label>
+          </div>
+          <CanvasDraw
+            className="doodle-canvas"
+            hideGrid
+            ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
+            brushColor={this.state.color}
+            brushRadius={this.state.brushRadius}
+            lazyRadius={this.state.lazyRadius}
+            canvasWidth={400}
+            canvasHeight={400}
+            saveData={this.props.doodle ? JSON.stringify(this.props.doodle.doodle_data) : ''}
+          />
+          <div class="tool-container">
+            <section class="tools">
+              <label>title:</label>
               <input
                 type="text"
                 value={this.state.name}
@@ -86,31 +97,100 @@ class DoodleCanvas extends Component {
                   this.setState({name: e.target.value})
                 }
               />
-            </div>
-            
-            <div>
-              <label>Brush-Radius:</label>
+              <br></br>
+              <label>brush radius:</label>
               <input
+                className="brush-radius-input"
                 type="number"
                 value={this.state.brushRadius}
                 onChange={e =>
                   this.setState({ brushRadius: parseInt(e.target.value, 10) })
                 }
               />
-            </div>
-
+              <label>brush color:</label>
+              <input
+                className="brush-color-input"
+                type="color"
+                value={this.state.color}
+                onChange={e =>
+                  this.setState({ color: e.target.value })
+                }
+              />
+              <button
+              className="random-button"
+              onClick={() => {
+                this.setState({
+                  color: "#" + Math.floor(Math.random() * 16777215).toString(16)
+                })
+              }}
+            >
+              random
+              </button>
+              </section>
+              <button className="save-button" onClick={this.handleSave} data-dismiss="modal">save</button>
           </div>
-          <CanvasDraw
-            ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
-            brushColor={this.state.color}
-            brushRadius={this.state.brushRadius}
-            lazyRadius={this.state.lazyRadius}
-            canvasWidth={this.state.width}
-            immediateLoading={true}
-            canvasHeight={this.state.height}
-            saveData={this.props.doodle ? JSON.stringify(this.props.doodle.doodle_data) : ''}
-          />
+          </div>
+          </div>
+        </div>
       </div>
+
+
+      // <div>
+      //     <div>
+      //       <button onClick={this.handleSave}> save and fetch</button>
+            
+      //       <button onClick={() => this.saveableCanvas.clear()}>
+      //         Clear
+      //       </button>
+
+      //       <button onClick={() => this.saveableCanvas.undo()}>
+      //         Undo
+      //       </button>
+
+      //       <button
+      //         onClick={() => {
+      //           this.setState({
+      //             color: "#" + Math.floor(Math.random() * 16777215).toString(16)
+      //           })
+      //         }}
+      //       >
+      //         Random Color
+      //       </button>
+
+      //       <div>
+      //         <label>Title:</label>
+      //         <input
+      //           type="text"
+      //           value={this.state.name}
+      //           onChange={e =>
+      //             this.setState({name: e.target.value})
+      //           }
+      //         />
+      //       </div>
+            
+      //       <div>
+      //         <label>Brush-Radius:</label>
+      //         <input
+      //           type="number"
+      //           value={this.state.brushRadius}
+      //           onChange={e =>
+      //             this.setState({ brushRadius: parseInt(e.target.value, 10) })
+      //           }
+      //         />
+      //       </div>
+
+      //     </div>
+      //     <CanvasDraw
+      //       ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
+      //       brushColor={this.state.color}
+      //       brushRadius={this.state.brushRadius}
+      //       lazyRadius={this.state.lazyRadius}
+      //       canvasWidth={this.state.width}
+      //       immediateLoading={true}
+      //       canvasHeight={this.state.height}
+      //       saveData={this.props.doodle ? JSON.stringify(this.props.doodle.doodle_data) : ''}
+      //     />
+      // </div>
     )
   }
 

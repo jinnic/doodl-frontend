@@ -179,12 +179,14 @@ class App extends Component {
     return (
       <div>
         <Nav currentUser={this.state.currentUser} handleLogout={this.handleLogout}/>
+        
         <main>
           <Switch>
             <Route exact path="/" render={() => (
                 <>    
                   <Search getSearchTerm={this.getSearchTerm}/> 
                   <DoodleContainer doodles={this.filterDoodles()}/>
+                  <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
                 </>
               )} />
             <Route path="/profile" render={routeProps =>(
@@ -200,9 +202,9 @@ class App extends Component {
             <Route path="/sign" render={()=>(
               <SignUpIn handleLogin={this.handleLogin}/>
             )} />
-            <Route path="/new" render={routeProps=>(
+            {/* <Route path="/new" render={routeProps=>(
               <DoodleCanvas {...routeProps} user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
-            )} />
+            )} /> */}
           </Switch>
 
         </main>
