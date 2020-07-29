@@ -44,6 +44,7 @@ class DoodleCanvas extends Component {
 
     if (this.props.addNewDoodle){
       this.props.addNewDoodle(newObj)
+      this.props.history.push(`/profile`)
     }else{
       this.props.handleUpdate(newObj, this.props.doodle.id)
       this.props.closeCanvas()
@@ -52,7 +53,7 @@ class DoodleCanvas extends Component {
   }
 
   render() {
-    console.log(this.props.user)
+    console.log(this.props)
     return (
       <div>
           <div>
@@ -105,6 +106,7 @@ class DoodleCanvas extends Component {
             brushRadius={this.state.brushRadius}
             lazyRadius={this.state.lazyRadius}
             canvasWidth={this.state.width}
+            immediateLoading={true}
             canvasHeight={this.state.height}
             saveData={this.props.doodle ? JSON.stringify(this.props.doodle.doodle_data) : ''}
           />

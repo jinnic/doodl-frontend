@@ -24,7 +24,7 @@ class DoodleCard extends Component {
   }
 
   renderButtons = () => {
-    if (this.props.page === "profile") {
+    if (this.props.match && this.props.match.url === "/profile") {
      return <> 
       <button onClick={this.handleEdit}>edit</button>
       <button onClick={() => this.props.handleDelete(this.props.doodle.id)}>delete</button> 
@@ -34,7 +34,7 @@ class DoodleCard extends Component {
 
   renderInfo =()=>{
     const doodle = this.props.doodle
-    if (this.props.page === "home") {
+    if (!this.props.match) {
       return <> 
         <h2>Title : {doodle.name}</h2>
         <h5>Created by : {doodle.username}</h5>
@@ -54,6 +54,7 @@ class DoodleCard extends Component {
         <CanvasDraw
           disabled
           hideGrid
+          immediateLoading={true}
           canvasWidth={doodle.width}
           canvasHeight={doodle.height}
           ref={canvasDraw => (this.loadableCanvas = canvasDraw)}

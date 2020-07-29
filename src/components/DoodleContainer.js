@@ -39,6 +39,7 @@ class DoodleContainer extends Component {
         showEditCanvas={this.showEditCanvas} 
         handleUpdate={this.props.handleUpdate}
         handleDelete={this.props.handleDelete} 
+        match = {this.props.match}
         page={this.props.page} key={doodle.id} 
         doodle={doodle}/>)
       )
