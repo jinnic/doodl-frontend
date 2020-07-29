@@ -23,7 +23,8 @@ class Nav extends Component {
               :  
               <>
                 <li id="nav-link-container"><Link to='/profile' onClick={() => navChange("profile")}>Profile</Link>
-                <Link to='/new' onClick={() => navChange("new")}>Draw Doodle</Link> 
+                {/* <Link to='/new' onClick={() => navChange("new")}>Draw Doodle</Link>  */}
+                <Link to='/' data-toggle="modal" data-target="#canvasModal" >Draw Doodle</Link>
                 <Link to='/' onClick={handleLogout}>Log Out</Link> </li>
               </>
             }

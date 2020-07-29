@@ -267,6 +267,7 @@ class App extends Component {
             <Route exact path="/" render={() => (
               <>
                   <SignUpIn handleLogin={this.handleLogin}/>
+                  <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
                   <DoodleContainer page={this.state.page} doodles={this.filterDoodles()}/>
               </>
               )} />
@@ -284,9 +285,9 @@ class App extends Component {
             {/* <Route path="/profile" render={()=>(
               
             )} /> */}
-            <Route path="/new" render={()=>(
+            {/* <Route path="/new" render={()=>(
               <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
-            )} />
+            )} /> */}
           </Switch>
 
         </main>

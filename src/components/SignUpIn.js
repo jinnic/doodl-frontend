@@ -74,7 +74,7 @@ class SignUpIn extends Component {
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title " id="signModalLabel">{!this.state.toggle ? 'Hello' : 'Welcome Back'}</h5>
+                        <h5 class="modal-title " id="signModalLabel">{!this.state.toggle ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -100,8 +100,9 @@ class SignUpIn extends Component {
                                 <label>Password</label>
                                 <input className='form-control' name='password' value={this.state.password} onChange={this.handleChange} type="password" placeholder="password"/>
                             </div> */}
-                            
-                            <p className="text-center stretched-link"><a onClick={this.handleToggle} type="click">{this.state.toggle ? 'Sign up' : 'Log In'}</a></p>
+                            {/* <p className="text-center stretched-link"><button className="btn" onClick={this.handleToggle}>{this.state.toggle ? 'Sign up' : 'Log In'}</button></p> */}
+
+                            <button onClick={this.handleToggle} className="btn mx-auto d-block" type="click">{this.state.toggle ? 'Sign up' : 'Log In'}</button>
                       </div>
                       {/* <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

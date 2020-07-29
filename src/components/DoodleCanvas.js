@@ -55,61 +55,77 @@ class DoodleCanvas extends Component {
   render() {
     console.log(this.props.user)
     return (
-      <div>
-          <div>
-            <button onClick={this.handleSave}> save and fetch</button>
-            
-            <button onClick={() => this.saveableCanvas.clear()}>
-              Clear
-            </button>
+      <div class="modal fade" id="canvasModal" tabindex="-1" role="dialog" aria-labelledby="canvasModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title " id="canvasModalLabel">{!this.state.toggle ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
 
-            <button onClick={() => this.saveableCanvas.undo()}>
-              Undo
-            </button>
 
-            <button
-              onClick={() => {
-                this.setState({
-                  color: "#" + Math.floor(Math.random() * 16777215).toString(16)
-                })
-              }}
-            >
-              Random Color
-            </button>
+                      <div>
+                        <button onClick={this.handleSave}> save and fetch</button>
+                        
+                        <button onClick={() => this.saveableCanvas.clear()}>
+                          Clear
+                        </button>
 
-            <div>
-              <label>Title:</label>
-              <input
-                type="text"
-                value={this.state.name}
-                onChange={e =>
-                  this.setState({name: e.target.value})
-                }
-              />
-            </div>
-            
-            <div>
-              <label>Brush-Radius:</label>
-              <input
-                type="number"
-                value={this.state.brushRadius}
-                onChange={e =>
-                  this.setState({ brushRadius: parseInt(e.target.value, 10) })
-                }
-              />
-            </div>
+                        <button onClick={() => this.saveableCanvas.undo()}>
+                          Undo
+                        </button>
 
-          </div>
-          <CanvasDraw
-            ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
-            brushColor={this.state.color}
-            brushRadius={this.state.brushRadius}
-            lazyRadius={this.state.lazyRadius}
-            canvasWidth={this.state.width}
-            canvasHeight={this.state.height}
-            saveData={this.props.doodle ? JSON.stringify(this.props.doodle.doodle_data) : ''}
-          />
-      </div>
+                        <button
+                          onClick={() => {
+                            this.setState({
+                              color: "#" + Math.floor(Math.random() * 16777215).toString(16)
+                            })
+                          }}
+                        >
+                          Random Color
+                        </button>
+
+                        <div>
+                          <label>Title:</label>
+                          <input
+                            type="text"
+                            value={this.state.name}
+                            onChange={e =>
+                              this.setState({name: e.target.value})
+                            }
+                          />
+                        </div>
+                        
+                        <div>
+                          <label>Brush-Radius:</label>
+                          <input
+                            type="number"
+                            value={this.state.brushRadius}
+                            onChange={e =>
+                              this.setState({ brushRadius: parseInt(e.target.value, 10) })
+                            }
+                          />
+                        </div>
+
+                      </div>
+                      <CanvasDraw
+                        ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
+                        brushColor={this.state.color}
+                        brushRadius={this.state.brushRadius}
+                        lazyRadius={this.state.lazyRadius}
+                        canvasWidth={this.state.width}
+                        canvasHeight={this.state.height}
+                        saveData={this.props.doodle ? JSON.stringify(this.props.doodle.doodle_data) : ''}
+                      />
+
+
+                    </div> 
+                  </div>
+                </div>
+        </div>    
     )
   }
 
