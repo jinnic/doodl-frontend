@@ -2,21 +2,21 @@ import React, { Component } from "react";
 
 class ProfileEditForm extends Component {
     state = {
-        user_name:'',
-        password: '',
-        bio: ''
+        user_name:this.props.user.user_name,
+        password: this.props.user.password,
+        bio: this.props.user.bio
     }
     //set title state when it's edit
-    componentDidMount() {
+    // componentDidMount() {
         
-        if(this.props.user){
-            this.setState({
-                user_name: this.props.user.user_name,
-                password: this.props.user.password,
-                bio: this.props.user.bio
-            })
-        }
-    }
+    //     if(this.props.user){
+    //         this.setState({
+    //             user_name: this.props.user.user_name,
+    //             password: this.props.user.password,
+    //             bio: this.props.user.bio
+    //         })
+    //     }
+    // }
 
     handleChange = (e) => {
         this.setState({
@@ -32,7 +32,7 @@ class ProfileEditForm extends Component {
             password: this.state.password,
             bio: this.state.bio
         } 
-        this.props.updateUserInfo(userObj)
+        // this.props.updateUserInfo(userObj)
         this.props.userUpdate(userObj, this.props.user.id)
     }
   

@@ -224,39 +224,6 @@ class App extends Component {
     return filtered
   }
 
-  /**
-   * RENDER FUCTIONS : RENDER PROFILE/ SIGNUPIN/ NEW DOODLE/ HOME
-   */
-  // renderPage = () => {
-    
-  //   const page = this.state.page 
-  //   //switch statements?
-  //   switch (page) {
-  //     case "home":
-  //       return(
-  //         <>    
-  //           <Search getSearchTerm={this.getSearchTerm}/> 
-  //           <DoodleContainer page={this.state.page} doodles={this.filterDoodles()}/>
-  //         </>
-  //       )
-  //     case "profile": 
-  //       return <Profile page={this.state.page} 
-  //       handleDelete={this.handleDelete} 
-  //       handleUpdate={this.handleUpdate}
-  //       user={this.state.currentUser} 
-  //       doodles={this.filterByUser()}
-  //       handleNew={this.handleAddNewDoodle}
-  //       userUpdate={this.userUpdate}
-  //       userDelete={this.userDelete}
-  //       />
-  //     case "sign":
-  //       return <SignUpIn handleLogin={this.handleLogin}/>
-  //     case "new":
-  //       return <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
-  //     default:
-  //       return <h1>404 Not Found</h1>
-  //   }
-  // }
   
   render() {
     // console.log(this.state.currentUser)
