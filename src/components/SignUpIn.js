@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import $ from 'jquery'
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 import { useHistory } from "react-router-dom";
 
 class SignUpIn extends Component {
@@ -6,21 +9,36 @@ class SignUpIn extends Component {
       user_name: '',
       password: '',
       bio: '',
-      toggle: false
+      toggle: 'sign up'
     }
 
     handleChange=(e)=>{
       this.setState({
         [e.target.name]: e.target.value
       })
+      document.querySelector('.alert').innerText = ''
     }
 
     handleToggle =()=>{
-      this.setState(prevState =>({toggle: !prevState.toggle}), ()=>console.log(this.state.toggle))
+      this.setState(prevState =>{
+        if(prevState.toggle === 'sign up'){
+         return {toggle: 'log in'}
+        }
+        return {toggle: 'sign up'}
+      })
     }
-    handleSignIn =(e)=>{
-      e.preventDefault()
-      console.log('Im logged in')
+    
+    resetState=()=>{
+      //reset state
+      this.setState({
+        user_name: '',
+        password: '',
+        toggle: 'sign up'
+      })
+    }
+
+    handleSignIn =()=>{
+      // console.log('Im logged in fetch')
        fetch(`http://localhost:3000/login`, {
             method: "POST",
             headers: {
@@ -31,23 +49,21 @@ class SignUpIn extends Component {
         })
         .then(resp => resp.json())
         .then(data => {
+          if(data.token){
             localStorage.setItem("token", data.token)
             this.props.handleLogin(data.user)
-            
+            this.resetState()
+            $('#signModal').modal("hide")
+          }else{
+            // console.log('log in failed : ',data.failure)
+            document.querySelector('.alert').innerText = data.failure
+          }
         })
 
-        //reset state
-        this.setState({
-          user_name: '',
-          password: ''
-        })
-        
     }
 
-    handleSubmit = (evt) => {
-      evt.preventDefault()
-      
-        console.log('Im sign up')
+    handleSignUp =()=>{
+      // console.log('Im sign up fetch')
         fetch(`http://localhost:3000/users`, {
             method: "POST",
             headers: {
@@ -60,13 +76,21 @@ class SignUpIn extends Component {
         .then(data => {
             localStorage.setItem("token", data.token)
             this.props.handleLogin(data.user)
+            $('#signModal').modal("hide")
+            //console.log('sign up fetch : ',data)
         })
-      //reset state
-      this.setState({
-        user_name: '',
-        password: ''
-      })
     }
+
+    handleSubmit = (e) => {
+      e.preventDefault()
+      if(this.state.toggle === 'sign up'){
+        this.handleSignUp()
+      }else{
+        this.handleSignIn()
+      }
+
+    }
+
 
     render() {
       return (
@@ -74,7 +98,7 @@ class SignUpIn extends Component {
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title " id="signModalLabel">{!this.state.toggle ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
+                        <h5 class="modal-title " id="signModalLabel">{this.state.toggle === 'sign up' ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -89,7 +113,9 @@ class SignUpIn extends Component {
                                 <label>Password</label>
                                 <input className='form-control' name='password' value={this.state.password} onChange={this.handleChange} type="password" placeholder="password"/>
                             </div>
-                            <button name='signUp' className="btn btn-primary mx-auto d-block" type="submit">{!this.state.toggle ? 'Sign up' : 'Log In'}</button>
+                            <div class="alert" role="alert">
+                            </div>
+                            <button id='submitBtn' name='signUp' className="btn btn-primary mx-auto d-block"  type="submit">{this.state.toggle === 'sign up' ? 'Sign up' : 'Log In'}</button>
                         </form>
                         <hr className="hr-text" data-content="or"/>
                             {/* <div className="form-group">
@@ -102,7 +128,7 @@ class SignUpIn extends Component {
                             </div> */}
                             {/* <p className="text-center stretched-link"><button className="btn" onClick={this.handleToggle}>{this.state.toggle ? 'Sign up' : 'Log In'}</button></p> */}
 
-                            <button onClick={this.handleToggle} className="btn mx-auto d-block" type="click">{this.state.toggle ? 'Sign up' : 'Log In'}</button>
+                            <button onClick={this.handleToggle} className="btn mx-auto d-block" type="click">{this.state.toggle !== 'sign up' ? 'Sign up' : 'Log In'}</button>
                       </div>
                       {/* <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

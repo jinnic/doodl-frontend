@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
+import $ from 'jquery'
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import DoodleContainer from './components/DoodleContainer';
 import Nav from './components/Nav';
 import Profile from './components/Profile';
@@ -114,7 +116,8 @@ class App extends Component {
     .then(updatedUser => {
       this.setState({
         currentUser: updatedUser
-      })
+      },()=>console.log('UPDATED USER++++++++++', updatedUser))
+      // $('#profileModal').modal("hide")
     })
   }
 
@@ -256,8 +259,7 @@ class App extends Component {
   // }
   
   render() {
-    console.log('App token : ',localStorage.getItem('token'))
-    console.log(this.state.currentUser)
+    // console.log(this.state.currentUser)
     return (
       <>
         <Nav getSearchTerm={this.getSearchTerm} currentUser={this.state.currentUser} handleLogout={this.handleLogout} navChange={this.navChange} />

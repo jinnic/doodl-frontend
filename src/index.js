@@ -2,8 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
+
+
 // import 'jquery'
-import 'bootstrap/js/dist/modal';
+// import 'bootstrap/js/dist/modal';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './styles/main.scss'
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom'

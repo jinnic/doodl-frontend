@@ -49,7 +49,7 @@ class DoodleContainer extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <div class="row text-center text-lg-left">
+        <div className="row text-center text-lg-left">
           {this.renderDoodleCanvas()}
           {this.renderDoodle()} 
         </div>
