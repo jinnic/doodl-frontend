@@ -14,7 +14,8 @@ class App extends Component {
     page: "home",
     doodles: [],
     searchTerm: "",
-    currentUser: {}
+    currentUser: {},
+    currentlyEditing: {}
   }
 
   componentDidMount() {
@@ -221,6 +222,11 @@ class App extends Component {
     return filtered
   }
 
+  renderExisting = (dood) => {
+    this.setState({
+      currentlyEditing: dood
+    })
+  } 
   /**
    * RENDER FUCTIONS : RENDER PROFILE/ SIGNUPIN/ NEW DOODLE/ HOME
    */
@@ -256,18 +262,20 @@ class App extends Component {
   // }
   
   render() {
-    console.log('App token : ',localStorage.getItem('token'))
-    console.log(this.state.currentUser)
     return (
       <>
-        <Nav getSearchTerm={this.getSearchTerm} currentUser={this.state.currentUser} handleLogout={this.handleLogout} navChange={this.navChange} />
+        <Nav getSearchTerm={this.getSearchTerm} addNewDoodle={this.addNewDoodle} currentUser={this.state.currentUser} handleLogout={this.handleLogout} navChange={this.navChange} />
         {/* {this.renderPage()} */}
         <main>
           <Switch>
             <Route exact path="/" render={() => (
+              <>
                   <DoodleContainer page={this.state.page} doodles={this.filterDoodles()}/>
+                  <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
+              </>
               )} />
             <Route path="/profile" render={() =>(
+              <>
                 <Profile page={this.state.page} 
                   handleDelete={this.handleDelete} 
                   handleUpdate={this.handleUpdate}
@@ -276,14 +284,17 @@ class App extends Component {
                   handleNew={this.handleAddNewDoodle}
                   userUpdate={this.userUpdate}
                   userDelete={this.userDelete}
+                  renderExisting={this.renderExisting}
                 />
+                <DoodleCanvas user={this.state.currentUser} handleUpdate={this.handleUpdate} doodle={this.state.currentlyEditing}/>
+              </>
               )} />
             <Route path="/sign" render={()=>(
               <SignUpIn handleLogin={this.handleLogin}/>
             )} />
-            <Route path="/new" render={()=>(
+            {/* <Route path="/new" render={()=>(
               <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
-            )} />
+            )} /> */}
           </Switch>
 
         </main>

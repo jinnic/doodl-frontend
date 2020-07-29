@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search"
+import DoodleCanvas from "./DoodleCanvas"
 
 class Nav extends Component {
 
 
     render() {
-    const { navChange, handleLogout, currentUser, getSearchTerm} = this.props
-      // debugger
+
+    const { navChange, handleLogout, currentUser, getSearchTerm, addNewDoodle } = this.props
+
       return (
         <nav>
           <ul>
@@ -19,11 +21,13 @@ class Nav extends Component {
               :  
               <>
                 <li id="nav-link-container"><Link to='/profile' onClick={() => navChange("profile")}>Profile</Link>
-                <Link to='/new' onClick={() => navChange("new")}>Draw Doodle</Link> 
+                {/* <Link to='/new' onClick={() => navChange("new")}>Draw Doodle</Link>  */}
+                <Link to='/' data-toggle="modal" data-target="#canvasModal">Draw Doodle</Link>
                 <Link to='/' onClick={handleLogout}>Log Out</Link> </li>
               </>
             }
           </ul>
+
           <div id="search-container">
             <Search getSearchTerm={getSearchTerm}/>
           </div>

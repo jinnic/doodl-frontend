@@ -20,13 +20,13 @@ class DoodleCard extends Component {
 
   handleEdit = () => {
     const doodle = this.props.doodle
-    this.props.showEditCanvas(doodle)
+    this.props.renderExisting(doodle)
   }
 
   renderButtons = () => {
     if (this.props.page === "profile") {
      return <> 
-      <button onClick={this.handleEdit}>edit</button>
+      <button data-toggle="modal" data-target="#canvasModal" onClick={this.handleEdit}>edit</button>
       <button onClick={() => this.props.handleDelete(this.props.doodle.id)}>delete</button> 
      </>
     }
@@ -37,36 +37,49 @@ class DoodleCard extends Component {
     if (this.props.page === "home") {
       return (
         <> 
-          <h2>Title : {doodle.name}</h2>
-          <h5>Created by : {doodle.username}</h5>
+          <p>{doodle.name}</p>
+          <p>created by {doodle.username}</p>
         </>
       )
      }
-     return <h2>Title : {doodle.name}</h2>
+     return <h2>{doodle.name}</h2>
   }
+
   render() {
 
     const doodle = this.props.doodle
+    console.log(doodle)
     const doodleData = JSON.stringify(doodle.doodle_data)
 
     return (
-      <div className="col-lg-4 col-md-6 col-sm-6 col-12 enlarge doodle-card">
-        {this.renderInfo()}
-        <CanvasDraw
-          disabled
-          hideGrid
-          canvasWidth={doodle.width}
-          canvasHeight={doodle.height}
-          ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
-          saveData={doodleData}
-          className="img-fluid img-thumbnail"
-        />
-        
-        {this.renderButtons()}
+      <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-4 grid-gap">
+        <div className="doodle-card">
+          <div class="fake-canvas">
+
+            <CanvasDraw
+              disabled
+              hideGrid
+              canvasWidth={500}
+              canvasHeight={450}
+              ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
+              saveData={doodleData}
+              className="img-fluid disabled-canvas"
+            />
+
+        </div>
+        <div className="like-title-container">
+
+          <span>
+            {this.renderInfo()}
+            {this.renderButtons()}
+          </span>
+          <span className="like">♡</span>
+          
+        </div>
+        </div>
       </div>
     )
   }
-
 }
 
 export default DoodleCard

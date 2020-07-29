@@ -21,7 +21,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { doodles, user, handleDelete, handleUpdate, userUpdate } = this.props
+    const { doodles, user, handleDelete, handleUpdate, userUpdate, renderExisting } = this.props
     return (
       <div>
         <div>
@@ -58,6 +58,7 @@ class Profile extends Component {
           handleDelete={handleDelete} 
           handleUpdate={handleUpdate}
           page={this.props.page} 
+          renderExisting={renderExisting}
           doodles={doodles}/>
         </div>
       </div>

@@ -2,15 +2,22 @@
 $primary: rgb(182, 182, 182);
 $dark-accent: rgb(59, 59, 59);
 $light-accent: rgb(245, 245, 245);
+$border-radius: 5px;
 
 $font-color: black;
 
 
 * {
     /* border: 1px solid; */
-    padding: 0; 
-    margin: 0;
+    // padding: 0 !important; 
+    // margin: 0 !important;
+    font-size: 1rem !important;
 }
+
+body {
+    background-color: $dark-accent;
+}
+
 main {
     margin-top: 70px;
 }
@@ -19,6 +26,7 @@ nav {
     width: 100%;
     top: 0;
     z-index: 20;
+    background-color: $primary;
 }
 
 nav ul {
@@ -35,11 +43,135 @@ nav #search-container {
     text-align: center;
 }
 
+
 #nav-link-container {
     display: flex;
     justify-content: space-around;
 }
 
+
+//DOODLE CARD
+// .doodle-card canvas {
+
+// }
+
+.modal canvas {
+    width: 100% !important;
+    height: 400px !important;
+}
+
+.doodle-canvas
+ {
+    width: 100% !important;
+    margin: 0 auto;
+    // width: 400px !important;
+    height: 400px !important;
+    // margin: 0 auto;
+}
+
+
 .doodle-card {
-    border: 1px solid ;
+    background-color: $primary;
+    border-radius: $border-radius;
+}
+
+.disabled-canvas {
+    width: 100%;
+    margin: 0 auto;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+}
+
+.fake-canvas {
+    width: 100%;
+    background-color: white;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+}
+
+
+.col-lg-4, .col-md-6 .col-sm-6 .col-12 {
+    padding: 0;
+    margin: 0;
+}
+
+.grid-gap {
+    padding: 3%;
+}
+
+.like-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    padding: 6px;
+}
+
+.like {
+    font-size: 35px !important;
+    align-self: center;
+    justify-self: flex-end;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+
+//DOODLE CANVAS
+// .modal { background: rgba(000, 000, 000, 0.8); min-height:1000000px; }
+// .modal-backdrop.in { z-index: auto;}
+
+// .clear-undo-container {
+//     display: flex;
+//     justify-content: center;
+//     width: 100%;
+//     padding: 12px;
+// }
+
+.modal-content {
+    background-color: $primary;
+}
+
+.modal-header button {
+    margin: 0 10px;
+}
+
+.modal-header {
+    border: none;
+}
+
+.modal-body {
+    padding: 0;
+}
+
+.tool-container {
+    display:flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: flex-end;
+}
+
+.brush-radius-input {
+    width: 50px;
+}
+
+.brush-color-input {
+    width: 40px;
+    height: 30px;
+}
+
+.random-button {
+    background: linear-gradient(to right, rgb(255, 203, 106) , rgb(255, 247, 129), rgb(119, 235, 119), rgb(117, 255, 255), rgb(117, 154, 255), violet);
+}
+
+.save-button {
+    width: 75px;
+    height: 75px;
+    border-radius: 37.5px;
+}
+
+input[type="color"] {
+    padding: 0;
+    margin: 0;
 }

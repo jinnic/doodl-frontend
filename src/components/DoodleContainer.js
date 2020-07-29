@@ -12,30 +12,31 @@ class DoodleContainer extends Component {
     doodle: {}
   }
 
-  showEditCanvas = (doodle) => {
-      this.setState(prevState => ({
-        editable: !prevState.editable,
-        doodle: doodle
-      }))
+  // showEditCanvas = (doodle) => {
+  //     this.setState(prevState => ({
+  //       editable: !prevState.editable,
+  //       doodle: doodle
+  //     }))
 
-  }
+  // }
 
-  closeCanvas = () => {
-    this.setState({
-      editable: false
-    })
-  }
+  // closeCanvas = () => {
+  //   this.setState({
+  //     editable: false
+  //   })
+  // }
 
-  renderDoodleCanvas = () => {
-    if (this.state.editable === true) {
-        return <DoodleCanvas user={this.props.user} closeCanvas={this.closeCanvas} handleUpdate ={this.props.handleUpdate} doodle={this.state.doodle}/>
-    }
-  }
+  // renderDoodleCanvas = () => {
+  //   if (this.state.editable === true) {
+  //       return <DoodleCanvas user={this.props.user} closeCanvas={this.closeCanvas} handleUpdate ={this.props.handleUpdate} doodle={this.state.doodle}/>
+  //   }
+  // }
 
   renderDoodle = () => {
     return (
       this.props.doodles.map(doodle =>  <DoodleCard 
         key={doodle.id}
+        renderExisting={this.props.renderExisting}
         showEditCanvas={this.showEditCanvas} 
         handleUpdate={this.props.handleUpdate}
         handleDelete={this.props.handleDelete} 
@@ -49,8 +50,8 @@ class DoodleContainer extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <div class="row text-center text-lg-left">
-          {this.renderDoodleCanvas()}
+        <div class="row align-items-center">
+          {/* {this.renderDoodleCanvas()} */}
           {this.renderDoodle()} 
         </div>
       </div>
