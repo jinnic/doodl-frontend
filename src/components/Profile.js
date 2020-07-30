@@ -43,7 +43,7 @@ class Profile extends Component {
           <div id="profile-info-container">
           <h2>{user.user_name}'s artwork</h2>
           <p>bio: {user.bio}</p>
-            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#profileModal">edit user profile</button>
+            <button type="button" className="profile-button" data-toggle="modal" data-target="#profileModal">edit user profile</button>
             <ProfileEditForm userDelete={this.props.userDelete} userUpdate={userUpdate} user={user} updateUserInfo={this.updateUserInfo}/>
           </div>
           <DoodleContainer 

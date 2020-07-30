@@ -26,8 +26,8 @@ class DoodleCard extends Component {
   renderButtons = () => {
     if (this.props.match && this.props.match.url === "/profile") {
      return <> 
-      <button data-toggle="modal" data-target="#canvasModal" onClick={this.handleEdit}>edit</button>
-      <button onClick={() => this.props.handleDelete(this.props.doodle.id)}>delete</button> 
+      <button className="button" data-toggle="modal" data-target="#canvasModal" onClick={this.handleEdit}>edit</button>
+      <button className="button" onClick={() => this.props.handleDelete(this.props.doodle.id)}>delete</button> 
      </>
     }
   }

@@ -3,7 +3,7 @@
 
 //colors
 $primary: #662DAB;
-$secondary: #93D8C7;
+$secondary: #C8EAE1;
 $light-accent: white;
 
 //radi
@@ -17,6 +17,31 @@ $button-font: 15px;
 $nav-font: 20px;
 $smaller-font: 12px;
 
+//button styling
+.button {
+    border: 1px solid $primary;
+    border-radius: $button-radius;
+    color: $primary;
+    background-color: transparent;
+}
+
+.button:hover {
+    color: $secondary;
+    background-color: $primary
+}
+
+.profile-button {
+    border: 1px solid $secondary;
+    border-radius: $button-radius;
+    color: $secondary;
+    background-color: transparent;
+}
+
+.profile-button:hover {
+    background-color: $secondary;
+    color: $primary
+}
+
 
 
 * {
@@ -28,6 +53,7 @@ $smaller-font: 12px;
 
 body {
     // background-color: $light-accent;
+    background-color: $primary;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -147,7 +173,7 @@ nav #search-container {
 
 
 .doodle-card {
-    // background-color: $doodle-card;
+    background-color: $secondary;
     // border: 1px solid $doodle-card;
     // border-radius: $border-radius;
     // width: 400px;
