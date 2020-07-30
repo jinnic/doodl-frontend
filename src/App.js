@@ -210,8 +210,16 @@ class App extends Component {
   filterByUser = () => {
     const doodles = this.state.doodles 
     const currentUser = this.state.currentUser
+    const searchTerm = this.state.searchTerm
+    
     const filtered = doodles.filter(d => d.user_id === currentUser.id)
-    return filtered
+
+    if(searchTerm === ''){
+      return filtered
+    }else{
+      const filtered = doodles.filter(d => d.user_id === currentUser.id).filter(doodle => doodle.name.toLowerCase().includes(searchTerm))
+      return filtered
+    }
   }
 
   renderExisting = (dood) => {
@@ -231,7 +239,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={() => (
               <>  
-                  <Search getSearchTerm={this.getSearchTerm}/>
+                  {/* <Search getSearchTerm={this.getSearchTerm}/> */}
                   <SignUpIn handleLogin={this.handleLogin}/>
                   <DoodleContainer doodles={this.filterDoodles()}/>
               </>
@@ -248,6 +256,7 @@ class App extends Component {
                   userDelete={this.userDelete}
                   renderExisting={this.renderExisting}
                   {...routeProps}
+                  
                 />
                 <DoodleCanvas user={this.state.currentUser} handleUpdate={this.handleUpdate} doodle={this.state.currentlyEditing}/>
               </>

@@ -15,7 +15,7 @@ $font-color: black;
 }
 
 body {
-    background-color: $light-accent;
+    // background-color: $light-accent;
 }
 
 main {
@@ -131,7 +131,7 @@ p {
 //     padding: 12px;
 // }
 
-.modal-content {
+#canvasModal .modal-content {
     background-color: $primary;
 }
 

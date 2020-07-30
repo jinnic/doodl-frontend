@@ -33,7 +33,7 @@ class SignUpIn extends Component {
       this.setState({
         user_name: '',
         password: '',
-        toggle: 'sign up'
+        toggle: 'log in'
       })
     }
 
@@ -83,10 +83,11 @@ class SignUpIn extends Component {
 
     handleSubmit = (e) => {
       e.preventDefault()
-      if(this.state.toggle === 'sign up'){
-        this.handleSignUp()
-      }else{
+      if(this.state.toggle === 'log in'){
         this.handleSignIn()
+      }else{
+        this.handleSignUp()
+        
       }
 
     }
@@ -98,7 +99,7 @@ class SignUpIn extends Component {
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title " id="signModalLabel">{this.state.toggle === 'sign up' ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
+                        <h5 class="modal-title " id="signModalLabel">{this.state.toggle === 'log in' ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -115,11 +116,11 @@ class SignUpIn extends Component {
                             </div>
                             <div class="alert" role="alert">
                             </div>
-                            <button id='submitBtn' name='signUp' className="btn btn-primary mx-auto d-block"  type="submit">{this.state.toggle === 'sign up' ? 'Sign up' : 'Log In'}</button>
+                            <button id='submitBtn' name='signUp' className="btn btn-primary mx-auto d-block"  type="submit">{this.state.toggle === 'log in' ? 'Sign up' : 'Log In'}</button>
                         </form>
                         <hr className="hr-text" data-content="or"/>
                           
-                            <button onClick={this.handleToggle} className="btn mx-auto d-block" type="click">{this.state.toggle !== 'sign up' ? 'Sign up' : 'Log In'}</button>
+                            <button onClick={this.handleToggle} className="btn mx-auto d-block" type="click">{this.state.toggle !== 'log in' ? 'Sign up' : 'Log In'}</button>
                       </div>
                       {/* <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

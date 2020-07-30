@@ -17,6 +17,7 @@ class Nav extends Component {
             {!currentUser.id ? 
               <Link to='/'  data-toggle="modal" data-target="#signModal" >Log In | Sign Up</Link> :  
               <>
+                <Search getSearchTerm={getSearchTerm}/>
                 <Link to='/profile' >Profile</Link>
                 <button data-toggle="modal" data-target="#newCanvasModal">Draw Doodle</button>
                 <Link to='/' onClick={handleLogout}>Log Out</Link>
