@@ -12,21 +12,16 @@ class Nav extends Component {
 
       return (
         <nav>
-          <ul>
-            <li>
-              <Link to='/' onClick={() => navChange("home")}>DOODL</Link>
-            </li>
+          <Link to='/'>DOODL</Link>
+            
             {!currentUser.id ? 
-              <li><Link to='/sign'onClick={() => navChange("sign")}>Log In | Sign Up</Link> </li>
-              :  
+              <Link to='/sign'>Log In | Sign Up</Link> :  
               <>
-                <li id="nav-link-container"><Link to='/profile' onClick={() => navChange("profile")}>Profile</Link>
-                {/* <Link to='/new' onClick={() => navChange("new")}>Draw Doodle</Link>  */}
-                <Link to='/' data-toggle="modal" data-target="#canvasModal">Draw Doodle</Link>
-                <Link to='/' onClick={handleLogout}>Log Out</Link> </li>
+                <Link to='/profile' >Profile</Link>
+                <button data-toggle="modal" data-target="#newCanvasModal">Draw Doodle</button>
+                <Link to='/'>Log Out</Link>
               </>
             }
-          </ul>
 
           <div id="search-container">
             <Search getSearchTerm={getSearchTerm}/>

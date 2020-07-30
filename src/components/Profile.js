@@ -21,7 +21,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { doodles, user, handleDelete, handleUpdate, userUpdate, renderExisting } = this.props
+    const { doodles, user, handleDelete, handleUpdate, userUpdate, renderExisting, match } = this.props
     return (
       <div>
         <div>
@@ -58,6 +58,7 @@ class Profile extends Component {
           handleDelete={handleDelete} 
           handleUpdate={handleUpdate}
           page={this.props.page} 
+          match={match}
           renderExisting={renderExisting}
           doodles={doodles}/>
         </div>

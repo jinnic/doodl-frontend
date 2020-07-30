@@ -24,7 +24,7 @@ class DoodleCard extends Component {
   }
 
   renderButtons = () => {
-    if (this.props.page === "profile") {
+    if (this.props.match && this.props.match.url === "/profile") {
      return <> 
       <button data-toggle="modal" data-target="#canvasModal" onClick={this.handleEdit}>edit</button>
       <button onClick={() => this.props.handleDelete(this.props.doodle.id)}>delete</button> 
@@ -48,7 +48,6 @@ class DoodleCard extends Component {
   render() {
 
     const doodle = this.props.doodle
-    console.log(doodle)
     const doodleData = JSON.stringify(doodle.doodle_data)
 
     return (
@@ -57,6 +56,7 @@ class DoodleCard extends Component {
           <div class="fake-canvas">
 
             <CanvasDraw
+            immediateLoading={true}
               disabled
               hideGrid
               canvasWidth={500}

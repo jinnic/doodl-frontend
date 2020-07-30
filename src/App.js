@@ -5,13 +5,13 @@ import Nav from './components/Nav';
 import Profile from './components/Profile';
 import Search from './components/Search';
 import DoodleCanvas from './components/DoodleCanvas';
+import NewCanvas from './components/NewCanvas';
 import SignUpIn from './components/SignUpIn';
 import './App.css';
 
 class App extends Component {
   
   state = {
-    page: "home",
     doodles: [],
     searchTerm: "",
     currentUser: {},
@@ -77,8 +77,6 @@ class App extends Component {
     .then(r => r.json())
     .then(newDoodle => this.addToState(newDoodle))
     
-    //change page to profile after adding new doodle
-    this.navChange('profile')
   }
 
   //HANDLE UPDATE
@@ -95,7 +93,8 @@ class App extends Component {
     }
     fetch(`http://localhost:3000/doodles/${id}`, config)
     .then(r => r.json())
-    .then(updatedObj => this.updateState(updatedObj))
+    .then(updatedObj => {
+       this.updateState(updatedObj)})
   }
 
   userUpdate = (user, id) => {
@@ -183,14 +182,6 @@ class App extends Component {
     })
   }
 
-
-  //NAV FUNCTIONS : UPDATE PAGE STATE
-  navChange = (page) => {
-    this.setState({
-      page: page
-    })
-  }
-
   //SEARCH FUNCTIONS : UPDATE searchTerm STATE
   getSearchTerm =(e)=>{
     // console.log(e.target.value)
@@ -227,56 +218,23 @@ class App extends Component {
       currentlyEditing: dood
     })
   } 
-  /**
-   * RENDER FUCTIONS : RENDER PROFILE/ SIGNUPIN/ NEW DOODLE/ HOME
-   */
-  // renderPage = () => {
-    
-  //   const page = this.state.page 
-  //   //switch statements?
-  //   switch (page) {
-  //     case "home":
-  //       return(
-  //         <>    
-  //           <Search getSearchTerm={this.getSearchTerm}/> 
-  //           <DoodleContainer page={this.state.page} doodles={this.filterDoodles()}/>
-  //         </>
-  //       )
-  //     case "profile": 
-  //       return <Profile page={this.state.page} 
-  //       handleDelete={this.handleDelete} 
-  //       handleUpdate={this.handleUpdate}
-  //       user={this.state.currentUser} 
-  //       doodles={this.filterByUser()}
-  //       handleNew={this.handleAddNewDoodle}
-  //       userUpdate={this.userUpdate}
-  //       userDelete={this.userDelete}
-  //       />
-  //     case "sign":
-  //       return <SignUpIn handleLogin={this.handleLogin}/>
-  //     case "new":
-  //       return <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
-  //     default:
-  //       return <h1>404 Not Found</h1>
-  //   }
-  // }
+
   
   render() {
     return (
       <>
-        <Nav getSearchTerm={this.getSearchTerm} addNewDoodle={this.addNewDoodle} currentUser={this.state.currentUser} handleLogout={this.handleLogout} navChange={this.navChange} />
-        {/* {this.renderPage()} */}
+        <Nav getSearchTerm={this.getSearchTerm} addNewDoodle={this.addNewDoodle} currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
+        <NewCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
         <main>
           <Switch>
             <Route exact path="/" render={() => (
               <>
-                  <DoodleContainer page={this.state.page} doodles={this.filterDoodles()}/>
-                  <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
+                  <DoodleContainer doodles={this.filterDoodles()}/>
               </>
               )} />
-            <Route path="/profile" render={() =>(
+            <Route path="/profile" render={routeProps =>(
               <>
-                <Profile page={this.state.page} 
+                <Profile 
                   handleDelete={this.handleDelete} 
                   handleUpdate={this.handleUpdate}
                   user={this.state.currentUser} 
@@ -285,6 +243,7 @@ class App extends Component {
                   userUpdate={this.userUpdate}
                   userDelete={this.userDelete}
                   renderExisting={this.renderExisting}
+                  {...routeProps}
                 />
                 <DoodleCanvas user={this.state.currentUser} handleUpdate={this.handleUpdate} doodle={this.state.currentlyEditing}/>
               </>
@@ -292,9 +251,6 @@ class App extends Component {
             <Route path="/sign" render={()=>(
               <SignUpIn handleLogin={this.handleLogin}/>
             )} />
-            {/* <Route path="/new" render={()=>(
-              <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
-            )} /> */}
           </Switch>
 
         </main>

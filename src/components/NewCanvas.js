@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import CanvasDraw from "react-canvas-draw";
 
 
-class DoodleCanvas extends Component {
+class NewCanvas extends Component {
   state = {
     color: "#ffc600",
     width: 400,
@@ -16,13 +16,13 @@ class DoodleCanvas extends Component {
   }
 
   //set title state when it's edit
-  componentDidMount() {
-    if(this.props.doodle){
-      this.setState({
-        name: this.props.doodle.name
-      })
-    }
-  }
+//   componentDidMount() {
+//     if(this.props.doodle){
+//       this.setState({
+//         name: this.props.doodle.name
+//       })
+//     }
+//   }
 
   handleSave = () => {
     // debugger
@@ -46,14 +46,14 @@ class DoodleCanvas extends Component {
     newObj.width = this.state.width
     newObj.height = this.state.height
 
-    this.props.handleUpdate(newObj, this.props.doodle.id)
+    this.props.addNewDoodle(newObj)
   }
 
   render() {
     // console.log(this.state.name)
     return (
       <div>
-          <div class="modal fade" id="canvasModal" tabindex="-1" role="dialog" aria-labelledby="#canvasModal" aria-hidden="true">
+          <div class="modal fade" id="newCanvasModal" tabindex="-1" role="dialog" aria-labelledby="#newCanvasModal" aria-hidden="true">
             <div class="modal-dialog " role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -82,7 +82,7 @@ class DoodleCanvas extends Component {
             lazyRadius={this.state.lazyRadius}
             canvasWidth={400}
             canvasHeight={400}
-            saveData={this.props.doodle ? JSON.stringify(this.props.doodle.doodle_data) : ''}
+            // saveData={''}
           />
           <div class="tool-container">
             <section class="tools">
@@ -135,4 +135,4 @@ class DoodleCanvas extends Component {
 
 }
 
-export default DoodleCanvas
+export default NewCanvas
