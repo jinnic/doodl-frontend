@@ -20,8 +20,12 @@ class DoodleCard extends Component {
 
   handleEdit = () => {
     const doodle = this.props.doodle
+    let doodle_data = this.props.doodle.doodle_data
+    doodle_data = JSON.stringify(doodle_data)
+    let id = this.props.doodle.id
+    //debugger
     //this.props.showEditCanvas(doodle)
-    this.props.renderExisting(doodle)
+    this.props.renderExisting(doodle_data, id)
   }
 
   renderButtons = () => {
@@ -47,8 +51,10 @@ class DoodleCard extends Component {
 
     const doodle = this.props.doodle
     const doodleData = JSON.stringify(doodle.doodle_data)
-
+    console.log("Doodle Card !!! ", doodle)
+    
     return (
+      
       <div>
 
         {this.renderInfo()}

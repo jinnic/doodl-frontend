@@ -15,13 +15,13 @@ class DoodleCanvas extends Component {
   }
 
   //set title state when it's edit
-  componentDidMount() {
-    if(this.props.doodle){
-      this.setState({
-        name: this.props.doodle.name
-      })
-    }
-  }
+  // componentDidMount() {
+  //   if(this.props.doodle){
+  //     this.setState({
+  //       name: this.props.doodle.name
+  //     })
+  //   }
+  // }
 
   handleSave = () => {
 
@@ -45,13 +45,16 @@ class DoodleCanvas extends Component {
 
     if (Object.entries(this.props.doodle).length === 0){
       console.log("adding")
+      this.props.emptyDoodleEdit()
       this.props.addNewDoodle(newObj)
       //** to redirect in the future : not working yet */
       // this.props.history.push(`/profile`)
     }else{
       console.log('edit this : ', this.props.doodle)
-      this.props.handleUpdate(newObj, this.props.doodle.id)
       this.props.emptyDoodleEdit()
+
+      this.props.handleUpdate(newObj, this.props.doodleId)
+     
       // this.props.closeCanvas()
     }
     
@@ -90,7 +93,7 @@ class DoodleCanvas extends Component {
             lazyRadius={this.state.lazyRadius}
             canvasWidth={400}
             canvasHeight={400}
-            saveData={this.props.doodle ? JSON.stringify(this.props.doodle.doodle_data) : ''}
+            saveData={this.props.doodle}
           />
           <div class="tool-container">
             <section class="tools">

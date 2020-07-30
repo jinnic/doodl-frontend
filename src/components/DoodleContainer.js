@@ -48,6 +48,7 @@ class DoodleContainer extends Component {
   }
   
   render() {
+    console.log("IN DoodleContainer")
     return (
       <div>
         {this.renderDoodleCanvas()}

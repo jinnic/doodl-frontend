@@ -15,7 +15,8 @@ class App extends Component {
     doodles: [],
     searchTerm: "",
     currentUser: {},
-    doodleEdit: {}
+    doodleEdit: '',
+    doodleEditId: ''
   }
 
   componentDidMount() {
@@ -99,28 +100,36 @@ class App extends Component {
     .then(updatedObj => {
       
       // this.updateState(updatedObj)
-      const updatedDoods = this.state.doodles.map(doodle => {
-        if (doodle.id === updatedObj.id) {
-          return updatedObj
-        } else {
-          return doodle
-        }
-      }) 
-      this.setState(
-        {
-          doodles: updatedDoods
-        })
+        const updatedDoods = this.state.doodles.map(doodle => {
+          if (doodle.id === updatedObj.id) {
+            return updatedObj
+          } else {
+            return doodle
+          }
+        }) 
+
+        
+        this.setState(
+          {
+            doodles: updatedDoods
+          })
       
-    }
+      }
     )
 
-    
   }
 
   emptyDoodleEdit =()=>{
-    this.setState(
-      {doodleEdit: {} }
-    )
+    // console.log('++++++++empty ',this.state.doodleEdit)
+    // this.setState(prevState =>({
+    //   doodleEdit: {...prevState.doodleEdit, doodle_date: } 
+    //     })
+    //   )
+    // this.setState({
+    //   doodleEdit: '',
+    //   doodleId: ''
+    // })
+    
   }
 
   //HANDLE DELETE
@@ -137,9 +146,10 @@ class App extends Component {
   }
 
   //EDITTING DOODLE
-  renderExisting = (dood) => {
+  renderExisting = (dood, id) => {
     this.setState({
-      doodleEdit: dood
+      doodleEdit: dood,
+      doodleEditId: id
     })
   }
 
@@ -214,12 +224,13 @@ class App extends Component {
 
   
   render() {
-    console.log('App token : ',localStorage.getItem('token'))
-    console.log(this.state.currentUser)
+    // console.log('App token : ',localStorage.getItem('token'))
+    // console.log(this.state.currentUser)
+    console.log('DOODLEEDIT :', this.state.doodleEdit)
     return (
       <div>
         <Nav currentUser={this.state.currentUser} handleLogout={this.handleLogout}/>
-        <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} handleUpdate={this.handleUpdate} emptyDoodleEdit={this.emptyDoodleEdit} doodle={this.state.doodleEdit}/>
+        <DoodleCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} handleUpdate={this.handleUpdate} emptyDoodleEdit={this.emptyDoodleEdit} doodle={this.state.doodleEdit} doodleId={this.state.doodleEditId}/>
         <main>
           <Switch>
             <Route exact path="/" render={() => (

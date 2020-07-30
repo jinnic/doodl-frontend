@@ -4,7 +4,7 @@ import DoodleContainer from "./DoodleContainer";
 class Profile extends Component {
   
     render() {
-      console.log(this.props)
+      console.log("IN Profile",this.props)
       const { doodles, user, handleDelete, handleUpdate, match, renderExisting} = this.props
       return (
         <div>
