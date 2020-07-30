@@ -2,11 +2,9 @@ import React from "react";
 
 const Search = props => {
   return (
-    <div className="">
-      <div className="">
-        <input className="" onChange={props.getSearchTerm} />
-        <i className="" />
-      </div>
+    <div id="search-bar-container">
+        <label>search doodles:</label>
+        <input id="search-bar" onChange={props.getSearchTerm} />
     </div>
   )
 }

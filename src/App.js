@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
+import $ from 'jquery'
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import DoodleContainer from './components/DoodleContainer';
 import Nav from './components/Nav';
 import Profile from './components/Profile';
@@ -31,16 +33,12 @@ class App extends Component {
         this.setState({
           currentUser: data
         })
-        // console.log(data)
       })
     }
 
     fetch('http://localhost:3000/doodles')
         .then(r=>r.json())
-        .then(doodles => this.setState(
-                                {doodles: doodles.reverse()},
-                              )
-        )
+        .then(doodles => this.setState({doodles: doodles.reverse()}))
   }
 
   handleLogin=(user)=>{
@@ -56,6 +54,7 @@ class App extends Component {
     })
     localStorage.removeItem("token")
   }
+
   /**
    * FUCTION PROPS : FETCH
    */
@@ -107,6 +106,7 @@ class App extends Component {
       "Accept": "application/json",
       "Authorization": `Bearer ${token}`
     },
+
     body: JSON.stringify(user)
     }
     fetch(`http://localhost:3000/users/${id}`, config)
@@ -114,8 +114,7 @@ class App extends Component {
     .then(updatedUser => {
       this.setState({
         currentUser: updatedUser
-      },()=>console.log('UPDATED USER : ', updatedUser))
-      // $('#profileModal').modal("hide")
+      },()=>console.log('UPDATED USER++++++++++', updatedUser))
     })
   }
 
@@ -206,6 +205,7 @@ class App extends Component {
       return filtered
     }
   }
+
   //by USER ID
   filterByUser = () => {
     const doodles = this.state.doodles 
@@ -232,7 +232,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <Nav getSearchTerm={this.getSearchTerm} addNewDoodle={this.addNewDoodle} currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
+        <Nav getSearchTerm={this.getSearchTerm} currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
         <NewCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
         
         <main>

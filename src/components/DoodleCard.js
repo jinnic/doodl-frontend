@@ -42,16 +42,16 @@ class DoodleCard extends Component {
         </>
       )
      }
-     return <h2>{doodle.name}</h2>
+     return <p>{doodle.name}</p>
   }
 
   render() {
-
+    console.log(this.props)
     const doodle = this.props.doodle
     const doodleData = JSON.stringify(doodle.doodle_data)
 
     return (
-      <div className="col-lg-4 col-md-6 col-sm-6 col-12 mb-4 grid-gap">
+      <div className="col-lg-4 col-md-4 col-sm-6 col-12 mb-4 grid-gap">
         <div className="doodle-card">
           <div class="fake-canvas">
 
@@ -59,8 +59,8 @@ class DoodleCard extends Component {
             immediateLoading={true}
               disabled
               hideGrid
-              canvasWidth={500}
-              canvasHeight={450}
+              canvasWidth={400}
+              canvasHeight={400}
               ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
               saveData={doodleData}
               className="img-fluid disabled-canvas"
@@ -73,7 +73,10 @@ class DoodleCard extends Component {
             {this.renderInfo()}
             {this.renderButtons()}
           </span>
-          <span className="like">♡</span>
+          <section>
+            <span>{doodle.likes.length}</span>
+            <span className="like">♡</span>
+          </section>
           
         </div>
         </div>

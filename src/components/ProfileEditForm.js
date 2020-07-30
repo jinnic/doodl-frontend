@@ -7,11 +7,22 @@ class ProfileEditForm extends Component {
         password: this.props.user.password,
         bio: this.props.user.bio
     }
+    //set title state when it's edit
+    // componentDidMount() {
+        
+    //     if(this.props.user){
+    //         this.setState({
+    //             user_name: this.props.user.user_name,
+    //             password: this.props.user.password,
+    //             bio: this.props.user.bio
+    //         })
+    //     }
+    // }
 
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-        })
+        },()=>console.log(this.state))
     }
 
     handleSubmit = (e) => {
