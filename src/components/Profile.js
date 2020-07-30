@@ -38,12 +38,14 @@ class Profile extends Component {
   render() {
     const { doodles, user, handleDelete, handleUpdate, userUpdate, renderExisting, match } = this.props
     return (
-      <div>
+      <div id="profile-page">
         <div>
+          <div id="profile-info-container">
           <h2>{user.user_name}'s artwork</h2>
           <p>bio: {user.bio}</p>
-          <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#profileModal">edit user profile</button>
-          <ProfileEditForm userDelete={this.props.userDelete} userUpdate={userUpdate} user={user} updateUserInfo={this.updateUserInfo}/>
+            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#profileModal">edit user profile</button>
+            <ProfileEditForm userDelete={this.props.userDelete} userUpdate={userUpdate} user={user} updateUserInfo={this.updateUserInfo}/>
+          </div>
           <DoodleContainer 
           user={user}
           handleDelete={handleDelete} 

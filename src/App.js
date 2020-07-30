@@ -226,10 +226,12 @@ class App extends Component {
       <>
         <Nav getSearchTerm={this.getSearchTerm} currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
         <NewCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
+        
         <main>
           <Switch>
             <Route exact path="/" render={() => (
-              <>
+              <>  
+                  <Search getSearchTerm={this.getSearchTerm}/>
                   <SignUpIn handleLogin={this.handleLogin}/>
                   <DoodleContainer doodles={this.filterDoodles()}/>
               </>
