@@ -11,7 +11,7 @@ class NewCanvas extends Component {
     height: 400,
     brushRadius: 5,
     lazyRadius: 0,
-    name: '',
+    name: 'masterpiece name',
     doodle: {}
   }
 
@@ -53,8 +53,8 @@ class NewCanvas extends Component {
     // console.log(this.state.name)
     return (
       <div>
-          <div class="modal fade" id="newCanvasModal" tabindex="-1" role="dialog" aria-labelledby="#newCanvasModal" aria-hidden="true">
-            <div class="modal-dialog " role="document">
+          <div class="doodle-modal modal fade" id="newCanvasModal" tabindex="-1" role="dialog" aria-labelledby="#newCanvasModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   {/* <section className="clear-undo-container"> */}

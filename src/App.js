@@ -38,7 +38,7 @@ class App extends Component {
 
     fetch('http://localhost:3000/doodles')
         .then(r=>r.json())
-        .then(doodles => this.setState({doodles: doodles.reverse()}))
+        .then(doodles => this.setState({doodles: doodles}))
   }
 
   handleLogin=(user)=>{

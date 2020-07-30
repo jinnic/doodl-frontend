@@ -1,11 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
-$primary: rgb(182, 182, 182);
-$dark-accent: rgb(59, 59, 59);
-$light-accent: rgb(245, 245, 245);
-$border-radius: 5px;
+//colors
+$primary: #662DAB;
+$secondary: #93D8C7;
+$light-accent: white;
 
-$font-color: black;
+//radi
+$card-radius: 15px;
+$button-radius: 5px;
+
+//font-size
+$title-font: 30px;
+$general-font: 18px;
+$button-font: 15px;
+$nav-font: 20px;
+$smaller-font: 12px;
+
 
 
 * {
@@ -17,10 +28,11 @@ $font-color: black;
 
 body {
     // background-color: $light-accent;
+    font-family: 'Roboto', sans-serif;
 }
 
 main {
-    margin-top: 70px;
+    margin-top: 120px;
 }
 
 //NAV
@@ -31,12 +43,12 @@ nav {
     top: 0;
     z-index: 20;
     background-color: $primary;
-    height: 80px;
+    height: 100px;
 }
 
-nav {
-    height: 80px;
-}
+// nav {
+//     height: 80px;
+// }
 
 nav ul {
     list-style: none;
@@ -135,8 +147,11 @@ nav #search-container {
 
 
 .doodle-card {
-    background-color: $primary;
-    border-radius: $border-radius;
+    // background-color: $doodle-card;
+    // border: 1px solid $doodle-card;
+    // border-radius: $border-radius;
+    // width: 400px;
+    // height: 500px;
 }
 
 .disabled-canvas {
@@ -144,15 +159,15 @@ nav #search-container {
     height: auto;
     object-fit: contain;
     margin: 0 auto;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
+    // border-top-left-radius: $border-radius;
+    // border-top-right-radius: $border-radius;
 }
 
 .fake-canvas {
     width: 100%;
     background-color: white;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
+    // border-top-left-radius: $border-radius;
+    // border-top-right-radius: $border-radius;
 }
 
 
@@ -162,25 +177,34 @@ nav #search-container {
 }
 
 .grid-gap {
-    padding: 3%;
+    padding: 1%;
+}
+
+.container-fluid {
+    width: 90%;
+    margin: 0 auto;
+
 }
 
 #profile-info-container {
-    margin: 0 3%;
+    width: 88%;
+    margin: 0  auto;
 }
 
 .like-title-container {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: flex-end;
     width: 100%;
     padding: 6px;
 }
 
 .like {
-    font-size: 35px !important;
-    align-self: center;
-    justify-self: flex-end;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    border: 1px solid;
 }
 
 p {
@@ -189,29 +213,20 @@ p {
 
 
 //DOODLE CANVAS
-// .modal { background: rgba(000, 000, 000, 0.8); min-height:1000000px; }
-// .modal-backdrop.in { z-index: auto;}
 
-// .clear-undo-container {
-//     display: flex;
-//     justify-content: center;
-//     width: 100%;
-//     padding: 12px;
-// }
-
-#canvasModal .modal-content {
+.doodle-modal .modal-content {
     background-color: $primary;
 }
 
-.modal-header button {
+.doodle-modal  button {
     margin: 0 10px;
 }
 
-.modal-header {
+.doodle-modal .modal-header {
     border: none;
 }
 
-.modal-body {
+.doodle-modal .modal-body {
     padding: 0;
 }
 
@@ -262,7 +277,7 @@ input[type="color"] {
         content: '';
         // use the linear-gradient for the fading effect
         // use a solid background color for a solid bar
-        background:$dark-accent;
+        // background:$dark-accent;
         position: absolute;
         left: 0;
         top: 50%;
@@ -274,7 +289,7 @@ input[type="color"] {
         content: attr(data-content);
         position: relative;
         display: inline-block;
-        color:$dark-accent;
+        // color:$dark-accent;
 
         padding: 0 .5em;
         line-height: 1.5em;

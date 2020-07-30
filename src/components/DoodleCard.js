@@ -51,7 +51,7 @@ class DoodleCard extends Component {
     const doodleData = JSON.stringify(doodle.doodle_data)
 
     return (
-      <div className="col-lg-4 col-md-4 col-sm-6 col-12 mb-4 grid-gap">
+      <div className="col-lg-4 col-md-4 col-sm-6 col-12 grid-gap">
         <div className="doodle-card">
           <div class="fake-canvas">
 
@@ -75,7 +75,7 @@ class DoodleCard extends Component {
           </span>
           <section>
             {/* <span>{doodle.likes.length}</span> */}
-            <span className="like">♡</span>
+            <span className="like"> </span>
           </section>
           
         </div>

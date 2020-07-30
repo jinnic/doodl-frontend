@@ -11,33 +11,31 @@ class DoodleCanvas extends Component {
     height: 400,
     brushRadius: 5,
     lazyRadius: 0,
-    name: '',
+    name: this.props.doodle.name,
     doodle: {}
   }
 
-  //set title state when it's edit
-  componentDidMount() {
-    if(this.props.doodle){
+
+
+  handleSave = () => {
+    // debugger
+    this.setState({
+      doodle: this.saveableCanvas.getSaveData()
+    }, this.updateDrawing)
+
+    this.saveableCanvas.clear()
+  }
+
+  componentDidUpdate(prevProps) {
+
+    if (this.props.doodle !== prevProps.doodle) {
       this.setState({
         name: this.props.doodle.name
       })
     }
   }
 
-  handleSave = () => {
-    // debugger
-    this.setState({
-      doodle: this.saveableCanvas.getSaveData()
-    }, this.addOrUpdate)
-
-    //clear canvas
-    this.saveableCanvas.clear()
-    // this.setState({
-    //   name: ''
-    // })
-  }
-
-  addOrUpdate = () => {
+  updateDrawing = () => {
     let newObj = {}
     
     newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
@@ -50,11 +48,11 @@ class DoodleCanvas extends Component {
   }
 
   render() {
-    // console.log(this.state.name)
+    console.log(this.props.doodle)
     return (
       <div>
-          <div class="modal fade" id="canvasModal" tabindex="-1" role="dialog" aria-labelledby="#canvasModal" aria-hidden="true">
-            <div class="modal-dialog " role="document">
+          <div class="doodle-modal modal fade" id="canvasModal" tabindex="-1" role="dialog" aria-labelledby="#canvasModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   {/* <section className="clear-undo-container"> */}
@@ -82,7 +80,7 @@ class DoodleCanvas extends Component {
             lazyRadius={this.state.lazyRadius}
             canvasWidth={400}
             canvasHeight={400}
-            saveData={this.props.doodle ? JSON.stringify(this.props.doodle.doodle_data) : ''}
+            saveData={JSON.stringify(this.props.doodle.doodle_data)}
           />
           <div class="tool-container">
             <section class="tools">
