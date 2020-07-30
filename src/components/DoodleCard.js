@@ -34,7 +34,7 @@ class DoodleCard extends Component {
 
   renderInfo =()=>{
     const doodle = this.props.doodle
-    if (this.props.page === "home") {
+    if (!this.props.match) {
       return (
         <> 
           <p>{doodle.name}</p>

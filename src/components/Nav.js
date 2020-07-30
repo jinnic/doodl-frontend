@@ -8,7 +8,7 @@ class Nav extends Component {
 
     render() {
 
-    const { navChange, handleLogout, currentUser, getSearchTerm, addNewDoodle } = this.props
+    const { handleLogout, currentUser, getSearchTerm} = this.props
 
       return (
         <nav>
@@ -19,13 +19,13 @@ class Nav extends Component {
               <>
                 <Link to='/profile' >Profile</Link>
                 <button data-toggle="modal" data-target="#newCanvasModal">Draw Doodle</button>
-                <Link to='/'>Log Out</Link>
+                <Link to='/' onClick={handleLogout}>Log Out</Link>
               </>
             }
 
-          <div id="search-container">
+          {/* <div id="search-container">
             <Search getSearchTerm={getSearchTerm}/>
-          </div>
+          </div> */}
         </nav>
       )
     }

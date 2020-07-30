@@ -118,16 +118,7 @@ class SignUpIn extends Component {
                             <button id='submitBtn' name='signUp' className="btn btn-primary mx-auto d-block"  type="submit">{this.state.toggle === 'sign up' ? 'Sign up' : 'Log In'}</button>
                         </form>
                         <hr className="hr-text" data-content="or"/>
-                            {/* <div className="form-group">
-                                <label>Username</label>
-                                <input className='form-control' name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text" placeholder="username"/>
-                            </div>
-                            <div className="form-group">
-                                <label>Password</label>
-                                <input className='form-control' name='password' value={this.state.password} onChange={this.handleChange} type="password" placeholder="password"/>
-                            </div> */}
-                            {/* <p className="text-center stretched-link"><button className="btn" onClick={this.handleToggle}>{this.state.toggle ? 'Sign up' : 'Log In'}</button></p> */}
-
+                          
                             <button onClick={this.handleToggle} className="btn mx-auto d-block" type="click">{this.state.toggle !== 'sign up' ? 'Sign up' : 'Log In'}</button>
                       </div>
                       {/* <div class="modal-footer">

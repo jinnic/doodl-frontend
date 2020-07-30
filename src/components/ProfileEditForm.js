@@ -1,27 +1,17 @@
 import React, { Component } from "react";
-
+import $ from 'jquery'
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 class ProfileEditForm extends Component {
     state = {
         user_name:this.props.user.user_name,
         password: this.props.user.password,
         bio: this.props.user.bio
     }
-    //set title state when it's edit
-    // componentDidMount() {
-        
-    //     if(this.props.user){
-    //         this.setState({
-    //             user_name: this.props.user.user_name,
-    //             password: this.props.user.password,
-    //             bio: this.props.user.bio
-    //         })
-    //     }
-    // }
 
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-        },()=>console.log(this.state))
+        })
     }
 
     handleSubmit = (e) => {
@@ -34,6 +24,7 @@ class ProfileEditForm extends Component {
         } 
         // this.props.updateUserInfo(userObj)
         this.props.userUpdate(userObj, this.props.user.id)
+        $('#profileModal').modal("hide")
     }
   
     render() {
@@ -62,7 +53,7 @@ class ProfileEditForm extends Component {
                         
                     </div>
                     <div className="modal-footer">
-                    <button type="button" className="btn btn-primary" type="submit">Update</button>
+                    <button type="button" className="btn btn-primary" type="submit" >Update</button>
                     <button className="btn btn-secondary" onClick={()=> this.props.userDelete(this.props.user.id)}>Delete</button>
                     </div>
                 </div>
