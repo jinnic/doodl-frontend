@@ -91,6 +91,7 @@ class SignUpIn extends Component {
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
+                        
                       </div>
                       <div class="modal-body">
                         <form onSubmit={this.handleSubmit}>
@@ -104,11 +105,11 @@ class SignUpIn extends Component {
                             </div>
                             <div class="alert" role="alert">
                             </div>
-                            <button id='submitBtn' name='signUp' className="btn btn-primary mx-auto d-block"  type="submit">{this.state.toggle === 'sign up' ? 'Sign up' : 'Log In'}</button>
+                            <button id='submitBtn' name='signUp' className="button mx-auto d-block"  type="submit">{this.state.toggle === 'sign up' ? 'Sign up' : 'Log In'}</button>
                         </form>
                         <hr className="hr-text" data-content="or"/>
                           
-                            <button onClick={this.handleToggle} className="btn mx-auto d-block" type="click">{this.state.toggle !== 'sign up' ? 'Sign up' : 'Log In'}</button>
+                            <button onClick={this.handleToggle} className="sign-toogle-button mx-auto d-block" type="click">{this.state.toggle !== 'sign up' ? 'Sign up' : 'Log In'}</button>
                       </div>
                       {/* <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -4,8 +4,7 @@ const Search = props => {
   return (
     // <div id="search-bar-container">
     <>
-        <label>search doodles:</label>
-        <input id="search-bar" onChange={props.getSearchTerm} />
+        <input id="search-bar" onChange={props.getSearchTerm} placeholder="search doodles here"/>
     </>
     // </div>
   )

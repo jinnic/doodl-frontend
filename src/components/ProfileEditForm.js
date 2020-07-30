@@ -45,7 +45,6 @@ class ProfileEditForm extends Component {
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                 <form onSubmit={this.handleSubmit}>
-                <div className='form-group'>
                     <div className="modal-header">
                         <h5 className="modal-title" id="profileModalLabel">Edit {this.props.user.user_name}'s profile</h5>
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
@@ -53,6 +52,7 @@ class ProfileEditForm extends Component {
                         </button>
                     </div>
                     <div className="modal-body">
+                        <div className='form-group'>
 
                             <label>Username:</label>
                             <input className='form-control' name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text"/>
@@ -61,13 +61,13 @@ class ProfileEditForm extends Component {
                             <label>Bio:</label>
                             <input className='form-control' name='bio' value={this.state.bio} onChange={this.handleChange} type="text"/>
                             
-                        
+                        </div>    
                     </div>
                     <div className="modal-footer">
-                    <button type="button" className="btn btn-primary" type="submit" >Update</button>
-                    <button className="btn btn-secondary" onClick={()=> this.props.userDelete(this.props.user.id)}>Delete</button>
+                    <button type="button" className="button" type="submit" >Update</button>
+                    <button className="button" onClick={()=> this.props.userDelete(this.props.user.id)}>Delete</button>
                     </div>
-                </div>
+
                 </form>
                 </div>
             </div>
