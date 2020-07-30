@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import $ from 'jquery'
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-
 import { useHistory } from "react-router-dom";
-
 class SignUpIn extends Component {
     state = {
       user_name: '',
@@ -11,14 +9,12 @@ class SignUpIn extends Component {
       bio: '',
       toggle: 'sign up'
     }
-
     handleChange=(e)=>{
       this.setState({
         [e.target.name]: e.target.value
       })
       document.querySelector('.alert').innerText = ''
     }
-
     handleToggle =()=>{
       this.setState(prevState =>{
         if(prevState.toggle === 'sign up'){
@@ -33,10 +29,9 @@ class SignUpIn extends Component {
       this.setState({
         user_name: '',
         password: '',
-        toggle: 'log in'
+        toggle: 'sign up'
       })
     }
-
     handleSignIn =()=>{
       // console.log('Im logged in fetch')
        fetch(`http://localhost:3000/login`, {
@@ -59,9 +54,7 @@ class SignUpIn extends Component {
             document.querySelector('.alert').innerText = data.failure
           }
         })
-
     }
-
     handleSignUp =()=>{
       // console.log('Im sign up fetch')
         fetch(`http://localhost:3000/users`, {
@@ -80,26 +73,21 @@ class SignUpIn extends Component {
             //console.log('sign up fetch : ',data)
         })
     }
-
     handleSubmit = (e) => {
       e.preventDefault()
-      if(this.state.toggle === 'log in'){
-        this.handleSignIn()
-      }else{
+      if(this.state.toggle === 'sign up'){
         this.handleSignUp()
-        
+      }else{
+        this.handleSignIn()
       }
-
     }
-
-
     render() {
       return (
         <div class="modal fade" id="signModal" tabindex="-1" role="dialog" aria-labelledby="signModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title " id="signModalLabel">{this.state.toggle === 'log in' ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
+                        <h5 class="modal-title " id="signModalLabel">{this.state.toggle === 'sign up' ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -116,11 +104,11 @@ class SignUpIn extends Component {
                             </div>
                             <div class="alert" role="alert">
                             </div>
-                            <button id='submitBtn' name='signUp' className="btn btn-primary mx-auto d-block"  type="submit">{this.state.toggle === 'log in' ? 'Sign up' : 'Log In'}</button>
+                            <button id='submitBtn' name='signUp' className="btn btn-primary mx-auto d-block"  type="submit">{this.state.toggle === 'sign up' ? 'Sign up' : 'Log In'}</button>
                         </form>
                         <hr className="hr-text" data-content="or"/>
                           
-                            <button onClick={this.handleToggle} className="btn mx-auto d-block" type="click">{this.state.toggle !== 'log in' ? 'Sign up' : 'Log In'}</button>
+                            <button onClick={this.handleToggle} className="btn mx-auto d-block" type="click">{this.state.toggle !== 'sign up' ? 'Sign up' : 'Log In'}</button>
                       </div>
                       {/* <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

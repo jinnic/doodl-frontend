@@ -74,7 +74,7 @@ class DoodleCard extends Component {
             {this.renderButtons()}
           </span>
           <section>
-            <span>{doodle.likes.length}</span>
+            {/* <span>{doodle.likes.length}</span> */}
             <span className="like">♡</span>
           </section>
           

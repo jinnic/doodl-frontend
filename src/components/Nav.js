@@ -49,7 +49,7 @@ class Nav extends Component {
         // </nav>
 
         <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-primary">
-          <span className="navbar-brand abs"><Search/></span>
+          <span className="navbar-brand abs" ><Search getSearchTerm={getSearchTerm} /></span>
           {/* <Link to='/' className="navbar-brand abs" id="logo"><span id="D">D</span>
               <span id="O">O</span><span id="O2">O</span><span id="D2">D</span><span id="L">L</span></Link> */}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
@@ -66,6 +66,7 @@ class Nav extends Component {
           {!currentUser.id ? 
                 <li className="nav-item"> <Link className="nav-link" to='/'  data-toggle="modal" data-target="#signModal" >Log In | Sign Up</Link> </li>:  
                 <>
+
                   <li className="nav-item"> <Link to='/profile' className="nav-link" >Profile</Link>  </li>
                   <li className="nav-item"><a className="nav-link" data-toggle="modal" data-target="#newCanvasModal">Draw Doodle</a> </li>
                   <li className="nav-item"> <Link to='/' className="nav-link" onClick={handleLogout}>Log Out</Link></li>
