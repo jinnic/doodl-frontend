@@ -208,6 +208,16 @@ nav #search-container {
     padding: 10px;
 }
 
+.liked {
+    background-color: $primary;
+    display: inline-block;
+    align-self: flex-end;
+    height: 26px;
+    width: 26px;
+    border-radius: 13px;
+    border: 3px solid $primary;
+}
+
 .doodle-name {
     font-size: $general-font;
     margin-bottom: 3px;

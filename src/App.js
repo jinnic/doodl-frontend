@@ -93,7 +93,7 @@ class App extends Component {
     fetch(`http://localhost:3000/doodles/${id}`, config)
     .then(r => r.json())
     .then(updatedObj => {
-       this.updateState(updatedObj)})
+       this.updateState(updatedObj, doodle)})
   }
 
   likeUpdate = (doodle) => {
@@ -104,20 +104,17 @@ class App extends Component {
 
     const token = localStorage.getItem("token")
     const config = {
-      method: 'PATCH',
+      method: 'POST',
       headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
       "Authorization": `Bearer ${token}`
     },
-    body: JSON.stringify({likes: [newLikeObj]})
+    body: JSON.stringify(newLikeObj)
     }
-    fetch(`http://localhost:3000/doodles/${doodle.id}`, config)
+    fetch(`http://localhost:3000/likes`, config)
     .then(r => r.json())
-    .then(console.log)
-
-    
-    
+    .then(obj => this.handleLikeState(obj, doodle)) 
   }
 
   userUpdate = (user, id) => {
@@ -175,6 +172,21 @@ class App extends Component {
     this.setState({
       doodles: [newDoodle, ...this.state.doodles]
     })
+  }
+
+  //if obj that like post returns is empty
+  //we need to delete it
+  //if it comes back with like, add to state
+  handleLikeState = (like, doodle) => {
+    if (Number.isInteger(like)) {
+      let foundDood = this.state.doodles.find(dood => dood.id === doodle.id)
+      console.log(foundDood.likes)
+      // let foundLike = foundDood.likes.find(l => l.id === like)
+      // console.log(foundLike)
+    }
+    else {
+      console.log("add me im liked")
+    }
   }
 
   //UPDATE

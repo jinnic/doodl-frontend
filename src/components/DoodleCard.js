@@ -6,6 +6,15 @@ import CanvasDraw from "react-canvas-draw";
 
 class DoodleCard extends Component {
 
+  state = {
+    likeStatus: ""
+  }
+  componentDidMount() {
+    this.setState({
+      likeStatus: this.props.doodle.likes.length > 0 ? true : false
+    })
+  }
+
   handleClick=(e)=>{
       // let dataURL = canvas.toDataURL('image/png');
       // button.href = dataURL;
@@ -41,6 +50,13 @@ class DoodleCard extends Component {
      }
   }
 
+  handleLike = () => {
+    this.props.likeUpdate(this.props.doodle)
+    this.setState(prevState => ({
+      likeStatus: !prevState.likeStatus
+    }))
+  }
+
   render() {
     console.log(this.props)
     const doodle = this.props.doodle
@@ -71,7 +87,7 @@ class DoodleCard extends Component {
             </div>
             <section>
               <span>{doodle.likes.length}</span>
-              <span className="like" onClick={() => this.props.likeUpdate(doodle)}> </span>
+              <span className={this.state.likeStatus ? "liked" : "like"} onClick={this.handleLike}> </span>
             </section>
         </div>
         </div>
