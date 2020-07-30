@@ -5,13 +5,28 @@ import ProfileEditForm from "./ProfileEditForm";
 class Profile extends Component {
   state = {
     showEditForm: false
+    // user: this.props.user
   }
 
-  renderForm = () => {
-    if (this.state.showEditForm === true) {
-      return <ProfileEditForm userDelete={this.props.userDelete} userUpdate={this.props.userUpdate} user={this.props.user}/>
-    }
-  }
+  componentDidMount() {
+    console.log('Profile compomentMount ', this.state.user)   
+    // if(this.props.user){
+    //     this.setState({
+    //        user: this.props.user
+    //     },()=>console.log('Profile compomentMount ', this.state.user))
+    // }
+}
+
+  // renderForm = () => {
+  //   if (this.state.showEditForm === true) {
+  //     return <ProfileEditForm userDelete={this.props.userDelete} userUpdate={this.props.userUpdate} user={this.props.user}/>
+  //   }
+  // }
+
+  //why is it not rerendering???
+  // updateUserInfo=(user)=>{
+  //   this.setState({user: user},()=>console.log('Profile update info : ',user))
+  // }
 
   updateState = (e) => {
     e.preventDefault()
@@ -27,32 +42,8 @@ class Profile extends Component {
         <div>
           <h2>{user.user_name}'s artwork</h2>
           <p>bio: {user.bio}</p>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#profileModal">edit user profile</button>
-
-          <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="profileModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                          hi
-                        <ProfileEditForm userDelete={this.props.userDelete} userUpdate={this.props.userUpdate} user={this.props.user}/>
-
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div>
+          <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#profileModal">edit user profile</button>
+          <ProfileEditForm userDelete={this.props.userDelete} userUpdate={userUpdate} user={user} updateUserInfo={this.updateUserInfo}/>
           <DoodleContainer 
           user={user}
           handleDelete={handleDelete} 
