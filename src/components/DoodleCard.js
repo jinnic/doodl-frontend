@@ -25,10 +25,10 @@ class DoodleCard extends Component {
 
   renderButtons = () => {
     if (this.props.match && this.props.match.url === "/profile") {
-     return <> 
+     return <span className="edit-delete"> 
       <button className="button" data-toggle="modal" data-target="#canvasModal" onClick={this.handleEdit}>edit</button>
       <button className="button" onClick={() => this.props.handleDelete(this.props.doodle.id)}>delete</button> 
-     </>
+     </span>
     }
   }
 
@@ -36,13 +36,9 @@ class DoodleCard extends Component {
     const doodle = this.props.doodle
     if (!this.props.match) {
       return (
-        <> 
-          <p>{doodle.name}</p>
-          <p>created by {doodle.username}</p>
-        </>
+          <p className="created-by">created by {doodle.username}</p>
       )
      }
-     return <p>{doodle.name}</p>
   }
 
   render() {
@@ -68,16 +64,13 @@ class DoodleCard extends Component {
 
         </div>
         <div className="like-title-container">
-
-          <span>
-            {this.renderInfo()}
-            {this.renderButtons()}
-          </span>
-          <section>
-            {/* <span>{doodle.likes.length}</span> */}
-            <span className="like"> </span>
-          </section>
-          
+            <div>
+              <p className="doodle-name">{doodle.name}</p>
+                {this.renderButtons()}
+                {this.renderInfo()}
+            </div>
+                {/* <span>{doodle.likes.length}</span> */}
+              <span className="like"> </span>
         </div>
         </div>
       </div>

@@ -17,9 +17,22 @@ $button-font: 15px;
 $nav-font: 20px;
 $smaller-font: 12px;
 
+//removing outlines and other input edits
+input:focus {
+    outline: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+input::-webkit-color-swatch {
+    border: none;
+}
+
 //button styling
 .button {
-    border: 1px solid $primary;
+    border: 2px solid $primary;
     border-radius: $button-radius;
     color: $primary;
     background-color: transparent;
@@ -34,6 +47,8 @@ $smaller-font: 12px;
     border: 1px solid $secondary;
     border-radius: $button-radius;
     color: $secondary;
+    height: 30px;
+    align-self: center;
     background-color: transparent;
 }
 
@@ -42,17 +57,9 @@ $smaller-font: 12px;
     color: $primary
 }
 
-
-
-* {
-    /* border: 1px solid; */
-    // padding: 0 !important; 
-    // margin: 0 !important;
-    // font-size: 1rem !important;
-}
-
 body {
-    // background-color: $light-accent;
+    color: $primary;
+    font-weight: 500;
     background-color: $primary;
     font-family: 'Roboto', sans-serif;
 }
@@ -153,9 +160,6 @@ nav #search-container {
 
 
 //DOODLE CARD
-// .doodle-card canvas {
-
-// }
 
 .modal canvas {
     width: 100% !important;
@@ -174,8 +178,8 @@ nav #search-container {
 
 .doodle-card {
     background-color: $secondary;
-    // border: 1px solid $doodle-card;
-    // border-radius: $border-radius;
+    border: 3px solid $secondary;
+    border-radius: $card-radius;
     // width: 400px;
     // height: 500px;
 }
@@ -185,18 +189,55 @@ nav #search-container {
     height: auto;
     object-fit: contain;
     margin: 0 auto;
-    // border-top-left-radius: $border-radius;
-    // border-top-right-radius: $border-radius;
+    border-top-left-radius: $card-radius;
+    border-top-right-radius: $card-radius;
 }
 
 .fake-canvas {
     width: 100%;
     background-color: white;
-    // border-top-left-radius: $border-radius;
-    // border-top-right-radius: $border-radius;
+    border-top-left-radius: $card-radius;
+    border-top-right-radius: $card-radius;
+}
+
+.like-title-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+}
+
+.doodle-name {
+    font-size: $general-font;
+    margin-bottom: 3px;
 }
 
 
+.created-by {
+    font-size: $smaller-font;
+}
+
+
+.edit-delete button {
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.like {
+    display: inline-block;
+    align-self: flex-end;
+    height: 26px;
+    width: 26px;
+    border-radius: 13px;
+    border: 3px solid $primary;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+//DOODLE CONTAINER
 .col-lg-4, .col-md-6 .col-sm-6 .col-12 {
     padding: 0;
     margin: 0;
@@ -212,40 +253,33 @@ nav #search-container {
 
 }
 
+//PROFILE
+
 #profile-info-container {
+    color: $secondary;
     width: 88%;
     margin: 0  auto;
 }
 
-.like-title-container {
+#profile-edit-container {
+    width: 30%;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    width: 100%;
-    padding: 6px;
 }
 
-.like {
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
-    border: 1px solid;
-}
-
-p {
-    margin-bottom: 0;
+#line {
+    background-color: $secondary;
+    height: 2px;
+    width: 32%;
+    margin: 10px 0 35px 0;
 }
 
 
 //DOODLE CANVAS
 
 .doodle-modal .modal-content {
-    background-color: $primary;
-}
-
-.doodle-modal  button {
-    margin: 0 10px;
+    background-color: $secondary;
+    border-radius: $card-radius;
 }
 
 .doodle-modal .modal-header {
@@ -256,6 +290,20 @@ p {
     padding: 0;
 }
 
+.close {
+    color: $primary;
+    opacity: 1;
+}
+
+.clear-undo {
+    width: 100%;
+    text-align: center;
+}
+
+.undo {
+    margin-left: 7px;
+}
+
 .tool-container {
     display:flex;
     justify-content: space-between;
@@ -263,29 +311,59 @@ p {
     align-items: flex-end;
 }
 
-.brush-radius-input {
-    width: 50px;
+.tool-container input {
+    height: 25px;
+    border: none;
+    background-color: $secondary;
+    color: $primary;
+    text-align: center;
+    margin: 0 5px;
+    border-bottom: 2px solid $primary;
 }
 
-.brush-color-input {
-    width: 40px;
-    height: 30px;
+.brush-radius-input {
+    width: 50px;
+    padding-left: 12px;
+}
+
+input[type="color"] {
+    width: 45px;
+    color: $light-accent;
+    height: 25px;
+    padding: 0;
+}
+
+input[type="color"]:hover {
+    cursor: pointer;
 }
 
 .random-button {
+    border: 1px solid $primary;
+    width: 55px;
+    font-size: $smaller-font;
+    border-radius: $button-radius;
+    color: $primary;
+    background-color: transparent;
+}
+
+.random-button:hover {
     background: linear-gradient(to right, rgb(255, 203, 106) , rgb(255, 247, 129), rgb(119, 235, 119), rgb(117, 255, 255), rgb(117, 154, 255), violet);
 }
 
 .save-button {
-    width: 75px;
-    height: 75px;
-    border-radius: 37.5px;
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    border: none;
+    border-radius: 30px;
+    background-color: $primary;
+    color: $secondary;
+    font-weight: 500;
 }
 
-input[type="color"] {
-    padding: 0;
-    margin: 0;
-    border: 1px solid;
+.save-button:hover {
+    color: $light-accent;
+    background-color: rgb(255, 138, 134);
 }
 
 // Form SCSS
@@ -348,8 +426,4 @@ input[type="color"] {
     width: 40%;
     margin: 0 auto;
     text-align: center;
-}
-
-#search-bar {
-    // width: 100%;
 }

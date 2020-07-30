@@ -6,7 +6,7 @@ import CanvasDraw from "react-canvas-draw";
 
 class DoodleCanvas extends Component {
   state = {
-    color: "#ffc600",
+    color: "#672DAC",
     width: 400,
     height: 400,
     brushRadius: 5,
@@ -54,16 +54,16 @@ class DoodleCanvas extends Component {
           <div class="doodle-modal modal fade" id="canvasModal" tabindex="-1" role="dialog" aria-labelledby="#canvasModal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
-                <div class="modal-header">
-                  {/* <section className="clear-undo-container"> */}
-                    <button onClick={() => this.saveableCanvas.clear()}>
-                      clear
-                    </button>
-                    <button onClick={() => this.saveableCanvas.undo()}>
-                      undo
-                    </button>
-                  {/* </section> */}
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <div class="modal-header">
+                    <section className="clear-undo">
+                        <button className="button" onClick={() => this.saveableCanvas.clear()}>
+                        clear
+                        </button>
+                        <button className="button undo" onClick={() => this.saveableCanvas.undo()}>
+                        undo
+                        </button>
+                    </section>
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -82,7 +82,8 @@ class DoodleCanvas extends Component {
             canvasHeight={400}
             saveData={JSON.stringify(this.props.doodle.doodle_data)}
           />
-          <div class="tool-container">
+
+<div class="tool-container">
             <section class="tools">
               <label>title:</label>
               <input
@@ -93,7 +94,7 @@ class DoodleCanvas extends Component {
                 }
               />
               <br></br>
-              <label>brush radius:</label>
+              <label>brush:</label>
               <input
                 className="brush-radius-input"
                 type="number"
@@ -102,9 +103,9 @@ class DoodleCanvas extends Component {
                   this.setState({ brushRadius: parseInt(e.target.value, 10) })
                 }
               />
-              <label>brush color:</label>
+              <label>color:</label>
               <input
-                className="brush-color-input"
+                className="brush-color-input align-middle"
                 type="color"
                 value={this.state.color}
                 onChange={e =>
@@ -124,6 +125,7 @@ class DoodleCanvas extends Component {
               </section>
               <button className="save-button" onClick={this.handleSave} data-dismiss="modal">save</button>
           </div>
+
           </div>
           </div>
         </div>
