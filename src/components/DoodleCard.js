@@ -69,8 +69,10 @@ class DoodleCard extends Component {
                 {this.renderButtons()}
                 {this.renderInfo()}
             </div>
-                {/* <span>{doodle.likes.length}</span> */}
-              <span className="like"> </span>
+            <section>
+              <span>{doodle.likes.length}</span>
+              <span className="like" onClick={() => this.props.likeUpdate(doodle)}> </span>
+            </section>
         </div>
         </div>
       </div>

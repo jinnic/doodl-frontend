@@ -41,6 +41,7 @@ class DoodleContainer extends Component {
         handleUpdate={this.props.handleUpdate}
         handleDelete={this.props.handleDelete} 
         match={this.props.match}
+        likeUpdate={this.props.likeUpdate}
         page={this.props.page} key={doodle.id} 
         doodle={doodle}
 

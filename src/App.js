@@ -96,6 +96,30 @@ class App extends Component {
        this.updateState(updatedObj)})
   }
 
+  likeUpdate = (doodle) => {
+    const newLikeObj = {
+        doodle_id: doodle.id,
+        user_id: this.state.currentUser.id
+    }
+
+    const token = localStorage.getItem("token")
+    const config = {
+      method: 'PATCH',
+      headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+    },
+    body: JSON.stringify({likes: [newLikeObj]})
+    }
+    fetch(`http://localhost:3000/doodles/${doodle.id}`, config)
+    .then(r => r.json())
+    .then(console.log)
+
+    
+    
+  }
+
   userUpdate = (user, id) => {
     const token = localStorage.getItem("token")
 
@@ -230,6 +254,7 @@ class App extends Component {
 
   
   render() {
+    // console.log(this.state.currentUser)
     return (
       <>
         <Nav getSearchTerm={this.getSearchTerm} currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
@@ -241,7 +266,7 @@ class App extends Component {
               <>  
                   {/* <Search getSearchTerm={this.getSearchTerm}/> */}
                   <SignUpIn handleLogin={this.handleLogin}/>
-                  <DoodleContainer doodles={this.filterDoodles()}/>
+                  <DoodleContainer likeUpdate={this.likeUpdate} doodles={this.filterDoodles()}/>
               </>
               )} />
             <Route path="/profile" render={routeProps =>(
