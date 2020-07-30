@@ -17,9 +17,22 @@ $button-font: 15px;
 $nav-font: 20px;
 $smaller-font: 12px;
 
+//removing outlines and other input edits
+input:focus {
+    outline: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+input::-webkit-color-swatch {
+    border: none;
+}
+
 //button styling
 .button {
-    border: 1px solid $primary;
+    border: 2px solid $primary;
     border-radius: $button-radius;
     color: $primary;
     background-color: transparent;
@@ -34,6 +47,8 @@ $smaller-font: 12px;
     border: 1px solid $secondary;
     border-radius: $button-radius;
     color: $secondary;
+    height: 30px;
+    align-self: center;
     background-color: transparent;
 }
 
@@ -42,9 +57,9 @@ $smaller-font: 12px;
     color: $primary
 }
 
-
 body {
-    // background-color: $light-accent;
+    color: $primary;
+    font-weight: 500;
     background-color: $primary;
     font-family: 'Roboto', sans-serif;
 }
@@ -69,26 +84,30 @@ nav {
     padding: 30px 0;
     padding-left: 2rem !important;
     padding-right: 2rem !important;
-    
-    .navbar-toggler-icon{
+
+    .navbar-toggler-icon {
         color: $primary;
         font-size: $nav-font;
     }
 
-    .navbar-collapse{
+    .navbar-collapse {
         background-color: $secondary;
     }
 
-    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    ::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
         color: $primary;
-        opacity: 0.5; /* Firefox */
+        opacity: 0.5;
+        /* Firefox */
     }
-    
-    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+
+    :-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
         color: $primary;
     }
-    
-    ::-ms-input-placeholder { /* Microsoft Edge */
+
+    ::-ms-input-placeholder {
+        /* Microsoft Edge */
         color: $primary;
     }
 }
@@ -116,7 +135,7 @@ nav {
 
 .nav-link:hover {
     color: $primary;
-    font-weight: 500;    
+    font-weight: 500;
     background-color: transparent;
     border-bottom: 2px solid $primary;
 }
@@ -147,16 +166,17 @@ nav {
 }
 
 
-#signModal,#profileModal {
-    
-    .modal-header{
-    background-color: $primary;
-    color: $secondary;
-    font-size: 1.5rem !important;
-    border-bottom: 1px solid $primary;
+#signModal,
+#profileModal {
+
+    .modal-header {
+        background-color: $primary;
+        color: $secondary;
+        font-size: 1.5rem !important;
+        border-bottom: 1px solid $primary;
     }
-    
-    .close{
+
+    .close {
         color: $secondary;
         text-shadow: 0 1px 0 $primary;
         opacity: .8;
@@ -173,7 +193,8 @@ nav {
     .modal-footer {
         border-top: 1px solid $primary;
     }
-    .form-group input{
+
+    .form-group input {
         margin-bottom: 1rem;
     }
 }
@@ -209,7 +230,7 @@ nav {
         content: '';
         // use the linear-gradient for the fading effect
         // use a solid background color for a solid bar
-        background:$primary;
+        background: $primary;
         position: absolute;
         left: 0;
         top: 50%;
@@ -221,7 +242,7 @@ nav {
         content: attr(data-content);
         position: relative;
         display: inline-block;
-        color:$primary;
+        color: $primary;
 
         padding: 0 .5em;
         line-height: 1.5em;
@@ -229,6 +250,7 @@ nav {
         background-color: $secondary;
     }
 }
+
 // signModal && profileModal ends
 
 
@@ -237,18 +259,14 @@ nav {
 
 
 
-
-
-
-@media (min-width: 768px) {
+//DOODLE CARD
 
 .modal canvas {
     width: 100% !important;
     height: 400px !important;
 }
 
-.doodle-canvas
- {
+.doodle-canvas {
     width: 100% !important;
     margin: 0 auto;
     // width: 400px !important;
@@ -259,8 +277,8 @@ nav {
 
 .doodle-card {
     background-color: $secondary;
-    // border: 1px solid $doodle-card;
-    // border-radius: $border-radius;
+    border: 3px solid $secondary;
+    border-radius: $card-radius;
     // width: 400px;
     // height: 500px;
 }
@@ -270,19 +288,57 @@ nav {
     height: auto;
     object-fit: contain;
     margin: 0 auto;
-    // border-top-left-radius: $border-radius;
-    // border-top-right-radius: $border-radius;
+    border-top-left-radius: $card-radius;
+    border-top-right-radius: $card-radius;
 }
 
 .fake-canvas {
     width: 100%;
     background-color: white;
-    // border-top-left-radius: $border-radius;
-    // border-top-right-radius: $border-radius;
+    border-top-left-radius: $card-radius;
+    border-top-right-radius: $card-radius;
+}
+
+.like-title-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+}
+
+.doodle-name {
+    font-size: $general-font;
+    margin-bottom: 3px;
 }
 
 
-.col-lg-4, .col-md-6 .col-sm-6 .col-12 {
+.created-by {
+    font-size: $smaller-font;
+}
+
+
+.edit-delete button {
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.like {
+    display: inline-block;
+    align-self: flex-end;
+    height: 26px;
+    width: 26px;
+    border-radius: 13px;
+    border: 3px solid $primary;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+//DOODLE CONTAINER
+.col-lg-4,
+.col-md-6 .col-sm-6 .col-12 {
     padding: 0;
     margin: 0;
 }
@@ -297,40 +353,33 @@ nav {
 
 }
 
+//PROFILE
+
 #profile-info-container {
+    color: $secondary;
     width: 88%;
-    margin: 0  auto;
+    margin: 0 auto;
 }
 
-.like-title-container {
+#profile-edit-container {
+    width: 30%;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    width: 100%;
-    padding: 6px;
 }
 
-.like {
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
-    border: 1px solid;
-}
-
-p {
-    margin-bottom: 0;
+#line {
+    background-color: $secondary;
+    height: 2px;
+    width: 32%;
+    margin: 10px 0 35px 0;
 }
 
 
 //DOODLE CANVAS
 
 .doodle-modal .modal-content {
-    background-color: $primary;
-}
-
-.doodle-modal  button {
-    margin: 0 10px;
+    background-color: $secondary;
+    border-radius: $card-radius;
 }
 
 .doodle-modal .modal-header {
@@ -341,41 +390,78 @@ p {
     padding: 0;
 }
 
+.close {
+    color: $primary;
+    opacity: 1;
+}
+
+.clear-undo {
+    width: 100%;
+    text-align: center;
+}
+
+.undo {
+    margin-left: 7px;
+}
+
 .tool-container {
-    display:flex;
+    display: flex;
     justify-content: space-between;
     padding: 10px;
     align-items: flex-end;
 }
 
+.tool-container input {
+    height: 25px;
+    border: none;
+    background-color: $secondary;
+    color: $primary;
+    text-align: center;
+    margin: 0 5px;
+    border-bottom: 2px solid $primary;
+}
+
 .brush-radius-input {
     width: 50px;
-}
-
-.brush-color-input {
-    width: 40px;
-    height: 30px;
-}
-
-.random-button {
-    background: linear-gradient(to right, rgb(255, 203, 106) , rgb(255, 247, 129), rgb(119, 235, 119), rgb(117, 255, 255), rgb(117, 154, 255), violet);
-}
-
-.save-button {
-    width: 75px;
-    height: 75px;
-    border-radius: 37.5px;
+    padding-left: 12px;
 }
 
 input[type="color"] {
+    width: 45px;
+    color: $light-accent;
+    height: 25px;
     padding: 0;
-    margin: 0;
-    border: 1px solid;
 }
 
+input[type="color"]:hover {
+    cursor: pointer;
+}
 
+.random-button {
+    border: 1px solid $primary;
+    width: 55px;
+    font-size: $smaller-font;
+    border-radius: $button-radius;
+    color: $primary;
+    background-color: transparent;
+}
 
+.random-button:hover {
+    background: linear-gradient(to right, rgb(255, 203, 106), rgb(255, 247, 129), rgb(119, 235, 119), rgb(117, 255, 255), rgb(117, 154, 255), violet);
+}
 
+.save-button {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    border: none;
+    border-radius: 30px;
+    background-color: $primary;
+    color: $secondary;
+    font-weight: 500;
+}
 
-
+.save-button:hover {
+    color: $light-accent;
+    background-color: rgb(255, 138, 134);
 }

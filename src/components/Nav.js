@@ -12,33 +12,33 @@ class Nav extends Component {
     const { handleLogout, currentUser, getSearchTerm} = this.props
 
       return (
-         //================Nav working without style
-         <nav class="navbar fixed-top navbar-expand-md justify-content-center">
+         //================Nav working  style
+         <nav className="navbar fixed-top navbar-expand-md justify-content-center">
          <Link to='/' className="navbar-brand d-flex w-50 mr-auto"><Logo className='logo'/></Link>
-         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
-            <span class="navbar-toggler-icon">MENU</span>
+         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+            <span className="navbar-toggler-icon">MENU</span>
           </button>
-         <div class="navbar-collapse collapse w-100" id="collapsingNavbar">
+         <div className="navbar-collapse collapse w-100" id="collapsingNavbar">
 
            {!currentUser.id ? 
-            <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
-                <li class="nav-item">
+            <ul className="nav navbar-nav ml-auto w-100 justify-content-end">
+                <li className="nav-item">
                   <Link to='/'  data-toggle="modal" data-target="#signModal" className='nav-link' >Log In | Sign Up</Link> 
                 </li>
             </ul>
            :  
              <> 
-              <ul class="navbar-nav w-100 justify-content-center">
+              <ul className="navbar-nav w-100 justify-content-center">
                 <Search getSearchTerm={getSearchTerm}/>
               </ul>
-             <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
-                <li class="nav-item">
+             <ul className="nav navbar-nav ml-auto w-100 justify-content-end">
+                <li className="nav-item">
                   <Link to='/profile' className='nav-link'>Profile</Link>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                     <button data-toggle="modal" data-target="#newCanvasModal" className='nav-link new-button'>Draw Doodle</button>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <Link to='/' onClick={handleLogout} className='nav-link'>Log Out</Link>
                 </li>
             </ul>
