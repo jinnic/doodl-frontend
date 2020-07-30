@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
+import $ from 'jquery'
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import DoodleContainer from './components/DoodleContainer';
 import Nav from './components/Nav';
 import Profile from './components/Profile';
@@ -114,7 +116,8 @@ class App extends Component {
     .then(updatedUser => {
       this.setState({
         currentUser: updatedUser
-      })
+      },()=>console.log('UPDATED USER++++++++++', updatedUser))
+      // $('#profileModal').modal("hide")
     })
   }
 
@@ -229,6 +232,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={() => (
               <>
+                  <SignUpIn handleLogin={this.handleLogin}/>
                   <DoodleContainer doodles={this.filterDoodles()}/>
               </>
               )} />
@@ -248,9 +252,9 @@ class App extends Component {
                 <DoodleCanvas user={this.state.currentUser} handleUpdate={this.handleUpdate} doodle={this.state.currentlyEditing}/>
               </>
               )} />
-            <Route path="/sign" render={()=>(
+            {/* <Route path="/sign" render={()=>(
               <SignUpIn handleLogin={this.handleLogin}/>
-            )} />
+            )} /> */}
           </Switch>
 
         </main>

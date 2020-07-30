@@ -2,15 +2,26 @@ import React, { Component } from "react";
 
 class ProfileEditForm extends Component {
     state = {
-        user_name: this.props.user.user_name,
+        user_name:this.props.user.user_name,
         password: this.props.user.password,
         bio: this.props.user.bio
     }
+    //set title state when it's edit
+    // componentDidMount() {
+        
+    //     if(this.props.user){
+    //         this.setState({
+    //             user_name: this.props.user.user_name,
+    //             password: this.props.user.password,
+    //             bio: this.props.user.bio
+    //         })
+    //     }
+    // }
 
     handleChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-        })
+        },()=>console.log(this.state))
     }
 
     handleSubmit = (e) => {
@@ -21,25 +32,44 @@ class ProfileEditForm extends Component {
             password: this.state.password,
             bio: this.state.bio
         } 
-
+        // this.props.updateUserInfo(userObj)
         this.props.userUpdate(userObj, this.props.user.id)
     }
   
     render() {
       return (
-        <>  
+        
+        <div className="modal fade" id="profileModal" tabIndex="-1" role="dialog" aria-labelledby="profileModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                <form onSubmit={this.handleSubmit}>
+                <div className='form-group'>
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="profileModalLabel">Edit {this.props.user.user_name}'s profile</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
 
-                        <button onClick={()=> this.props.userDelete(this.props.user.id)}>delete account *gasp*</button>
-                        <form onSubmit={this.handleSubmit}>
                             <label>Username:</label>
-                            <input name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text"/>
+                            <input className='form-control' name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text"/>
                             <label>Password:</label>
-                            <input name='password' value={this.state.password} onChange={this.handleChange} type="password"/>
+                            <input className='form-control' name='password' value={this.state.password} onChange={this.handleChange} type="password"/>
                             <label>Bio:</label>
-                            <input name='bio' value={this.state.bio} onChange={this.handleChange} type="text"/>
-                            <button className="ui button" type="submit">update</button>
-                        </form>
-        </>
+                            <input className='form-control' name='bio' value={this.state.bio} onChange={this.handleChange} type="text"/>
+                            
+                        
+                    </div>
+                    <div className="modal-footer">
+                    <button type="button" className="btn btn-primary" type="submit">Update</button>
+                    <button className="btn btn-secondary" onClick={()=> this.props.userDelete(this.props.user.id)}>Delete</button>
+                    </div>
+                </div>
+                </form>
+                </div>
+            </div>
+        </div>
       )
     }
 }

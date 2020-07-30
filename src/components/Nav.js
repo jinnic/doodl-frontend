@@ -15,7 +15,7 @@ class Nav extends Component {
           <Link to='/'>DOODL</Link>
             
             {!currentUser.id ? 
-              <Link to='/sign'>Log In | Sign Up</Link> :  
+              <Link to='/'  data-toggle="modal" data-target="#signModal" >Log In | Sign Up</Link> :  
               <>
                 <Link to='/profile' >Profile</Link>
                 <button data-toggle="modal" data-target="#newCanvasModal">Draw Doodle</button>
