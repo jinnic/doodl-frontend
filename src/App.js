@@ -15,7 +15,7 @@ class App extends Component {
     doodles: [],
     searchTerm: "",
     currentUser: {},
-    currentlyEditing: {}
+    currentlyEditing: null
   }
 
   componentDidMount() {
@@ -95,6 +95,7 @@ class App extends Component {
     .then(r => r.json())
     .then(updatedObj => {
        this.updateState(updatedObj)})
+    .catch(console.log)
   }
 
   userUpdate = (user, id) => {
@@ -166,7 +167,7 @@ class App extends Component {
     //ERROR - when we try to update 'currentlyEditing' it throws Unhandled Rejection (Error)
     this.setState({
       doodles: updatedDoods,
-      currentlyEditing: {}
+      currentlyEditing: JSON.stringify(null) 
     })
   }
 

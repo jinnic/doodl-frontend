@@ -82,7 +82,7 @@ class DoodleCanvas extends Component {
             lazyRadius={this.state.lazyRadius}
             canvasWidth={400}
             canvasHeight={400}
-            saveData={this.props.doodle ? JSON.stringify(this.props.doodle.doodle_data) : ''}
+            saveData={this.props.doodle ? JSON.stringify(this.props.doodle.doodle_data) : null}
           />
           <div class="tool-container">
             <section class="tools">
