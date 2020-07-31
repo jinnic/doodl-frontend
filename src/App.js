@@ -162,8 +162,11 @@ class App extends Component {
         return doodle
       }
     }) 
+
+    //ERROR - when we try to update 'currentlyEditing' it throws Unhandled Rejection (Error)
     this.setState({
-      doodles: updatedDoods
+      doodles: updatedDoods,
+      currentlyEditing: {}
     })
   }
 
