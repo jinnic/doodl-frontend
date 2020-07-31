@@ -82,8 +82,8 @@ class DoodleCard extends Component {
               hideGrid
               // canvasWidth={315}
               // canvasHeight={350}
-              // canvasWidth={500 }
-              // canvasHeight={400}
+              canvasWidth={500}
+              canvasHeight={400}
               ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
               // saveData={doodle.doodle_data}
               saveData={JSON.stringify(this.props.doodle.doodle_data)}
