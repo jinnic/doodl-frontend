@@ -27,12 +27,12 @@ class DoodleCard extends Component {
       // let dataURL = canvas.toDataURL('image/png');
       // button.href = dataURL;
       // debugger
-      let div = e.target.tagName === 'div' ? e.target : e.target.closest('div')
-      let imgData = div.querySelectorAll('canvas')[1].toDataURL()
+      // let div = e.target.tagName === 'div' ? e.target : e.target.closest('.disabled-canvas')
+      let imgData = e.target.closest('.like-title-container').previousElementSibling.querySelectorAll('canvas')[1].toDataURL()
       let w=window.open('about:blank','image from canvas');
       w.document.write("<img src='"+imgData+"' alt='image from canvas'/>");
       console.log(imgData)
-      // return imgData
+      return imgData
   }
 
   handleEdit = () => {
@@ -45,6 +45,12 @@ class DoodleCard extends Component {
      return <span className="edit-delete"> 
       <button className="button" data-toggle="modal" data-target="#canvasModal" onClick={this.handleEdit}>edit</button>
       <button className="button" onClick={() => this.props.handleDelete(this.props.doodle.id)}>delete</button> 
+      {/* <button className="button" >download</button>  */}
+      <svg onClick={this.handleClick} width="1.3em" height="1.3em" viewBox="0 0 16 16" className="align-bottom bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8z"/>
+        <path fill-rule="evenodd" d="M5 7.5a.5.5 0 0 1 .707 0L8 9.793 10.293 7.5a.5.5 0 1 1 .707.707l-2.646 2.647a.5.5 0 0 1-.708 0L5 8.207A.5.5 0 0 1 5 7.5z"/>
+        <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0v-8A.5.5 0 0 1 8 1z"/>
+      </svg>
      </span>
     }
   }

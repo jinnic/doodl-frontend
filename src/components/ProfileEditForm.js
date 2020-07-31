@@ -52,7 +52,7 @@ class ProfileEditForm extends Component {
                         </button>
                     </div>
                     <div className="modal-body">
-                        <div className='form-group'>
+                    <div className='form-group'>
 
                             <label>Username:</label>
                             <input className='form-control' name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text"/>
@@ -65,7 +65,7 @@ class ProfileEditForm extends Component {
                     </div>
                     <div className="modal-footer">
                     <button type="button" className="button" type="submit" >Update</button>
-                    <button className="button" onClick={()=> this.props.userDelete(this.props.user.id)}>Delete</button>
+                    {/* <button className="button" onClick={()=> this.props.userDelete(this.props.user.id)}>Delete</button> */}
                     </div>
 
                 </form>
