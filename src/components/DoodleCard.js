@@ -6,6 +6,23 @@ import CanvasDraw from "react-canvas-draw";
 
 class DoodleCard extends Component {
 
+  state = {
+    likeStatus: ""
+  }
+  componentDidMount() {
+    this.setState({
+      likeStatus: this.props.doodle.likes.length > 0 ? true : false
+    })
+  }
+
+
+  handleLike = () => {
+    // this.props.likeUpdate(this.props.doodle)
+    this.setState(prevState => ({
+      likeStatus: !prevState.likeStatus
+    }))
+  }
+
   handleClick=(e)=>{
       // let dataURL = canvas.toDataURL('image/png');
       // button.href = dataURL;
@@ -70,7 +87,9 @@ class DoodleCard extends Component {
                 {this.renderInfo()}
             </div>
                 {/* <span>{doodle.likes.length}</span> */}
-              <span className="like"> </span>
+                <svg width="1em" height="1em" viewBox="0 0 16 16" onClick={this.handleLike} className={this.state.likeStatus ? "like align-middle bi bi-heart-fill" : "liked align-middle bi bi-heart-fill"} xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+</svg>
         </div>
         </div>
       </div>
