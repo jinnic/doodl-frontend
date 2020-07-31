@@ -7,7 +7,7 @@ import CanvasDraw from "react-canvas-draw";
 class NewCanvas extends Component {
   state = {
     color: "#672DAC",
-    width: 400,
+    width: 500,
     height: 400,
     brushRadius: 5,
     lazyRadius: 0,
@@ -47,6 +47,9 @@ class NewCanvas extends Component {
     newObj.height = this.state.height
 
     this.props.addNewDoodle(newObj)
+    this.setState({
+      name: 'masterpiece name'
+    })
   }
 
   render() {
@@ -81,7 +84,7 @@ class NewCanvas extends Component {
             brushColor={this.state.color}
             brushRadius={this.state.brushRadius}
             lazyRadius={this.state.lazyRadius}
-            canvasWidth={400}
+            canvasWidth={500}
             canvasHeight={400}
             // saveData={''}
           />
@@ -125,6 +128,16 @@ class NewCanvas extends Component {
             >
               random
               </button>
+              {/* <button
+                  onClick={() => {
+                    localStorage.setItem(
+                      "savedDrawing",
+                      this.saveableCanvas.getSaveData()
+                    );
+                  }}
+                >
+                  local Save
+              </button> */}
               </section>
               <button className="save-button" onClick={this.handleSave} data-dismiss="modal">save</button>
           </div>

@@ -232,6 +232,7 @@ class App extends Component {
   render() {
     return (
       <>
+      
         <Nav getSearchTerm={this.getSearchTerm} currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
         <NewCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
         

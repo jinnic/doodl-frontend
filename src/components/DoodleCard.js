@@ -40,12 +40,12 @@ class DoodleCard extends Component {
     this.props.renderExisting(doodle)
   }
 
-  renderButtons = () => {
+  renderButtons = (doodleData) => {
     if (this.props.match && this.props.match.url === "/profile") {
      return <span className="edit-delete"> 
       <button className="button" data-toggle="modal" data-target="#canvasModal" onClick={this.handleEdit}>edit</button>
       <button className="button" onClick={() => this.props.handleDelete(this.props.doodle.id)}>delete</button> 
-      {/* <button className="button" >download</button>  */}
+      {/* <button className="button" onClick={()=> this.loadableCanvas.loadSaveData(doodleData)} >load</button>  */}
       <svg onClick={this.handleClick} width="1.3em" height="1.3em" viewBox="0 0 16 16" className="align-bottom bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8z"/>
         <path fill-rule="evenodd" d="M5 7.5a.5.5 0 0 1 .707 0L8 9.793 10.293 7.5a.5.5 0 1 1 .707.707l-2.646 2.647a.5.5 0 0 1-.708 0L5 8.207A.5.5 0 0 1 5 7.5z"/>
@@ -68,6 +68,8 @@ class DoodleCard extends Component {
     console.log(this.props)
     const doodle = this.props.doodle
     const doodleData = JSON.stringify(doodle.doodle_data)
+    // debugger
+    // this.loadableCanvas.loadSaveData(doodleData)
 
     return (
       <div className="col-lg-4 col-md-4 col-sm-6 col-12 grid-gap">
@@ -75,13 +77,16 @@ class DoodleCard extends Component {
           <div class="fake-canvas">
 
             <CanvasDraw
-            immediateLoading={true}
+              immediateLoading={true}
               disabled
               hideGrid
-              canvasWidth={400}
-              canvasHeight={400}
+              // canvasWidth={315}
+              // canvasHeight={350}
+              // canvasWidth={500 }
+              // canvasHeight={400}
               ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
-              saveData={doodleData}
+              // saveData={doodle.doodle_data}
+              saveData={JSON.stringify(this.props.doodle.doodle_data)}
               className="img-fluid disabled-canvas"
             />
 
@@ -89,7 +94,7 @@ class DoodleCard extends Component {
         <div className="like-title-container">
             <div>
               <p className="doodle-name">{doodle.name}</p>
-                {this.renderButtons()}
+                {this.renderButtons(doodleData)}
                 {this.renderInfo()}
             </div>
                 {/* <span>{doodle.likes.length}</span> */}

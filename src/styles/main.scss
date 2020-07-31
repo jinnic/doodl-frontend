@@ -90,7 +90,7 @@ nav {
         color: $primary;
         font-size: $nav-font;
     }
-    
+
     input{
         color: $primary;
     }
@@ -296,8 +296,9 @@ nav {
 }
 
 .disabled-canvas {
-    width: 400px;
+    width: 100% !important;
     height: auto;
+    // height: 100% !important;
     object-fit: contain;
     margin: 0 auto;
     border-top-left-radius: $card-radius;

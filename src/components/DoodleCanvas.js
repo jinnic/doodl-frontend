@@ -7,7 +7,7 @@ import CanvasDraw from "react-canvas-draw";
 class DoodleCanvas extends Component {
   state = {
     color: "#672DAC",
-    width: 400,
+    width: 500,
     height: 400,
     brushRadius: 5,
     lazyRadius: 0,
@@ -78,7 +78,7 @@ class DoodleCanvas extends Component {
             brushColor={this.state.color}
             brushRadius={this.state.brushRadius}
             lazyRadius={this.state.lazyRadius}
-            canvasWidth={400}
+            canvasWidth={500}
             canvasHeight={400}
             saveData={JSON.stringify(this.props.doodle.doodle_data)}
           />
