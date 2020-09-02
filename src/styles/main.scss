@@ -335,6 +335,20 @@ nav {
     margin-right: 5px;
 }
 
+#popover-basic button {
+    border: none;
+    background-color: white;
+}
+
+#popover-basic svg {
+    color: $primary;
+    font-size: 1.2rem;
+}
+
+.popover-body {
+    padding: .5rem;
+}
+
 .like {
     // display: inline-block;
     align-self: flex-end;
