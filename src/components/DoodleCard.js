@@ -8,27 +8,81 @@ import { Popover, OverlayTrigger } from 'react-bootstrap/'
 class DoodleCard extends Component {
 
   state = {
-    likeStatus: ""
+    likeStatus: "",
+    width: 400,
+    height: 400
   }
+
   componentDidMount() {
     this.setState({
       likeStatus: this.props.doodle.likes.length > 0 ? true : false
     })
+    window.addEventListener('resize', this.onResize);
+    this.responsiveDimensions()
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+  }
+
+  onResize = (event) => {
+    this.responsiveDimensions()
+
+  }
+
+  responsiveDimensions = () => {
+    if(window.innerWidth < 576) {
+        this.setState({
+            height: 300,
+            width: 300,
+        })
+        this.saveableCanvas.loadSaveData(
+            JSON.stringify(this.props.doodle.doodle_data))
+    }
+    if(window.innerWidth > 576 && window.innerWidth < 786) {
+        this.setState({
+            height: 250,
+            width: 250,
+        })
+        this.saveableCanvas.loadSaveData(
+            JSON.stringify(this.props.doodle.doodle_data))
+    }
+    if(window.innerWidth > 768 && window.innerWidth < 992) {
+        this.setState({
+            height: 300,
+            width: 300,
+        })
+        this.saveableCanvas.loadSaveData(
+            JSON.stringify(this.props.doodle.doodle_data))
+    }
+    if(window.innerWidth > 992 && window.innerWidth < 1200) {
+        //my laptop
+        this.setState({
+            height: 400,
+            width: 400,
+        })
+        this.saveableCanvas.loadSaveData(
+            JSON.stringify(this.props.doodle.doodle_data))
+    }
+    if(window.innerWidth > 1200) {
+        this.setState({
+            height: 400,
+            width: 400,
+        })
+        this.saveableCanvas.loadSaveData(
+            JSON.stringify(this.props.doodle.doodle_data))
+    }
   }
 
 
+
   handleLike = () => {
-    // this.props.likeUpdate(this.props.doodle)
     this.setState(prevState => ({
       likeStatus: !prevState.likeStatus
     }))
   }
 
-  handleClick=(e)=>{
-      // let dataURL = canvas.toDataURL('image/png');
-      // button.href = dataURL;
-      // debugger
-      // let div = e.target.tagName === 'div' ? e.target : e.target.closest('.disabled-canvas')
+  handleClick = (e) => {
       let imgData = e.target.closest('.like-title-container').previousElementSibling.querySelectorAll('canvas')[1].toDataURL()
       let w=window.open('about:blank','image from canvas');
       w.document.write("<img src='"+imgData+"' alt='image from canvas'/>");
@@ -69,7 +123,7 @@ class DoodleCard extends Component {
     }
   }
 
-  renderInfo =()=>{
+  renderInfo = () => {
     const doodle = this.props.doodle
     if (!this.props.match) {
       return (
@@ -79,19 +133,6 @@ class DoodleCard extends Component {
   }
 
   render() {
-
-        
-    // const popover = (
-    //   <Popover id="popover-basic">
-    //     <Popover.Content>
-    //       <button className="delete-button" onClick={() => this.props.handleDelete(this.props.doodle.id)}>
-    //               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    //                   <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
-    //               </svg>
-    //       </button>
-    //     </Popover.Content>
-    //   </Popover>
-    // )
    
     const doodle = this.props.doodle
     const doodleData = JSON.stringify(doodle.doodle_data)
@@ -99,16 +140,16 @@ class DoodleCard extends Component {
     return (
       <div className="col-lg-4 col-md-4 col-sm-6 col-12 grid-gap">
         <div className="doodle-card">
-          <div class="fake-canvas">
+          <div className="fake-canvas">
 
             <CanvasDraw
-            immediateLoading={true}
+              immediateLoading={true}
               disabled
               hideGrid
-              canvasWidth={400}
-              canvasHeight={400}
-              ref={canvasDraw => (this.loadableCanvas = canvasDraw)}
-              saveData={doodleData}
+              canvasWidth={this.state.width}
+              canvasHeight={this.state.height}
+              ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
+              saveData={JSON.stringify(this.props.doodle.doodle_data)}
               className="img-fluid disabled-canvas"
             />
 
@@ -116,7 +157,7 @@ class DoodleCard extends Component {
         <div className="like-title-container">
             <div>
               <p className="doodle-name">{doodle.name}</p>
-                {this.renderButtons()}
+                {this.renderButtons(doodleData)}
                 {this.renderInfo()}
             </div>
                 {/* <span>{doodle.likes.length}</span> */}
