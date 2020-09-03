@@ -90,7 +90,7 @@ nav {
         color: $primary;
         font-size: $nav-font;
     }
-    
+
     input{
         color: $primary;
     }
@@ -274,9 +274,7 @@ nav {
 .doodle-canvas {
     width: 100% !important;
     margin: 0 auto;
-    // width: 400px !important;
     height: 400px !important;
-    // margin: 0 auto;
 }
 
 
@@ -284,8 +282,9 @@ nav {
     background-color: $secondary;
     border: 3px solid $secondary;
     border-radius: $card-radius;
-    // width: 400px;
-    // height: 500px;
+    // display: inline-block;
+    margin: 0 auto;
+    overflow: hidden;
     .bi-download {
         margin-left: 0.2rem;
     }
@@ -296,17 +295,14 @@ nav {
 }
 
 .disabled-canvas {
-    width: 400px;
-    height: auto;
-    object-fit: contain;
     margin: 0 auto;
     border-top-left-radius: $card-radius;
     border-top-right-radius: $card-radius;
 }
 
 .fake-canvas {
-    width: 100%;
     background-color: white;
+    overflow: hidden;
     border-top-left-radius: $card-radius;
     border-top-right-radius: $card-radius;
 }
@@ -324,7 +320,6 @@ nav {
     margin-bottom: 3px;
 }
 
-
 .created-by {
     font-size: $smaller-font;
 }
@@ -333,6 +328,20 @@ nav {
 .edit-delete button {
     margin-top: 5px;
     margin-right: 5px;
+}
+
+#popover-basic button {
+    border: none;
+    background-color: white;
+}
+
+#popover-basic svg {
+    color: $primary;
+    font-size: 1.2rem;
+}
+
+.popover-body {
+    padding: .5rem;
 }
 
 .like {
@@ -365,8 +374,6 @@ p {
 //DOODLE CONTAINER
 .col-lg-4,
 .col-md-6 .col-sm-6 .col-12 {
-    padding: 0;
-    margin: 0;
 }
 
 .grid-gap {
