@@ -5,28 +5,7 @@ import ProfileEditForm from "./ProfileEditForm";
 class Profile extends Component {
   state = {
     showEditForm: false
-    // user: this.props.user
   }
-
-  componentDidMount() {
-    console.log('Profile compomentMount ', this.state.user)   
-    // if(this.props.user){
-    //     this.setState({
-    //        user: this.props.user
-    //     },()=>console.log('Profile compomentMount ', this.state.user))
-    // }
-}
-
-  // renderForm = () => {
-  //   if (this.state.showEditForm === true) {
-  //     return <ProfileEditForm userDelete={this.props.userDelete} userUpdate={this.props.userUpdate} user={this.props.user}/>
-  //   }
-  // }
-
-  //why is it not rerendering???
-  // updateUserInfo=(user)=>{
-  //   this.setState({user: user},()=>console.log('Profile update info : ',user))
-  // }
 
   updateState = (e) => {
     e.preventDefault()
