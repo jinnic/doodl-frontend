@@ -54,6 +54,7 @@ class Profile extends Component {
           handleDelete={handleDelete} 
           handleUpdate={handleUpdate}
           page={this.props.page} 
+          updateLike={this.props.updateLike} 
           match={match}
           renderExisting={renderExisting}
           doodles={doodles}/>

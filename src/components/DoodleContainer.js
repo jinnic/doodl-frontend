@@ -43,7 +43,8 @@ class DoodleContainer extends Component {
         match={this.props.match}
         page={this.props.page} key={doodle.id} 
         doodle={doodle}
-
+        updateLike={this.props.updateLike} 
+        user={this.props.user} 
         />)
       )
   }

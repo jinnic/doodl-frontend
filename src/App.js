@@ -143,6 +143,30 @@ class App extends Component {
     .then(this.handleLogout(), this.removeUserDoodles(id))
   }
 
+  //UPDATE LIKES
+  updateLike = (doodle_id)=>{
+    const likeObj = {
+      user_id: this.state.currentUser.id,
+      doodle_id: doodle_id
+    }
+    console.log("likeObj :",likeObj)
+    const token = localStorage.getItem("token")
+    const config = {
+      method: 'POST',
+      headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(likeObj)
+    }
+    
+    fetch('http://localhost:3000/doodles/${doodle_id}/likes', config)
+    .then(r => r.json())
+    //returns updated doodle object
+    .then(doodle => this.updateState(doodle))
+  }
+  
   /**
    * STATE FUCTIONS : MANIPULATING DOODLES ARRAY
    */
@@ -181,6 +205,8 @@ class App extends Component {
       doodles: filtered
     })
   }
+
+  
 
   //SEARCH FUNCTIONS : UPDATE searchTerm STATE
   getSearchTerm =(e)=>{
@@ -241,7 +267,7 @@ class App extends Component {
               <>  
                   {/* <Search getSearchTerm={this.getSearchTerm}/> */}
                   <SignUpIn handleLogin={this.handleLogin}/>
-                  <DoodleContainer doodles={this.filterDoodles()}/>
+                  <DoodleContainer doodles={this.filterDoodles()} user={this.state.currentUser} updateLike={this.updateLike} />
               </>
               )} />
             <Route path="/profile" render={routeProps =>(
@@ -250,6 +276,7 @@ class App extends Component {
                   handleDelete={this.handleDelete} 
                   handleUpdate={this.handleUpdate}
                   user={this.state.currentUser} 
+                  updateLike={this.updateLike} 
                   doodles={this.filterByUser()}
                   handleNew={this.handleAddNewDoodle}
                   userUpdate={this.userUpdate}

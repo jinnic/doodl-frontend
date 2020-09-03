@@ -10,23 +10,26 @@ class DoodleCard extends Component {
     likeStatus: ""
   }
   componentDidMount() {
+    //filter like by current user
+    //set likeStatus by filter
+    const doodle = this.props.doodle
+    const like = doodle.likes.filter(like => like.user_id === this.props.user.id)
     this.setState({
-      likeStatus: this.props.doodle.likes.length > 0 ? true : false
+      likeStatus: like.length > 0 ? true : false
     })
   }
 
 
   handleLike = () => {
-    // this.props.likeUpdate(this.props.doodle)
     this.setState(prevState => ({
       likeStatus: !prevState.likeStatus
     }))
+    this.props.updateLike(this.props.doodle.id)
   }
 
   handleClick=(e)=>{
       // let dataURL = canvas.toDataURL('image/png');
       // button.href = dataURL;
-      // debugger
       // let div = e.target.tagName === 'div' ? e.target : e.target.closest('.disabled-canvas')
       let imgData = e.target.closest('.like-title-container').previousElementSibling.querySelectorAll('canvas')[1].toDataURL()
       let w=window.open('about:blank','image from canvas');
@@ -65,10 +68,10 @@ class DoodleCard extends Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.props.user)
     const doodle = this.props.doodle
     const doodleData = JSON.stringify(doodle.doodle_data)
-
+    console.log("likes ; ",doodle.likes)
     return (
       <div className="col-lg-4 col-md-4 col-sm-6 col-12 grid-gap">
         <div className="doodle-card">
@@ -92,10 +95,12 @@ class DoodleCard extends Component {
                 {this.renderButtons()}
                 {this.renderInfo()}
             </div>
-                {/* <span>{doodle.likes.length}</span> */}
-                <svg width="1em" height="1em" viewBox="0 0 16 16" onClick={this.handleLike} className={this.state.likeStatus ? "like align-middle bi bi-heart-fill" : "liked align-middle bi bi-heart-fill"} xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-</svg>
+            <div className="like">
+              <span>{doodle.likes.length} </span>
+              <svg width="1em" height="1em" viewBox="0 0 16 16" onClick={this.handleLike} className={this.state.likeStatus ? "like align-middle bi bi-heart-fill" : "liked align-middle bi bi-heart-fill"} xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+              </svg>
+            </div>
         </div>
         </div>
       </div>
