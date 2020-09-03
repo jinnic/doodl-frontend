@@ -22,14 +22,17 @@ Doodl allows a user to:
 
 ### Built With ###
 * [Frontend](https://github.com/aleksarad/doodl-frontend): React, Bootstrap, React Canvas Draw, Sass
-* [Backend](https://github.com/jinnic/doodleApp-backend): Ruby On Rails, PostgreSQL
+* [Backend](https://github.com/jinnic/doodleApp-backend): Ruby On Rails, PostgreSQL, JWT, Serializer
 
 ### Features ###
-* JWT Auth
+* JWT Token Auth and auto login
+* Embedded canvas for drawing and showing
 * A fun and visually appealing custom design
 
 ### Resources used ###
 * [Figma](https://www.figma.com/) - Creating mockups/prototypes for site layout and design
-* [React-Canvas-Draw](https://github.com/embiem/react-canvas-draw) - A canvas drawing library for React
 * [Trello](https://trello.com/) - Manage project and track progress
+* [React-Canvas-Draw](https://github.com/embiem/react-canvas-draw) - A canvas drawing library for React
+* [Bootstrap](https://getbootstrap.com/) - Modal and responsive grid structure
+* [JWT](https://jwt.io/) - JSON Web Token for auto login
 
