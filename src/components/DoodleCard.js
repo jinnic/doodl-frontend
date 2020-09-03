@@ -35,47 +35,13 @@ class DoodleCard extends Component {
   }
 
   responsiveDimensions = () => {
-    if(window.innerWidth < 576) {
-        this.setState({
-            height: 300,
-            width: 300,
-        })
-        this.saveableCanvas.loadSaveData(
-            JSON.stringify(this.props.doodle.doodle_data))
-    }
-    if(window.innerWidth > 576 && window.innerWidth < 786) {
-        this.setState({
-            height: 250,
-            width: 250,
-        })
-        this.saveableCanvas.loadSaveData(
-            JSON.stringify(this.props.doodle.doodle_data))
-    }
-    if(window.innerWidth > 768 && window.innerWidth < 992) {
-        this.setState({
-            height: 300,
-            width: 300,
-        })
-        this.saveableCanvas.loadSaveData(
-            JSON.stringify(this.props.doodle.doodle_data))
-    }
-    if(window.innerWidth > 992 && window.innerWidth < 1200) {
-        //my laptop
-        this.setState({
-            height: 400,
-            width: 400,
-        })
-        this.saveableCanvas.loadSaveData(
-            JSON.stringify(this.props.doodle.doodle_data))
-    }
-    if(window.innerWidth > 1200) {
-        this.setState({
-            height: 400,
-            width: 400,
-        })
-        this.saveableCanvas.loadSaveData(
-            JSON.stringify(this.props.doodle.doodle_data))
-    }
+    let size = document.querySelector('.doodle-card').clientWidth
+    this.setState({
+      height: size,
+      width: size,
+    })
+    this.saveableCanvas.loadSaveData(
+        JSON.stringify(this.props.doodle.doodle_data))
   }
 
 
@@ -138,16 +104,11 @@ class DoodleCard extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-    console.log(this.props.user)
-=======
-   
->>>>>>> 584c50dbd85b9c53a51f164f9c1444ef9d027e1f
     const doodle = this.props.doodle
     const doodleData = JSON.stringify(doodle.doodle_data)
     console.log("likes ; ",doodle.likes)
     return (
-      <div className="col-lg-4 col-md-4 col-sm-6 col-12 grid-gap">
+      <div className="col-lg-4 col-md-6 col-sm-6 col-12 grid-gap">
         <div className="doodle-card">
           <div className="fake-canvas">
 
