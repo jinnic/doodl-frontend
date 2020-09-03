@@ -138,11 +138,7 @@ class DoodleCard extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-    console.log(this.props.user)
-=======
    
->>>>>>> 584c50dbd85b9c53a51f164f9c1444ef9d027e1f
     const doodle = this.props.doodle
     const doodleData = JSON.stringify(doodle.doodle_data)
     console.log("likes ; ",doodle.likes)

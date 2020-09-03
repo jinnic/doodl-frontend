@@ -15,15 +15,6 @@ class NewCanvas extends Component {
     doodle: {}
   }
 
-  //set title state when it's edit
-//   componentDidMount() {
-//     if(this.props.doodle){
-//       this.setState({
-//         name: this.props.doodle.name
-//       })
-//     }
-//   }
-
   handleSave = () => {
     // debugger
     this.setState({
@@ -32,9 +23,6 @@ class NewCanvas extends Component {
 
     //clear canvas
     this.saveableCanvas.clear()
-    // this.setState({
-    //   name: ''
-    // })
   }
 
   addOrUpdate = () => {
@@ -53,7 +41,6 @@ class NewCanvas extends Component {
   }
 
   render() {
-    // console.log(this.state.name)
     return (
       <div>
           <div class="doodle-modal modal fade" id="newCanvasModal" tabindex="-1" role="dialog" aria-labelledby="#newCanvasModal" aria-hidden="true">
