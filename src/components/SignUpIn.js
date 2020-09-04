@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import $ from 'jquery'
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import { useHistory } from "react-router-dom";
 
 class SignUpIn extends Component {
     state = {
@@ -99,17 +98,17 @@ class SignUpIn extends Component {
 
     render() {
       return (
-        <div class="modal fade" id="signModal" tabindex="-1" role="dialog" aria-labelledby="signModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title " id="signModalLabel">{this.state.toggle === 'sign up' ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="modal fade" id="signModal" tabIndex="-1" role="dialog" aria-labelledby="signModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                  <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title " id="signModalLabel">{this.state.toggle === 'sign up' ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                         
                       </div>
-                      <div class="modal-body">
+                      <div className="modal-body">
                         <form onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 <label>Username</label>

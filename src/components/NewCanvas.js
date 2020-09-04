@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import ReactDOM from "react-dom";
 import CanvasDraw from "react-canvas-draw";
 
 
@@ -41,13 +39,12 @@ class NewCanvas extends Component {
   }
 
   render() {
-    console.log("new canvas user",this.props.user)
     return (
       <div>
-          <div class="doodle-modal modal fade" id="newCanvasModal" tabindex="-1" role="dialog" aria-labelledby="#newCanvasModal" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
+          <div className="doodle-modal modal fade" id="newCanvasModal" tabIndex="-1" role="dialog" aria-labelledby="#newCanvasModal" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
                     <section className="clear-undo">
                         <button className="button" onClick={() => this.saveableCanvas.clear()}>
                         clear
@@ -60,7 +57,7 @@ class NewCanvas extends Component {
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-              <div class="modal-body"></div>
+              <div className="modal-body"></div>
           <div>
 
           </div>
@@ -77,8 +74,8 @@ class NewCanvas extends Component {
             // saveData={''}
           />
 
-          <div class="tool-container">
-            <section class="tools">
+          <div className="tool-container">
+            <section className="tools">
               <label>title:</label>
               <input
                 type="text"

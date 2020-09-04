@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search"
 import { ReactComponent as Logo } from './doodl-logo.svg';
-import DoodleCanvas from "./DoodleCanvas"
 
 class Nav extends Component {
 

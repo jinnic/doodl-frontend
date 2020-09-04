@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
-import $ from 'jquery'
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import DoodleContainer from './components/DoodleContainer';
 import Nav from './components/Nav';
 import Profile from './components/Profile';
-import Search from './components/Search';
 import DoodleCanvas from './components/DoodleCanvas';
 import NewCanvas from './components/NewCanvas';
 import SignUpIn from './components/SignUpIn';
@@ -161,9 +159,8 @@ class App extends Component {
       body: JSON.stringify(likeObj)
     }
     
-    fetch('https://doodl-api.herokuapp.com/doodles/${doodle_id}/likes', config)
+    fetch(`https://doodl-api.herokuapp.com/doodles/${doodle_id}/likes`, config)
     .then(r => r.json())
-    //returns updated doodle object
     .then(doodle => this.updateState(doodle))
   }
   

@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from "react-dom";
-import CanvasDraw from "react-canvas-draw";
-import DoodleCanvas from "./DoodleCanvas"
 import DoodleCard from "./DoodleCard"
 
 
@@ -41,7 +38,7 @@ class DoodleContainer extends Component {
         handleUpdate={this.props.handleUpdate}
         handleDelete={this.props.handleDelete} 
         match={this.props.match}
-        page={this.props.page} key={doodle.id} 
+        page={this.props.page}
         doodle={doodle}
         updateLike={this.props.updateLike} 
         user={this.props.user} 
@@ -52,7 +49,7 @@ class DoodleContainer extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <div class="row align-items-center">
+        <div className="row align-items-center">
           {/* {this.renderDoodleCanvas()} */}
           {this.renderDoodle()} 
         </div>

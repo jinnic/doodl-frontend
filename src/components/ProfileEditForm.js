@@ -64,7 +64,7 @@ class ProfileEditForm extends Component {
                         </div>    
                     </div>
                     <div className="modal-footer">
-                    <button type="button" className="button" type="submit" >Update</button>
+                    <button className="button" type="submit" >Update</button>
                     {/* <button className="button" onClick={()=> this.props.userDelete(this.props.user.id)}>Delete</button> */}
                     </div>
 
