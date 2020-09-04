@@ -50,7 +50,6 @@ class DoodleContainer extends Component {
     return (
       <div className="container-fluid">
         <div className="row align-items-center">
-          {/* {this.renderDoodleCanvas()} */}
           {this.renderDoodle()} 
         </div>
       </div>

@@ -71,7 +71,6 @@ class NewCanvas extends Component {
             lazyRadius={this.state.lazyRadius}
             canvasWidth={500}
             canvasHeight={400}
-            // saveData={''}
           />
 
           <div className="tool-container">
@@ -113,16 +112,6 @@ class NewCanvas extends Component {
             >
               random
               </button>
-              {/* <button
-                  onClick={() => {
-                    localStorage.setItem(
-                      "savedDrawing",
-                      this.saveableCanvas.getSaveData()
-                    );
-                  }}
-                >
-                  local Save
-              </button> */}
               </section>
               <button className="save-button" onClick={this.handleSave} data-dismiss="modal">save</button>
           </div>

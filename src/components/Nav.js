@@ -11,7 +11,6 @@ class Nav extends Component {
     const { handleLogout, currentUser, getSearchTerm} = this.props
 
       return (
-         //================Nav working  style
          <nav className="navbar fixed-top navbar-expand-md justify-content-center">
          <Link to='/' className="navbar-brand d-flex w-50 mr-auto"><Logo className='logo'/></Link>
          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">

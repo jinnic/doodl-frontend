@@ -46,7 +46,6 @@ class DoodleCanvas extends Component {
   }
 
   render() {
-    console.log(this.props.doodle)
     return (
       <div>
           <div class="doodle-modal modal fade" id="canvasModal" tabindex="-1" role="dialog" aria-labelledby="#canvasModal" aria-hidden="true">
