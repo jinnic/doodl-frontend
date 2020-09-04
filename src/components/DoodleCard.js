@@ -106,7 +106,7 @@ class DoodleCard extends Component {
   render() {
     const doodle = this.props.doodle
     const doodleData = JSON.stringify(doodle.doodle_data)
-    console.log("likes ; ",doodle.likes)
+    //console.log("likes ; ",doodle.likes)
     return (
       <div className="col-lg-4 col-md-6 col-sm-6 col-12 grid-gap">
         <div className="doodle-card">

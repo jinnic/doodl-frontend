@@ -41,6 +41,7 @@ class NewCanvas extends Component {
   }
 
   render() {
+    console.log("new canvas user",this.props.user)
     return (
       <div>
           <div class="doodle-modal modal fade" id="newCanvasModal" tabindex="-1" role="dialog" aria-labelledby="#newCanvasModal" aria-hidden="true">

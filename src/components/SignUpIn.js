@@ -38,7 +38,7 @@ class SignUpIn extends Component {
     }
 
     handleSignIn = () => {
-       fetch(`http://localhost:3000/login`, {
+       fetch(`https://doodl-api.herokuapp.com/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -61,7 +61,7 @@ class SignUpIn extends Component {
 
     handleSignUp = () => {
       // console.log('Im sign up fetch')
-        fetch(`http://localhost:3000/users`, {
+        fetch(`https://doodl-api.herokuapp.com/users`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
