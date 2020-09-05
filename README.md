@@ -3,7 +3,8 @@ by [Hyojin](https://github.com/jinnic) and [Aleksa](https://github.com/aleksarad
 
 
 <kbd>
-    <img src="public/doodl.png">
+    <!-- <img src="public/doodl.png"> -->
+    <video src="public/doodl.mov">
 </kbd>
 
 ### About ###
