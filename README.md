@@ -1,10 +1,12 @@
 # Doodl #
 by [Hyojin](https://github.com/jinnic) and [Aleksa](https://github.com/aleksarad) 💜
 
+[Live @doodl.netlify.app/](https://doodl.netlify.app/) ID: Demo PW: Demo
 
 <kbd>
-    <!-- <img src="public/doodl.png"> -->
-    <video src="public/doodl.mov">
+    <a href="https://youtu.be/D8xgX4vnICM">
+        <img src="public/doodl.png">
+    </a>
 </kbd>
 
 ### About ###
