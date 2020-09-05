@@ -1,7 +1,8 @@
 # Doodl #
 by [Hyojin](https://github.com/jinnic) and [Aleksa](https://github.com/aleksarad) 💜
 
-[Live @doodl.netlify.app](https://doodl.netlify.app/)  ID: Demo PW: Demo
+
+[Live @doodl.netlify.app](https://doodl.netlify.app/)   ID: Demo PW: Demo
 
 <kbd>
     <a href="https://youtu.be/D8xgX4vnICM">
