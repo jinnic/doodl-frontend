@@ -7,6 +7,7 @@ import Profile from './components/Profile';
 import DoodleCanvas from './components/DoodleCanvas';
 import NewCanvas from './components/NewCanvas';
 import SignUpIn from './components/SignUpIn';
+import Loading from './components/Loading'
 import './App.css';
 
 class App extends Component {
@@ -263,9 +264,10 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={() => (
               <>  
-                  {/* <Search getSearchTerm={this.getSearchTerm}/> */}
                   <SignUpIn handleLogin={this.handleLogin}/>
+                  { Object.entries(this.state.currentUser).length === 0 ? <Loading/> :
                   <DoodleContainer doodles={this.filterDoodles()} user={this.state.currentUser} updateLike={this.updateLike} />
+                  }
               </>
               )} />
             <Route path="/profile" render={routeProps =>(
@@ -286,9 +288,6 @@ class App extends Component {
                 <DoodleCanvas user={this.state.currentUser} handleUpdate={this.handleUpdate} doodle={this.state.currentlyEditing}/>
               </>
               )} />
-            {/* <Route path="/sign" render={()=>(
-              <SignUpIn handleLogin={this.handleLogin}/>
-            )} /> */}
           </Switch>
 
         </main>
