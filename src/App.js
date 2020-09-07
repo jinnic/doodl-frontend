@@ -16,10 +16,12 @@ class App extends Component {
     doodles: [],
     searchTerm: "",
     currentUser: {},
-    currentlyEditing: {}
+    currentlyEditing: {},
+    loading: ''
   }
 
   componentDidMount() {
+    this.setState({loading: true})
     const token = localStorage.getItem("token")
     if(token){
       fetch(`https://doodl-api.herokuapp.com/auto_login`, {
@@ -37,7 +39,10 @@ class App extends Component {
 
     fetch('https://doodl-api.herokuapp.com/doodles')
         .then(r=>r.json())
-        .then(doodles => this.setState({doodles: doodles}))
+        .then(doodles => {
+          this.setState({doodles: doodles})
+          this.setState({loading: false})
+        })
   }
 
   handleLogin=(user)=>{
@@ -265,7 +270,7 @@ class App extends Component {
             <Route exact path="/" render={() => (
               <>  
                   <SignUpIn handleLogin={this.handleLogin}/>
-                  { Object.entries(this.state.currentUser).length === 0 ? <Loading/> :
+                  { this.state.loading ? <Loading/> :
                   <DoodleContainer doodles={this.filterDoodles()} user={this.state.currentUser} updateLike={this.updateLike} />
                   }
               </>
