@@ -43,13 +43,20 @@ class DoodleCard extends Component {
         JSON.stringify(this.props.doodle.doodle_data))
   }
 
-
+  isEmpty = (obj)=>{
+    return Object.keys(obj).length === 0;
+  }
 
   handleLike = () => {
-    this.setState(prevState => ({
-      likeStatus: !prevState.likeStatus
-    }))
-    this.props.updateLike(this.props.doodle.id)
+    // console.log(this.props.user)
+    if(this.isEmpty(this.props.user)){
+      // debugger
+    }else{
+      this.setState(prevState => ({
+        likeStatus: !prevState.likeStatus
+      }))
+      this.props.updateLike(this.props.doodle.id)
+    }
   }
 
   handleClick = (e) => {
