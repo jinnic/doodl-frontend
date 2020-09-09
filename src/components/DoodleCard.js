@@ -24,6 +24,16 @@ class DoodleCard extends Component {
     this.responsiveDimensions()
   }
 
+  componentDidUpdate(prevProps){
+    if(this.props.user !== prevProps.user){
+      console.log("component did update")
+      const like = this.props.doodle.likes.filter(like => like.user_id === this.props.user.id)
+      this.setState({
+        likeStatus: like.length > 0 ? true : false
+      })
+    }
+  }
+  
   componentWillUnmount() {
     window.removeEventListener('resize', this.onResize);
   }
@@ -43,15 +53,15 @@ class DoodleCard extends Component {
         JSON.stringify(this.props.doodle.doodle_data))
   }
 
+  
   isEmpty = (obj)=>{
     return Object.keys(obj).length === 0;
   }
 
   handleLike = () => {
-    // console.log(this.props.user)
     if(this.isEmpty(this.props.user)){
-      // debugger
     }else{
+      console.log("like status : ", this.state.likeStatus)
       this.setState(prevState => ({
         likeStatus: !prevState.likeStatus
       }))
