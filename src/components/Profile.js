@@ -7,12 +7,9 @@ class Profile extends Component {
     showEditForm: false
   }
 
-  updateState = (e) => {
-    e.preventDefault()
-    this.setState(prevState => ({
-      showEditForm: !prevState.showEditForm
-    }))
-  }
+  handleClose = () => {this.setState({showEditForm: false})};
+
+  handleShow = () => {this.setState({showEditForm: true})};
 
   render() {
     const { doodles, user, handleDelete, handleUpdate, userUpdate, renderExisting, match } = this.props
@@ -22,11 +19,11 @@ class Profile extends Component {
           <div id="profile-info-container">
             <div id="profile-edit-container">
               <h2>{user.user_name}'s artwork</h2>
-              <button type="button" className="profile-button" data-toggle="modal" data-target="#profileModal">edit</button>
+              <button type="button" className="profile-button" onClick={this.handleShow}>edit</button>
             </div>
-            <p>{user.bio}</p>
+            {/* <p>{user.bio}</p> */}
             <hr id="line"></hr>
-            <ProfileEditForm userDelete={this.props.userDelete} userUpdate={userUpdate} user={user} updateUserInfo={this.updateUserInfo}/>
+            <ProfileEditForm userDelete={this.props.userDelete} userUpdate={userUpdate} user={user} updateUserInfo={this.updateUserInfo} show={this.state.showEditForm} onHide={this.handleClose}/>
           </div>
           <DoodleContainer 
           user={user}
