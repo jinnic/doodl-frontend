@@ -17,7 +17,8 @@ class App extends Component {
     searchTerm: "",
     currentUser: {},
     currentlyEditing: {},
-    loading: ''
+    loading: '',
+    showSignUpIn: false,
   }
 
   componentDidMount() {
@@ -257,19 +258,21 @@ class App extends Component {
     })
   } 
 
+  handleClose = () => {this.setState({showSignUpIn: false})}
+  handleShow = () => {this.setState({showSignUpIn: true})}
   
   render() {
     return (
       <>
       
-        <Nav getSearchTerm={this.getSearchTerm} currentUser={this.state.currentUser} handleLogout={this.handleLogout} />
+        <Nav getSearchTerm={this.getSearchTerm} currentUser={this.state.currentUser} handleLogout={this.handleLogout} handleShow={this.handleShow} />
         <NewCanvas user={this.state.currentUser} addNewDoodle={this.addNewDoodle} />
         
         <main>
           <Switch>
             <Route exact path="/" render={() => (
               <>  
-                  <SignUpIn handleLogin={this.handleLogin}/>
+                  <SignUpIn handleLogin={this.handleLogin} onHide={this.handleClose} show={this.state.showSignUpIn}/>
                   { this.state.loading ? <Loading/> :
                   <DoodleContainer doodles={this.filterDoodles()} user={this.state.currentUser} updateLike={this.updateLike} />
                   }

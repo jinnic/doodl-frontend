@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import Modal from 'react-bootstrap/Modal';
+
 import $ from 'jquery'
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 class ProfileEditForm extends Component {
     state = {
         user_name:this.props.user.user_name,
@@ -39,38 +42,61 @@ class ProfileEditForm extends Component {
     }
   
     render() {
+      const {onHide, show} = this.props
       return (
-        
-        <div className="modal fade" id="profileModal" tabIndex="-1" role="dialog" aria-labelledby="profileModalLabel" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content">
-                <form onSubmit={this.handleSubmit}>
-                    <div className="modal-header">
-                        <h5 className="modal-title" id="profileModalLabel">Edit {this.props.user.user_name}'s profile</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div className="modal-body">
-                    <div className='form-group'>
-
-                            <label>Username:</label>
-                            <input className='form-control' name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text"/>
-                            <label>Password:</label>
-                            <input className='form-control' name='password' value={this.state.password} onChange={this.handleChange} type="password"/>
-                            <label>Bio:</label>
-                            <input className='form-control' name='bio' value={this.state.bio} onChange={this.handleChange} type="text"/>
-                            
-                        </div>    
-                    </div>
-                    <div className="modal-footer">
-                    <button className="button" type="submit" >Update</button>
-                    </div>
-
-                </form>
-                </div>
-            </div>
+        <Modal
+          show={show}
+          onHide={onHide}
+          scrollable={false}
+          size="md"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+        <Modal.Header closeButton className="">
+          <h5 >{this.state.toggle === 'sign up' ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
+        </Modal.Header>
+        <Modal.Body>
+        <div className='form-group'>
+            <label>Username:</label>
+            <input className='form-control' name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text"/>
+            <label>Password:</label>
+            <input className='form-control' name='password' value={this.state.password} onChange={this.handleChange} type="password"/>
+            <label>Bio:</label>
+            <input className='form-control' name='bio' value={this.state.bio} onChange={this.handleChange} type="text"/>
         </div>
+        </Modal.Body>
+    
+      </Modal>
+        // {/* <div className="modal fade" id="profileModal" tabIndex="-1" role="dialog" aria-labelledby="profileModalLabel" aria-hidden="true">
+        //     <div className="modal-dialog modal-dialog-centered">
+        //         <div className="modal-content">
+        //         <form onSubmit={this.handleSubmit}>
+        //             <div className="modal-header">
+        //                 <h5 className="modal-title" id="profileModalLabel">Edit {this.props.user.user_name}'s profile</h5>
+        //                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+        //                 <span aria-hidden="true">&times;</span>
+        //                 </button>
+        //             </div>
+        //             <div className="modal-body">
+        //             <div className='form-group'>
+
+        //                     <label>Username:</label>
+        //                     <input className='form-control' name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text"/>
+        //                     <label>Password:</label>
+        //                     <input className='form-control' name='password' value={this.state.password} onChange={this.handleChange} type="password"/>
+        //                     <label>Bio:</label>
+        //                     <input className='form-control' name='bio' value={this.state.bio} onChange={this.handleChange} type="text"/>
+                            
+        //                 </div>    
+        //             </div>
+        //             <div className="modal-footer">
+        //             <button className="button" type="submit" >Update</button>
+        //             </div>
+
+        //         </form>
+        //         </div>
+        //     </div>
+        // </div> */}
       )
     }
 }
