@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-import DoodleCard from "./DoodleCard"
-
+import React, { Component } from "react";
+import DoodleCard from "./DoodleCard";
 
 class DoodleContainer extends Component {
-
   state = {
     editable: false,
-    doodle: {}
-  }
+    doodle: {},
+  };
 
   // showEditCanvas = (doodle) => {
   //     this.setState(prevState => ({
@@ -30,30 +28,34 @@ class DoodleContainer extends Component {
   // }
 
   renderDoodle = () => {
-    return (
-      this.props.doodles.map(doodle =>  <DoodleCard 
+    return this.props.doodles.map((doodle) => (
+      <DoodleCard
         key={doodle.id}
         renderExisting={this.props.renderExisting}
-        showEditCanvas={this.showEditCanvas} 
+        showEditCanvas={this.showEditCanvas}
         handleUpdate={this.props.handleUpdate}
-        handleDelete={this.props.handleDelete} 
+        handleDelete={this.props.handleDelete}
         match={this.props.match}
         page={this.props.page}
         doodle={doodle}
-        updateLike={this.props.updateLike} 
-        user={this.props.user} 
-        />)
-      )
-  }
-  
+        updateLike={this.props.updateLike}
+        user={this.props.user}
+      />
+    ));
+  };
+
   render() {
     return (
-      <div className="container-fluid">
-        <div className="row align-items-center">
-          {this.renderDoodle()} 
-        </div>
+      // <div className="container-fluid">
+      //   <div className="row align-items-center">
+      //     {this.renderDoodle()}
+      //   </div>
+      // </div>
+
+      <div className="">
+        <div className="flex-container">{this.renderDoodle()}</div>
       </div>
-    )
+    );
   }
 }
-export default DoodleContainer
+export default DoodleContainer;

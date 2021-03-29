@@ -9,7 +9,7 @@ class DoodleCard extends Component {
   state = {
     likeStatus: "",
     width: 400,
-    height: 400
+    height: 321
   }
 
   componentDidMount() {
@@ -20,8 +20,8 @@ class DoodleCard extends Component {
     this.setState({
       likeStatus: like.length > 0 ? true : false
     })
-    window.addEventListener('resize', this.onResize);
-    this.responsiveDimensions()
+    // window.addEventListener('resize', this.onResize);
+    // this.responsiveDimensions()
   }
 
   componentDidUpdate(prevProps){
@@ -123,7 +123,7 @@ class DoodleCard extends Component {
     const doodle = this.props.doodle
     const doodleData = JSON.stringify(doodle.doodle_data)
     return (
-      <div className="col-lg-4 col-md-6 col-sm-6 col-12 grid-gap">
+      <div className="">
         <div className="doodle-card">
           <div className="fake-canvas">
 
