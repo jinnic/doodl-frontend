@@ -392,10 +392,18 @@ p {
     justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 3rem 1.5rem;
-    width: 85%;
+    width: 90%;
     margin: auto;
-    padding-top: 1.5rem;
+    padding: 1.5rem 0;
+    // border: 1px solid white;
 }
+
+// .flex-container::after {
+//     content: '';
+//     flex: auto;
+//     padding: 1.5rem 0;
+//     border: 1px solid greenyellow;
+// }
 
 //PROFILE
 

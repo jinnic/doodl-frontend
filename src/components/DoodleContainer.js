@@ -7,26 +7,6 @@ class DoodleContainer extends Component {
     doodle: {},
   };
 
-  // showEditCanvas = (doodle) => {
-  //     this.setState(prevState => ({
-  //       editable: !prevState.editable,
-  //       doodle: doodle
-  //     }))
-
-  // }
-
-  // closeCanvas = () => {
-  //   this.setState({
-  //     editable: false
-  //   })
-  // }
-
-  // renderDoodleCanvas = () => {
-  //   if (this.state.editable === true) {
-  //       return <DoodleCanvas user={this.props.user} closeCanvas={this.closeCanvas} handleUpdate ={this.props.handleUpdate} doodle={this.state.doodle}/>
-  //   }
-  // }
-
   renderDoodle = () => {
     return this.props.doodles.map((doodle) => (
       <DoodleCard
@@ -40,18 +20,13 @@ class DoodleContainer extends Component {
         doodle={doodle}
         updateLike={this.props.updateLike}
         user={this.props.user}
+        handleEditCanvasShow={this.props.handleEditCanvasShow}
       />
     ));
   };
 
   render() {
     return (
-      // <div className="container-fluid">
-      //   <div className="row align-items-center">
-      //     {this.renderDoodle()}
-      //   </div>
-      // </div>
-
       <div className="">
         <div className="flex-container">{this.renderDoodle()}</div>
       </div>

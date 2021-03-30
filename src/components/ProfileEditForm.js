@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
 
-import "bootstrap/dist/js/bootstrap.bundle.min";
-
 class ProfileEditForm extends Component {
   state = {
     user_name: this.props.user.user_name,

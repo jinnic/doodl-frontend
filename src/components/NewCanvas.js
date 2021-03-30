@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CanvasDraw from "react-canvas-draw";
+import Modal from "react-bootstrap/Modal";
 
 
 class NewCanvas extends Component {
@@ -36,90 +37,86 @@ class NewCanvas extends Component {
     this.setState({
       name: 'masterpiece name'
     })
+    
   }
 
   render() {
+    const { onHide, show } = this.props
     return (
-      <div>
-          <div className="doodle-modal modal fade" id="newCanvasModal" tabIndex="-1" role="dialog" aria-labelledby="#newCanvasModal" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-centered" role="document">
-              <div className="modal-content">
-                <div className="modal-header">
-                    <section className="clear-undo">
-                        <button className="button" onClick={() => this.saveableCanvas.clear()}>
-                        clear
-                        </button>
-                        <button className="button undo" onClick={() => this.saveableCanvas.undo()}>
-                        undo
-                        </button>
-                    </section>
-                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-              <div className="modal-body"></div>
-          <div>
 
-          </div>
-
-          <CanvasDraw
-            className="doodle-canvas"
-            hideGrid
-            ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
-            brushColor={this.state.color}
-            brushRadius={this.state.brushRadius}
-            lazyRadius={this.state.lazyRadius}
-            canvasWidth={500}
-            canvasHeight={400}
-          />
-
-          <div className="tool-container">
-            <section className="tools">
-              <label>title:</label>
-              <input
-                type="text"
-                value={this.state.name}
-                onChange={e =>
-                  this.setState({name: e.target.value})
-                }
-              />
-              <br></br>
-              <label>brush:</label>
-              <input
-                className="brush-radius-input"
-                type="number"
-                value={this.state.brushRadius}
-                onChange={e =>
-                  this.setState({ brushRadius: parseInt(e.target.value, 10) })
-                }
-              />
-              <label>color:</label>
-              <input
-                className="brush-color-input align-middle"
-                type="color"
-                value={this.state.color}
-                onChange={e =>
-                  this.setState({ color: e.target.value })
-                }
-              />
-              <button
-              className="random-button"
-              onClick={() => {
-                this.setState({
-                  color: "#" + Math.floor(Math.random() * 16777215).toString(16)
-                })
-              }}
-            >
-              random
-              </button>
-              </section>
-              <button className="save-button" onClick={this.handleSave} data-dismiss="modal">save</button>
-          </div>
-
-          </div>
-          </div>
-        </div>
-      </div>
+      <Modal
+        show={show}
+        onHide={onHide}
+        scrollable={false}
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton className="">
+          <section className="clear-undo">
+            <button className="button" onClick={() => this.saveableCanvas.clear()}>
+            clear
+            </button>
+            <button className="button undo" onClick={() => this.saveableCanvas.undo()}>
+            undo
+            </button>
+          </section>
+      </Modal.Header>
+      <Modal.Body>
+      <CanvasDraw
+             className="doodle-canvas"
+             hideGrid
+             ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
+             brushColor={this.state.color}
+             brushRadius={this.state.brushRadius}
+             lazyRadius={this.state.lazyRadius}
+             canvasWidth={500}
+             canvasHeight={400}
+           />
+           <div className="tool-container">
+             <section className="tools">
+               <label>title:</label>
+               <input
+                 type="text"
+                 value={this.state.name}
+                 onChange={e =>
+                   this.setState({name: e.target.value})
+                 }
+               />
+               <br></br>
+               <label>brush:</label>
+               <input
+                 className="brush-radius-input"
+                 type="number"
+                 value={this.state.brushRadius}
+                 onChange={e =>
+                   this.setState({ brushRadius: parseInt(e.target.value, 10) })
+                 }
+               />
+               <label>color:</label>
+               <input
+                 className="brush-color-input align-middle"
+                 type="color"
+                 value={this.state.color}
+                 onChange={e =>
+                   this.setState({ color: e.target.value })
+                 }
+               />
+               <button
+               className="random-button"
+               onClick={() => {
+                 this.setState({
+                   color: "#" + Math.floor(Math.random() * 16777215).toString(16)
+                 })
+               }}
+             >
+               random
+               </button>
+               </section>
+               <button className="save-button" onClick={this.handleSave} data-dismiss="modal">save</button>
+           </div>
+      </Modal.Body>
+      </Modal>
     )
   }
 

@@ -20,8 +20,6 @@ class DoodleCard extends Component {
     this.setState({
       likeStatus: like.length > 0 ? true : false
     })
-    // window.addEventListener('resize', this.onResize);
-    // this.responsiveDimensions()
   }
 
   componentDidUpdate(prevProps){
@@ -36,21 +34,6 @@ class DoodleCard extends Component {
   
   componentWillUnmount() {
     window.removeEventListener('resize', this.onResize);
-  }
-
-  onResize = (event) => {
-    this.responsiveDimensions()
-
-  }
-
-  responsiveDimensions = () => {
-    let size = document.querySelector('.doodle-card').clientWidth
-    this.setState({
-      height: size,
-      width: size,
-    })
-    this.saveableCanvas.loadSaveData(
-        JSON.stringify(this.props.doodle.doodle_data))
   }
 
   
@@ -80,6 +63,7 @@ class DoodleCard extends Component {
   handleEdit = () => {
     const doodle = this.props.doodle
     this.props.renderExisting(doodle)
+    this.props.handleEditCanvasShow()
   }
 
   renderButtons = () => {
@@ -100,7 +84,7 @@ class DoodleCard extends Component {
       <OverlayTrigger trigger="click" placement="left" overlay={popover}>
         <button className="button">delete</button> 
       </OverlayTrigger>
-      <button className="button" data-toggle="modal" data-target="#canvasModal" onClick={this.handleEdit}>edit</button>
+      <button className="button" onClick={this.handleEdit}>edit</button>
       <svg onClick={this.handleClick} width="1.3em" height="1.3em" viewBox="0 0 16 16" className="align-bottom bi bi-download" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" d="M.5 8a.5.5 0 0 1 .5.5V12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5a.5.5 0 0 1 1 0V12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8.5A.5.5 0 0 1 .5 8z"/>
         <path fill-rule="evenodd" d="M5 7.5a.5.5 0 0 1 .707 0L8 9.793 10.293 7.5a.5.5 0 1 1 .707.707l-2.646 2.647a.5.5 0 0 1-.708 0L5 8.207A.5.5 0 0 1 5 7.5z"/>
