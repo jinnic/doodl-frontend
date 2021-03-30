@@ -40,6 +40,11 @@ class NewCanvas extends Component {
     
   }
 
+  randomColor = () => {
+    let n = (Math.random() * 0xfffff * 1000000).toString(16);
+    return '#' + n.slice(0, 6);
+  }
+
   render() {
     const { onHide, show } = this.props
     return (
@@ -106,7 +111,7 @@ class NewCanvas extends Component {
                className="random-button"
                onClick={() => {
                  this.setState({
-                   color: "#" + Math.floor(Math.random() * 16777215).toString(16)
+                   color: this.randomColor()
                  })
                }}
              >

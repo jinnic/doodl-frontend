@@ -45,6 +45,11 @@ class DoodleCanvas extends Component {
     this.props.handleUpdate(newObj, this.props.doodle.id);
   };
 
+  randomColor = () => {
+    let n = (Math.random() * 0xfffff * 1000000).toString(16);
+    return '#' + n.slice(0, 6);
+  }
+
   render() {
     const { show, onHide } = this.props;
     return (
@@ -113,8 +118,7 @@ class DoodleCanvas extends Component {
                 className="random-button"
                 onClick={() => {
                   this.setState({
-                    color:
-                      "#" + Math.floor(Math.random() * 16777215).toString(16),
+                    color: this.randomColor()
                   });
                 }}
               >
