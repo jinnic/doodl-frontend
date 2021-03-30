@@ -20,7 +20,7 @@ class ProfileEditForm extends Component {
     if (this.props.user !== prevProps.user) {
       console.log(this.props.user);
       this.setState({
-        user_name: this.props.user.user_name
+        user_name: this.props.user.user_name,
       });
     }
   }
@@ -56,32 +56,32 @@ class ProfileEditForm extends Component {
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        id="profileModal"
       >
         <Modal.Header closeButton className="">
           <h5 className="modal-title" id="profileModalLabel">
             Edit {this.props.user.user_name}'s profile
           </h5>
         </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label>Username:</label>
-              <input
-                className="form-control"
-                name="user_name"
-                value={this.state.user_name}
-                onChange={this.handleChange}
-                type="text"
-              />
-              <label>Password:</label>
-              <input
-                className="form-control"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleChange}
-                type="password"
-              />
-              {/* <label>Bio:</label>
+        <form onSubmit={this.handleSubmit}>
+          <Modal.Body>
+            <label>Username:</label>
+            <input
+              className="form-control"
+              name="user_name"
+              value={this.state.user_name}
+              onChange={this.handleChange}
+              type="text"
+            />
+            <label>Password:</label>
+            <input
+              className="form-control"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+              type="password"
+            />
+            {/* <label>Bio:</label>
               <input
                 className="form-control"
                 name="bio"
@@ -89,14 +89,13 @@ class ProfileEditForm extends Component {
                 onChange={this.handleChange}
                 type="text"
               /> */}
-              <Modal.Footer>
-                <button className="button" type="submit">
-                  Update
-                </button>
-              </Modal.Footer>
-            </div>
-          </form>
-        </Modal.Body>
+          </Modal.Body>
+          <Modal.Footer>
+            <button className="button" type="submit">
+              Update
+            </button>
+          </Modal.Footer>
+        </form>
       </Modal>
     );
   }

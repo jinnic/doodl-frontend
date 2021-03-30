@@ -105,6 +105,7 @@ class SignUpIn extends Component {
           size="md"
           aria-labelledby="contained-modal-title-vcenter"
           centered
+          id="signModal"
         >
         <Modal.Header closeButton className="">
           <h5 >{this.state.toggle === 'sign up' ? 'Welcome to Doodl' : 'Welcome Back'}</h5>

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search"
 import { ReactComponent as Logo } from './doodl-logo.svg';
-import { Button } from "react-bootstrap/Button";
 
 class Nav extends Component {
 
@@ -23,7 +22,7 @@ class Nav extends Component {
             <ul className="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li className="nav-item">
                   {/* <Link to='/'  data-toggle="modal" data-target="#signModal" className='nav-link' >Log In | Sign Up</Link>  */}
-                  <button onClick={handleShow}>Log In | Sign Up</button>
+                  <button className='nav-link' onClick={handleShow}>Log In | Sign Up</button>
                 </li>
             </ul>
            :  

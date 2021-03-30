@@ -145,6 +145,11 @@ nav {
     border-bottom: 2px solid $primary;
 }
 
+button.nav-link {
+    border: none;
+    background: transparent;
+}
+
 .new-button {
     border: none;
     background-color: transparent;
@@ -267,14 +272,14 @@ nav {
 //DOODLE CARD
 
 .modal canvas {
-    width: 100% !important;
-    height: 400px !important;
+    // width: 100% !important;
+    // height: 400px !important;
 }
 
 .doodle-canvas {
     width: 100% !important;
-    margin: 0 auto;
-    height: 400px !important;
+    // margin: 0 auto;
+    // height: 400px !important;
 }
 
 

@@ -60,6 +60,7 @@ class DoodleCanvas extends Component {
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        className="doodle-modal"
       >
         <Modal.Header closeButton className="">
           <section className="clear-undo">
