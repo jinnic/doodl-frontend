@@ -334,6 +334,7 @@ class App extends Component {
               path="/profile"
               render={(routeProps) => (
                 <>
+                { this.state.loading ? <Loading/> :
                   <Profile
                     handleDelete={this.handleDelete}
                     handleUpdate={this.handleUpdate}
@@ -347,6 +348,7 @@ class App extends Component {
                     handleEditCanvasShow={this.handleEditCanvasShow}
                     {...routeProps}
                   />
+                }
                   <DoodleCanvas
                     user={this.state.currentUser}
                     handleUpdate={this.handleUpdate}
