@@ -1,17 +1,42 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import DrawingTool from "./DrawingTool";
 import CanvasDraw from "react-canvas-draw";
 import Modal from "react-bootstrap/Modal";
 
 
 class NewCanvas extends Component {
   state = {
-    color: "#672DAC",
+    // color: "#672DAC",
     width: 500,
     height: 400,
-    brushRadius: 5,
+    // brushRadius: 5,
     lazyRadius: 0,
-    name: 'masterpiece name',
-    doodle: {}
+    // name: 'masterpiece name',
+    doodle: {},
+    tool: {
+      color: "#672DAC",
+      brushRadius: 5,
+      name: 'masterpiece name',
+    }
+  }
+
+  handleToolState = (type, value) =>{
+    console.log(type, value)
+    switch(type){
+      case "name":
+        this.setState({tool:{ ...this.state.tool, name: value }});
+        break;
+      case "brushRadius":
+        this.setState({tool:{ ...this.state.tool, brushRadius: value }});
+        break;
+      case "color":
+        this.setState({tool:{ ...this.state.tool, color: value }});
+        break;
+      case "random":
+        this.setState({tool:{ ...this.state.tool, color: value }});
+        break;
+    }
+
   }
 
   handleSave = () => {
@@ -29,7 +54,7 @@ class NewCanvas extends Component {
     
     newObj.doodle_data = { ...JSON.parse(this.state.doodle) }
     newObj["user_id"] = this.props.user.id
-    newObj.name = this.state.name
+    newObj.name = this.state.tool.name
     newObj.width = this.state.width
     newObj.height = this.state.height
 
@@ -38,11 +63,6 @@ class NewCanvas extends Component {
       name: 'masterpiece name'
     })
     
-  }
-
-  randomColor = () => {
-    let n = (Math.random() * 0xfffff * 1000000).toString(16);
-    return '#' + n.slice(0, 6);
   }
 
   render() {
@@ -73,13 +93,14 @@ class NewCanvas extends Component {
              className="doodle-canvas"
              hideGrid
              ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
-             brushColor={this.state.color}
-             brushRadius={this.state.brushRadius}
+             brushColor={this.state.tool.color}
+             brushRadius={this.state.tool.brushRadius}
              lazyRadius={this.state.lazyRadius}
              canvasWidth={500}
              canvasHeight={400}
            />
-           <div className="tool-container">
+      <DrawingTool tool={this.state.tool} handleSave={this.handleSave} handleToolState={this.handleToolState}/>
+           {/* <div className="tool-container">
              <section className="tools">
                <label>title:</label>
                <input
@@ -119,8 +140,14 @@ class NewCanvas extends Component {
                random
                </button>
                </section>
-               <button className="save-button" onClick={this.handleSave} data-dismiss="modal">save</button>
-           </div>
+               <button 
+                className="save-button" 
+                onClick={this.handleSave} 
+                data-dismiss="modal"
+              >
+                save
+              </button>
+           </div> */}
       </Modal.Body>
       </Modal>
     )
