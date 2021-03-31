@@ -81,6 +81,7 @@ class DoodleCanvas extends Component {
         <Modal.Body>
           <CanvasDraw
             className="doodle-canvas"
+            loadTimeOffset={1}
             hideGrid
             ref={(canvasDraw) => (this.saveableCanvas = canvasDraw)}
             brushColor={this.state.color}
