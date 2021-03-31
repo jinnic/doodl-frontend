@@ -22,6 +22,9 @@ class App extends Component {
     showEditCanvas: false
   };
 
+  /**
+   * Auto login on initial load
+   */
   componentDidMount() {
     this.setState({ loading: true });
     const token = localStorage.getItem("token");
@@ -124,7 +127,7 @@ class App extends Component {
           {
             currentUser: updatedUser,
           },
-          () => console.log("UPDATED USER++++++++++", updatedUser)
+          () => console.log("UPDATED USER", updatedUser)
         );
       });
   };
@@ -202,13 +205,15 @@ class App extends Component {
   };
 
   //DELETE
+  //remove one doodle
   removeFromState = (id) => {
     const filtered = this.state.doodles.filter((d) => d.id !== id);
     this.setState({
       doodles: filtered,
     });
   };
-
+  //DELETE
+  //remove all doodle by user_id
   removeUserDoodles = (id) => {
     const filtered = this.state.doodles.filter((d) => d.user_id !== id);
     this.setState({
@@ -222,6 +227,38 @@ class App extends Component {
     this.setState({
       searchTerm: e.target.value.toLowerCase(),
     });
+  };
+
+  //set state for selected doodle for editing
+  renderExisting = (dood) => {
+    this.setState({
+      currentlyEditing: dood,
+    });
+  };
+
+  /**
+   * handle modal state : open and close
+   */
+  //signup & login
+  handleClose = () => {
+    this.setState({ showSignUpIn: false });
+  };
+  handleShow = () => {
+    this.setState({ showSignUpIn: true });
+  };
+  //new canvas
+  handleNewCanvasClose = () => {
+    this.setState({ showNewCanvas: false });
+  };
+  handleNewCanvasShow = () => {
+    this.setState({ showNewCanvas: true });
+  };
+  //doodle canvas : canvas for editing doodle
+  handleEditCanvasClose = () => {
+    this.setState({ showEditCanvas: false });
+  };
+  handleEditCanvasShow = () => {
+    this.setState({ showEditCanvas: true });
   };
 
   /**
@@ -258,35 +295,6 @@ class App extends Component {
         .filter((doodle) => doodle.name.toLowerCase().includes(searchTerm));
       return filtered;
     }
-  };
-
-  renderExisting = (dood) => {
-    this.setState({
-      currentlyEditing: dood,
-    });
-  };
-
-  handleClose = () => {
-    this.setState({ showSignUpIn: false });
-  };
-  handleShow = () => {
-    this.setState({ showSignUpIn: true });
-  };
-
-  handleNewCanvasClose = () => {
-    this.setState({ showNewCanvas: false });
-  };
-
-  handleNewCanvasShow = () => {
-    this.setState({ showNewCanvas: true });
-  };
-
-  handleEditCanvasClose = () => {
-    this.setState({ showEditCanvas: false });
-  };
-  
-  handleEditCanvasShow = () => {
-    this.setState({ showEditCanvas: true });
   };
 
   render() {

@@ -40,7 +40,7 @@ class NewCanvas extends Component {
   }
 
   handleSave = () => {
-    // debugger
+    //save doodle data from react-canvas-draw
     this.setState({
       doodle: this.saveableCanvas.getSaveData()
     }, this.addOrUpdate)
