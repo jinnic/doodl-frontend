@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import $ from 'jquery'
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import Modal from 'react-bootstrap/Modal';
 
 class SignUpIn extends Component {
     state = {
@@ -51,7 +50,7 @@ class SignUpIn extends Component {
                 localStorage.setItem("token", data.token)
                 this.props.handleLogin(data.user)
                 this.resetState()
-                $('#signModal').modal("hide")
+                this.props.onHide()
             } else {
                 this.setState({errors: data.failure})
             }
@@ -73,7 +72,7 @@ class SignUpIn extends Component {
             if (data.token) {
               localStorage.setItem("token", data.token)
               this.props.handleLogin(data.user)
-              $('#signModal').modal("hide")
+              this.props.onHide()
             }
             else {
               this.setState({errors: data.error})
@@ -97,39 +96,39 @@ class SignUpIn extends Component {
     }
 
     render() {
+      const {onHide, show} = this.props
       return (
-        <div className="modal fade" id="signModal" tabIndex="-1" role="dialog" aria-labelledby="signModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered">
-                  <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title " id="signModalLabel">{this.state.toggle === 'sign up' ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                        
-                      </div>
-                      <div className="modal-body">
-                        <form onSubmit={this.handleSubmit}>
-                            <div className="form-group">
-                                <label>Username</label>
-                                <input className='form-control' name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text" placeholder="username"/>
-                            </div>
-                            <div className="form-group">
-                                <label>Password</label>
-                                <input className='form-control' name='password' value={this.state.password} onChange={this.handleChange} type="password" placeholder="password"/>
-                            </div>
-                            <div style={{marginBottom: '.5rem'}}>
-                              {this.renderErrors()}
-                            </div>
-                            <button id='submitBtn' name='signUp' className="button mx-auto d-block"  type="submit">{this.state.toggle === 'sign up' ? 'Sign up' : 'Log In'}</button>
-                        </form>
-                        <hr className="hr-text" data-content="or"/>
-                          
-                            <button onClick={this.handleToggle} className="sign-toogle-button mx-auto d-block" type="click">{this.state.toggle !== 'sign up' ? 'Sign up' : 'Log In'}</button>
-                      </div>
-                  </div>
-                </div>
-        </div>
+        <Modal
+          show={show}
+          onHide={onHide}
+          scrollable={false}
+          size="md"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          id="signModal"
+        >
+        <Modal.Header closeButton className="">
+          <h5 >{this.state.toggle === 'sign up' ? 'Welcome to Doodl' : 'Welcome Back'}</h5>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label>Username</label>
+              <input className='form-control' name='user_name' value={this.state.user_name} onChange={this.handleChange} type="text" placeholder="username"/>
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input className='form-control' name='password' value={this.state.password} onChange={this.handleChange} type="password" placeholder="password"/>
+            </div>
+            <div style={{marginBottom: '.5rem'}}>
+              {this.renderErrors()}
+            </div>
+            <button id='submitBtn' name='signUp' className="button mx-auto d-block"  type="submit">{this.state.toggle === 'sign up' ? 'Sign up' : 'Log In'}</button>
+          </form>
+            <hr className="hr-text" data-content="or"/>
+            <button onClick={this.handleToggle} className="sign-toogle-button mx-auto d-block" type="click">{this.state.toggle !== 'sign up' ? 'Sign up' : 'Log In'}</button>
+        </Modal.Body>
+      </Modal>
       )
     }
 }

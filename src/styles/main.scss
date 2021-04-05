@@ -145,6 +145,11 @@ nav {
     border-bottom: 2px solid $primary;
 }
 
+button.nav-link {
+    border: none;
+    background: transparent;
+}
+
 .new-button {
     border: none;
     background-color: transparent;
@@ -267,14 +272,14 @@ nav {
 //DOODLE CARD
 
 .modal canvas {
-    width: 100% !important;
-    height: 400px !important;
+    // width: 100% !important;
+    // height: 400px !important;
 }
 
 .doodle-canvas {
     width: 100% !important;
-    margin: 0 auto;
-    height: 400px !important;
+    // margin: 0 auto;
+    // height: 400px !important;
 }
 
 
@@ -283,7 +288,7 @@ nav {
     border: 3px solid $secondary;
     border-radius: $card-radius;
     //display: inline-block;
-    margin: 0 auto;
+    margin: 0 auto 0 auto;
     overflow: hidden;
     .bi-download {
         margin-left: 0.2rem;
@@ -292,6 +297,9 @@ nav {
     .bi-download:hover {
         cursor: pointer;
     }
+    width: 400px;
+    // height: 410px;
+    border: 3px solid $secondary;
 }
 
 .disabled-canvas {
@@ -371,18 +379,36 @@ p {
 
 //DOODLE CONTAINER
 .col-lg-4,
-.col-md-6 .col-sm-6 .col-12 {
-}
+// .col-md-6 .col-sm-6 .col-12 {
+// }
 
-.grid-gap {
-    padding: 1%;
-}
+// .grid-gap {
+//     padding: 1%;
+// }
 
-.container-fluid {
+// .container-fluid {
+//     width: 90%;
+//     margin: 0 auto;
+
+// }
+
+.flex-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 3rem 1.5rem;
     width: 90%;
-    margin: 0 auto;
-
+    margin: auto;
+    padding: 1.5rem 0;
+    // border: 1px solid white;
 }
+
+// .flex-container::after {
+//     content: '';
+//     flex: auto;
+//     padding: 1.5rem 0;
+//     border: 1px solid greenyellow;
+// }
 
 //PROFILE
 

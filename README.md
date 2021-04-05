@@ -6,7 +6,7 @@ by [Hyojin](https://github.com/jinnic) and [Aleksa](https://github.com/aleksarad
 
 <kbd>
     <a href="https://youtu.be/D8xgX4vnICM">
-        <img src="public/doodl.png">
+        <img src="public/doodl.jpg">
     </a>
 </kbd>
 
