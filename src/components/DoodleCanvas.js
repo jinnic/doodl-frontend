@@ -1,16 +1,22 @@
 import React, { Component } from "react";
 import CanvasDraw from "react-canvas-draw";
 import Modal from "react-bootstrap/Modal";
+import DrawingTool from "./DrawingTool";
 
 class DoodleCanvas extends Component {
   state = {
-    color: "#672DAC",
+    // color: "#672DAC",
     width: 500,
     height: 400,
-    brushRadius: 5,
+    // brushRadius: 5,
     lazyRadius: 0,
-    name: this.props.doodle.name,
+    // name: this.props.doodle.name,
     doodle: {},
+    tool: {
+      color: "#672DAC",
+      brushRadius: 5,
+      name: `${this.props.doodle.name}`,
+    }
   };
 
   handleSave = () => {
@@ -28,7 +34,7 @@ class DoodleCanvas extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.doodle !== prevProps.doodle) {
       this.setState({
-        name: this.props.doodle.name,
+        tool:{...this.state.tool, name: this.props.doodle.name},
       });
     }
   }
@@ -38,19 +44,38 @@ class DoodleCanvas extends Component {
 
     newObj.doodle_data = { ...JSON.parse(this.state.doodle) };
     newObj["user_id"] = this.props.user.id;
-    newObj.name = this.state.name;
+    newObj.name = this.state.tool.name;
     newObj.width = this.state.width;
     newObj.height = this.state.height;
 
     this.props.handleUpdate(newObj, this.props.doodle.id);
   };
 
-  randomColor = () => {
-    let n = (Math.random() * 0xfffff * 1000000).toString(16);
-    return '#' + n.slice(0, 6);
-  }
+  handleToolState = (type, value) => {
+    console.log(type, value);
+    switch (type) {
+      case "name":
+        this.setState({ tool: { ...this.state.tool, name: value } });
+        break;
+      case "brushRadius":
+        this.setState({ tool: { ...this.state.tool, brushRadius: value } });
+        break;
+      case "color":
+        this.setState({ tool: { ...this.state.tool, color: value } });
+        break;
+      case "random":
+        this.setState({ tool: { ...this.state.tool, color: value } });
+        break;
+    }
+  };
+
+  // randomColor = () => {
+  //   let n = (Math.random() * 0xfffff * 1000000).toString(16);
+  //   return '#' + n.slice(0, 6);
+  // }
 
   render() {
+    console.log(this.props.doodle)
     const { show, onHide } = this.props;
     return (
       <Modal
@@ -84,14 +109,19 @@ class DoodleCanvas extends Component {
             loadTimeOffset={1}
             hideGrid
             ref={(canvasDraw) => (this.saveableCanvas = canvasDraw)}
-            brushColor={this.state.color}
-            brushRadius={this.state.brushRadius}
-            lazyRadius={this.state.lazyRadius}
+            brushColor={this.state.tool.color}
+            brushRadius={this.state.tool.brushRadius}
+            lazyRadius={this.state.tool.lazyRadius}
             canvasWidth={500}
             canvasHeight={400}
             saveData={JSON.stringify(this.props.doodle.doodle_data)}
-          />{" "}
-          <div class="tool-container">
+          />
+           <DrawingTool
+            tool={this.state.tool}
+            handleSave={this.handleSave}
+            handleToolState={this.handleToolState}
+          />
+          {/* <div class="tool-container">
             <section class="tools">
               <label>title:</label>
               <input
@@ -134,7 +164,7 @@ class DoodleCanvas extends Component {
             >
               save
             </button>
-          </div>{" "}
+          </div>{" "} */}
         </Modal.Body>
       </Modal>
     );

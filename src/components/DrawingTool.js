@@ -7,7 +7,7 @@ const randomColor = () => {
 
 const DrawingTool = props => {
   const {tool, handleSave, handleToolState} = props
-
+  console.log("TOOL PROPS", tool)
   return (
     <div className="tool-container">
       <section className="tools">
