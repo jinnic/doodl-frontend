@@ -5,22 +5,16 @@ class ProfileEditForm extends Component {
   state = {
     user_name: this.props.user.user_name,
     password: this.props.user.password,
-    // bio: this.props.user.bio,
+    bio: this.props.user.bio,
   };
-  //set title state when it's edit
+
   componentDidUpdate(prevProps) {
-    // console.log(this.props.user.user_name)
-    // if(this.props.user){
-    //     this.setState({
-    //         user_name: this.props.user.user_name,
-    //         password: this.props.user.password,
-    //         bio: this.props.user.bio
-    //     })
-    // }
+    console.log(this.props.user.user_name);
     if (this.props.user !== prevProps.user) {
-      console.log(this.props.user);
       this.setState({
         user_name: this.props.user.user_name,
+        password: this.props.user.password,
+        bio: this.props.user.bio,
       });
     }
   }
@@ -40,7 +34,7 @@ class ProfileEditForm extends Component {
     const userObj = {
       user_name: this.state.user_name,
       password: this.state.password,
-      // bio: this.state.bio,
+      bio: this.state.bio,
     };
     this.props.userUpdate(userObj, this.props.user.id);
     this.props.onHide();
@@ -80,15 +74,16 @@ class ProfileEditForm extends Component {
               value={this.state.password}
               onChange={this.handleChange}
               type="password"
+              required
             />
-            {/* <label>Bio:</label>
-              <input
-                className="form-control"
-                name="bio"
-                value={this.state.bio}
-                onChange={this.handleChange}
-                type="text"
-              /> */}
+            <label>Bio:</label>
+            <input
+              className="form-control"
+              name="bio"
+              value={this.state.bio}
+              onChange={this.handleChange}
+              type="text"
+            />
           </Modal.Body>
           <Modal.Footer>
             <button className="button" type="submit">

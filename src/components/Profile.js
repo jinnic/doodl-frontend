@@ -21,7 +21,7 @@ class Profile extends Component {
               <h2>{user.user_name}'s artwork</h2>
               <button type="button" className="profile-button" onClick={this.handleShow}>edit</button>
             </div>
-            {/* <p>{user.bio}</p> */}
+            <p>{user.bio}</p>
             <hr id="line"></hr>
             <ProfileEditForm userDelete={this.props.userDelete} userUpdate={userUpdate} user={user} updateUserInfo={this.updateUserInfo} show={this.state.showEditForm} onHide={this.handleClose}/>
           </div>
