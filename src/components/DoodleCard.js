@@ -24,7 +24,6 @@ class DoodleCard extends Component {
 
   componentDidUpdate(prevProps){
     if(this.props.user !== prevProps.user){
-      console.log("component did update")
       const like = this.props.doodle.likes.filter(like => like.user_id === this.props.user.id)
       this.setState({
         likeStatus: like.length > 0 ? true : false

@@ -8,7 +8,7 @@ class DoodleContainer extends Component {
   };
 
   renderDoodle = () => {
-    return this.props.doodles.map((doodle) => (
+    return this.props.doodles.slice(0, 6).map((doodle) => (
       <DoodleCard
         key={doodle.id}
         renderExisting={this.props.renderExisting}

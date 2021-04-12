@@ -29,6 +29,7 @@ class DoodleCanvas extends Component {
     );
 
     this.saveableCanvas.clear();
+    this.props.onHide();
   };
 
   componentDidUpdate(prevProps) {
@@ -68,11 +69,6 @@ class DoodleCanvas extends Component {
         break;
     }
   };
-
-  // randomColor = () => {
-  //   let n = (Math.random() * 0xfffff * 1000000).toString(16);
-  //   return '#' + n.slice(0, 6);
-  // }
 
   render() {
     console.log(this.props.doodle)

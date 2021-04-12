@@ -8,6 +8,7 @@ import DoodleCanvas from "./components/DoodleCanvas";
 import NewCanvas from "./components/NewCanvas";
 import SignUpIn from "./components/SignUpIn";
 import Loading from "./components/Loading";
+import Pagination from "./components/Pagination";
 import "./App.css";
 
 class App extends Component {
@@ -19,7 +20,8 @@ class App extends Component {
     loading: "",
     showSignUpIn: false,
     showNewCanvas: false,
-    showEditCanvas: false
+    showEditCanvas: false,
+    page: 1
   };
 
   /**
@@ -44,8 +46,8 @@ class App extends Component {
 
     fetch("http://localhost:3000/doodles")
       .then((r) => r.json())
-      .then((doodles) => {
-        this.setState({ doodles: doodles });
+      .then((data) => {
+        this.setState({ doodles: data.doodles });
         this.setState({ loading: false });
       });
   }
@@ -83,7 +85,6 @@ class App extends Component {
       .then((r) => r.json())
       .then((newDoodle) => {
         this.addToState(newDoodle);
-        this.handleNewCanvasClose();
       });
   };
 
@@ -103,7 +104,7 @@ class App extends Component {
       .then((r) => r.json())
       .then((updatedObj) => {
         this.updateState(updatedObj);
-        this.handleEditCanvasClose();
+
       });
   };
 
@@ -163,7 +164,6 @@ class App extends Component {
       user_id: this.state.currentUser.id,
       doodle_id: doodle_id,
     };
-    console.log("likeObj :", likeObj);
     const token = localStorage.getItem("token");
     const config = {
       method: "POST",
@@ -223,7 +223,6 @@ class App extends Component {
 
   //SEARCH FUNCTIONS : UPDATE searchTerm STATE
   getSearchTerm = (e) => {
-    // console.log(e.target.value)
     this.setState({
       searchTerm: e.target.value.toLowerCase(),
     });
@@ -297,8 +296,23 @@ class App extends Component {
     }
   };
 
+  handleChangePage = (num) => {
+    if(this.state.page + num >= 1) {
+      this.setState({page: this.state.page + num}, () => this.updatePagination())
+      this.setState({ loading: true });
+    }
+  }
+
+  updatePagination = () => {
+    fetch(`http://localhost:3000/doodles/?page=${this.state.page}`)
+    .then((r) => r.json())
+    .then((data) => {
+      this.setState({ doodles: data.doodles });
+      this.setState({ loading: false });
+    });
+  }
+
   render() {
-    console.log("currentUser", this.state.currentUser)
     return (
       <>
         <Nav
@@ -329,12 +343,14 @@ class App extends Component {
                   />
                   {this.state.loading ? (
                     <Loading />
-                  ) : (
+                  ) : ( <>
                     <DoodleContainer
                       doodles={this.filterDoodles()}
                       user={this.state.currentUser}
                       updateLike={this.updateLike}
                     />
+                    <Pagination handleChangePage={this.handleChangePage} page={this.state.page}/>
+                    </>
                   )}
                 </>
               )}

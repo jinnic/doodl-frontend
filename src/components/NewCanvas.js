@@ -48,6 +48,7 @@ class NewCanvas extends Component {
 
     //clear canvas
     this.saveableCanvas.clear();
+    this.props.onHide();
   };
 
   addOrUpdate = () => {
