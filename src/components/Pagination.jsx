@@ -1,13 +1,11 @@
 import React from "react";
 
 const Pagination = props => {
-    const { handleChangePage } = props;
-    return(
-        <div className="">
-          <ul className="">
-            <button className="" onClick={() => handleChangePage(-1)}>previous</button>
-            <button className="" onClick={() => handleChangePage(+1)}>next</button>
-          </ul>
+    const { handleChangePage, page, totalPages } = props;
+    return (
+        <div className="pagination-container">
+            <button className={"pg-button pg-left " + (page === 1 ? "disabled" : "")} onClick={() => handleChangePage(-1)}>➜</button>
+            <button className={"pg-button " + (page === totalPages ? "disabled" : "")} onClick={() => handleChangePage(+1)}>➜</button>
         </div>
       );
 }

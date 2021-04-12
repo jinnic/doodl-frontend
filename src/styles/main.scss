@@ -5,6 +5,7 @@
 $primary: #662DAB;
 $secondary: #C8EAE1;
 $light-accent: white;
+$coral: rgb(255, 138, 134);
 
 //radi
 $card-radius: 15px;
@@ -67,6 +68,8 @@ body {
 main {
     margin-top: 130px;
     padding-top: 2rem;
+    height: 100%;
+    position: relative;
 }
 
 /**
@@ -399,7 +402,7 @@ p {
     gap: 3rem 1.5rem;
     width: 90%;
     margin: auto;
-    padding: 1.5rem 0;
+    padding: 1.5rem 0 7.5rem 0;
     // border: 1px solid white;
 }
 
@@ -431,6 +434,42 @@ p {
     margin: 10px 0 35px 0;
 }
 
+//PAGINATION
+.pagination-container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 0 2.5rem 0;
+    // border: 1px solid red;
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+
+}
+
+.pg-button{
+    background: transparent;
+    border: none;
+    color: $secondary;
+    font-size: 2rem;
+}
+
+.pg-button:hover {
+    color: $coral;
+    transition: color 150ms ease;
+}
+
+.pg-left {
+    transform: scaleX(-1);
+}
+
+.disabled {
+    color: $primary;
+    pointer-events: none;
+    -webkit-text-stroke: 2px rgb(193, 193, 193);
+    // text-shadow: 0 0 5px rgb(193, 193, 193);
+}
 
 //DOODLE CANVAS
 

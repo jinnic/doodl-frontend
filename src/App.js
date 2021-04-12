@@ -21,7 +21,8 @@ class App extends Component {
     showSignUpIn: false,
     showNewCanvas: false,
     showEditCanvas: false,
-    page: 1
+    page: 1,
+    totalPages: 1,
   };
 
   /**
@@ -47,7 +48,7 @@ class App extends Component {
     fetch("http://localhost:3000/doodles")
       .then((r) => r.json())
       .then((data) => {
-        this.setState({ doodles: data.doodles });
+        this.setState({ doodles: data.doodles, totalPages: data.total_pages });
         this.setState({ loading: false });
       });
   }
@@ -104,7 +105,6 @@ class App extends Component {
       .then((r) => r.json())
       .then((updatedObj) => {
         this.updateState(updatedObj);
-
       });
   };
 
@@ -297,20 +297,22 @@ class App extends Component {
   };
 
   handleChangePage = (num) => {
-    if(this.state.page + num >= 1) {
-      this.setState({page: this.state.page + num}, () => this.updatePagination())
+    if (this.state.page + num >= 1) {
+      this.setState({ page: this.state.page + num }, () =>
+        this.updatePagination()
+      );
       this.setState({ loading: true });
     }
-  }
+  };
 
   updatePagination = () => {
     fetch(`http://localhost:3000/doodles/?page=${this.state.page}`)
-    .then((r) => r.json())
-    .then((data) => {
-      this.setState({ doodles: data.doodles });
-      this.setState({ loading: false });
-    });
-  }
+      .then((r) => r.json())
+      .then((data) => {
+        this.setState({ doodles: data.doodles });
+        this.setState({ loading: false });
+      });
+  };
 
   render() {
     return (
@@ -343,13 +345,18 @@ class App extends Component {
                   />
                   {this.state.loading ? (
                     <Loading />
-                  ) : ( <>
-                    <DoodleContainer
-                      doodles={this.filterDoodles()}
-                      user={this.state.currentUser}
-                      updateLike={this.updateLike}
-                    />
-                    <Pagination handleChangePage={this.handleChangePage} page={this.state.page}/>
+                  ) : (
+                    <>
+                      <DoodleContainer
+                        doodles={this.filterDoodles()}
+                        user={this.state.currentUser}
+                        updateLike={this.updateLike}
+                      />
+                      <Pagination
+                        handleChangePage={this.handleChangePage}
+                        page={this.state.page}
+                        totalPages={this.state.totalPages}
+                      />
                     </>
                   )}
                 </>
@@ -359,21 +366,23 @@ class App extends Component {
               path="/profile"
               render={(routeProps) => (
                 <>
-                { this.state.loading ? <Loading/> :
-                  <Profile
-                    handleDelete={this.handleDelete}
-                    handleUpdate={this.handleUpdate}
-                    user={this.state.currentUser}
-                    updateLike={this.updateLike}
-                    doodles={this.filterByUser()}
-                    handleNew={this.handleAddNewDoodle}
-                    userUpdate={this.userUpdate}
-                    userDelete={this.userDelete}
-                    renderExisting={this.renderExisting}
-                    handleEditCanvasShow={this.handleEditCanvasShow}
-                    {...routeProps}
-                  />
-                }
+                  {this.state.loading ? (
+                    <Loading />
+                  ) : (
+                    <Profile
+                      handleDelete={this.handleDelete}
+                      handleUpdate={this.handleUpdate}
+                      user={this.state.currentUser}
+                      updateLike={this.updateLike}
+                      doodles={this.filterByUser()}
+                      handleNew={this.handleAddNewDoodle}
+                      userUpdate={this.userUpdate}
+                      userDelete={this.userDelete}
+                      renderExisting={this.renderExisting}
+                      handleEditCanvasShow={this.handleEditCanvasShow}
+                      {...routeProps}
+                    />
+                  )}
                   <DoodleCanvas
                     user={this.state.currentUser}
                     handleUpdate={this.handleUpdate}
