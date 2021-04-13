@@ -628,3 +628,14 @@ input[type="color"]:hover {
       transform: translate(24px, 0);
     }
   }
+
+//MEDIA
+
+@media (max-width: 425px) {
+
+    .doodle-card {
+        width: 315px;
+        margin-bottom: 1.5rem;
+    }
+
+}

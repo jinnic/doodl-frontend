@@ -352,11 +352,15 @@ class App extends Component {
                         user={this.state.currentUser}
                         updateLike={this.updateLike}
                       />
-                      <Pagination
-                        handleChangePage={this.handleChangePage}
-                        page={this.state.page}
-                        totalPages={this.state.totalPages}
-                      />
+                      {this.state.doodles.length === 0 ? (
+                        ""
+                      ) : (
+                        <Pagination
+                          handleChangePage={this.handleChangePage}
+                          page={this.state.page}
+                          totalPages={this.state.totalPages}
+                        />
+                      )}
                     </>
                   )}
                 </>
