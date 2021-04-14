@@ -23,37 +23,37 @@ class DoodleCard extends Component {
 
     // OPTIONAL, event listener that resizes canvas only on smallest
     //screen size
-    window.addEventListener('resize', this.onResize);
-    this.responsiveDimensions()
+    // window.addEventListener('resize', this.onResize);
+    // this.responsiveDimensions()
   }
 
-  onResize = (event) => {
-    this.responsiveDimensions()
-}
+//   onResize = (event) => {
+//     this.responsiveDimensions()
+// }
 
-responsiveDimensions = () => {
-  if(window.innerWidth < 425) {
-      this.setState({
-          height: 253,
-          width: 315,
-      })
-      this.saveableCanvas.loadSaveData(
-        JSON.stringify(this.props.doodle.doodle_data))
-    }
-    if(window.innerWidth > 425) {
-      this.setState({
-          width: 400,
-          height: 321,
-      })
-      this.saveableCanvas.loadSaveData(
-        JSON.stringify(this.props.doodle.doodle_data))
-    }
-}
+// responsiveDimensions = () => {
+//   if(window.innerWidth < 425) {
+//       this.setState({
+//           height: 253,
+//           width: 315,
+//       })
+//       this.saveableCanvas.loadSaveData(
+//         JSON.stringify(this.props.doodle.doodle_data))
+//     }
+//     if(window.innerWidth > 425) {
+//       this.setState({
+//           width: 400,
+//           height: 321,
+//       })
+//       this.saveableCanvas.loadSaveData(
+//         JSON.stringify(this.props.doodle.doodle_data))
+//     }
+// }
 
 
-componentWillUnmount() {
-  window.removeEventListener('resize', this.onResize);
-}
+// componentWillUnmount() {
+//   window.removeEventListener('resize', this.onResize);
+// }
 
   componentDidUpdate(prevProps){
     if(this.props.user !== prevProps.user){
@@ -97,7 +97,7 @@ componentWillUnmount() {
 
   renderButtons = () => {
     const popover = (
-      <Popover id="popover-basic">
+      <Popover className="popover-basic">
         <Popover.Content>
           <button className="delete-button" onClick={() => this.props.handleDelete(this.props.doodle.id)}>
                   <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

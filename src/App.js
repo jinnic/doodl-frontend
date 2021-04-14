@@ -352,7 +352,7 @@ class App extends Component {
                         user={this.state.currentUser}
                         updateLike={this.updateLike}
                       />
-                      {this.state.doodles.length === 0 ? (
+                      {this.state.doodles <= 6 ? (
                         ""
                       ) : (
                         <Pagination

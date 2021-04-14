@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CanvasDraw from "react-canvas-draw";
 import Modal from "react-bootstrap/Modal";
 import DrawingTool from "./DrawingTool";
+import { Popover, OverlayTrigger } from "react-bootstrap/";
 
 class DoodleCanvas extends Component {
   state = {
@@ -16,7 +17,7 @@ class DoodleCanvas extends Component {
       color: "#672DAC",
       brushRadius: 5,
       name: `${this.props.doodle.name}`,
-    }
+    },
   };
 
   handleSave = () => {
@@ -35,7 +36,7 @@ class DoodleCanvas extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.doodle !== prevProps.doodle) {
       this.setState({
-        tool:{...this.state.tool, name: this.props.doodle.name},
+        tool: { ...this.state.tool, name: this.props.doodle.name },
       });
     }
   }
@@ -71,8 +72,31 @@ class DoodleCanvas extends Component {
   };
 
   render() {
-    console.log(this.props.doodle)
     const { show, onHide } = this.props;
+    const popover = (
+      <Popover className="popover-basic">
+        <Popover.Content>
+          <button
+            className="delete-button"
+            onClick={() => this.saveableCanvas.clear()}
+          >
+            <svg
+              width="1em"
+              height="1em"
+              viewBox="0 0 16 16"
+              class="bi bi-trash-fill"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"
+              />
+            </svg>
+          </button>
+        </Popover.Content>
+      </Popover>
+    );
     return (
       <Modal
         show={show}
@@ -85,12 +109,10 @@ class DoodleCanvas extends Component {
       >
         <Modal.Header closeButton className="">
           <section className="clear-undo">
-            <button
-              className="button"
-              onClick={() => this.saveableCanvas.clear()}
-            >
-              clear
-            </button>
+            <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+              <button className="button">clear</button>
+            </OverlayTrigger>
+
             <button
               className="button undo"
               onClick={() => this.saveableCanvas.undo()}
@@ -112,55 +134,11 @@ class DoodleCanvas extends Component {
             canvasHeight={400}
             saveData={JSON.stringify(this.props.doodle.doodle_data)}
           />
-           <DrawingTool
+          <DrawingTool
             tool={this.state.tool}
             handleSave={this.handleSave}
             handleToolState={this.handleToolState}
           />
-          {/* <div class="tool-container">
-            <section class="tools">
-              <label>title:</label>
-              <input
-                type="text"
-                value={this.state.name}
-                onChange={(e) => this.setState({ name: e.target.value })}
-              />
-              <br></br>
-              <label>brush:</label>
-              <input
-                className="brush-radius-input"
-                type="number"
-                value={this.state.brushRadius}
-                onChange={(e) =>
-                  this.setState({ brushRadius: parseInt(e.target.value, 10) })
-                }
-              />
-              <label>color:</label>
-              <input
-                className="brush-color-input align-middle"
-                type="color"
-                value={this.state.color}
-                onChange={(e) => this.setState({ color: e.target.value })}
-              />
-              <button
-                className="random-button"
-                onClick={() => {
-                  this.setState({
-                    color: this.randomColor()
-                  });
-                }}
-              >
-                random
-              </button>
-            </section>
-            <button
-              className="save-button"
-              onClick={this.handleSave}
-              data-dismiss="modal"
-            >
-              save
-            </button>
-          </div>{" "} */}
         </Modal.Body>
       </Modal>
     );
