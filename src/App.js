@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation} from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import DoodleContainer from "./components/DoodleContainer";
 import Nav from "./components/Nav";
@@ -16,20 +16,18 @@ class App extends Component {
     doodles: [],
     searchTerm: "",
     currentUser: {},
-    currentlyEditing: {},
     loading: "",
     showSignUpIn: false,
     showNewCanvas: false,
-    showEditCanvas: false,
     page: 1,
     totalPages: 1,
+    newDoodleProfile: null
   };
 
   /**
    * Auto login on initial load
    */
   componentDidMount() {
-    this.setState({ loading: true });
     const token = localStorage.getItem("token");
     if (token) {
       fetch(`http://localhost:3000/auto_login`, {
@@ -45,12 +43,17 @@ class App extends Component {
         });
     }
 
+    this.doodleFetch();
+  }
+
+  doodleFetch = () => {
+    this.setState({ loading: true });
     fetch("http://localhost:3000/doodles")
-      .then((r) => r.json())
-      .then((data) => {
-        this.setState({ doodles: data.doodles, totalPages: data.total_pages });
-        this.setState({ loading: false });
-      });
+    .then((r) => r.json())
+    .then((data) => {
+      this.setState({ doodles: data.doodles, totalPages: data.total_pages, page: 1});
+      this.setState({ loading: false });
+    });
   }
 
   handleLogin = (user) => {
@@ -70,8 +73,28 @@ class App extends Component {
    * FUCTION PROPS : FETCH
    */
 
-  //HANDLE ADD
+  // ADD DOODLE
+  // addNewDoodle = (doodle) => {
+  //   const token = localStorage.getItem("token");
+  //   const config = {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //     body: JSON.stringify(doodle),
+  //   };
+  //   fetch("http://localhost:3000/doodles", config)
+  //     .then((r) => r.json())
+  //     .then((newDoodle) => {
+  //       this.addToState(newDoodle);
+  //     });
+
+  // };
+
   addNewDoodle = (doodle) => {
+    const location = this.props.location.pathname;
     const token = localStorage.getItem("token");
     const config = {
       method: "POST",
@@ -85,28 +108,37 @@ class App extends Component {
     fetch("http://localhost:3000/doodles", config)
       .then((r) => r.json())
       .then((newDoodle) => {
-        this.addToState(newDoodle);
+        if(location === "/profile") {
+          this.setState({
+            newDoodleProfile: newDoodle
+          })
+        } else {
+          this.addToState(newDoodle);
+        }
       });
+
+
+
   };
 
-  //HANDLE UPDATE
-  handleUpdate = (doodle, id) => {
-    const token = localStorage.getItem("token");
-    const config = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(doodle),
-    };
-    fetch(`http://localhost:3000/doodles/${id}`, config)
-      .then((r) => r.json())
-      .then((updatedObj) => {
-        this.updateState(updatedObj);
-      });
-  };
+  // //HANDLE UPDATE
+  // handleUpdate = (doodle, id) => {
+  //   const token = localStorage.getItem("token");
+  //   const config = {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //     body: JSON.stringify(doodle),
+  //   };
+  //   fetch(`http://localhost:3000/doodles/${id}`, config)
+  //     .then((r) => r.json())
+  //     .then((updatedObj) => {
+  //       this.updateState(updatedObj);
+  //     });
+  // };
 
   userUpdate = (user, id) => {
     const token = localStorage.getItem("token");
@@ -131,19 +163,6 @@ class App extends Component {
           () => console.log("UPDATED USER", updatedUser)
         );
       });
-  };
-
-  //HANDLE DELETE
-  handleDelete = (id) => {
-    const token = localStorage.getItem("token");
-    fetch(`http://localhost:3000/doodles/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((r) => r.json())
-      .then(this.removeFromState(id));
   };
 
   userDelete = (id) => {
@@ -190,28 +209,7 @@ class App extends Component {
     });
   };
 
-  //UPDATE
-  updateState = (updatedDoodle) => {
-    const updatedDoods = this.state.doodles.map((doodle) => {
-      if (doodle.id === updatedDoodle.id) {
-        return updatedDoodle;
-      } else {
-        return doodle;
-      }
-    });
-    this.setState({
-      doodles: updatedDoods,
-    });
-  };
 
-  //DELETE
-  //remove one doodle
-  removeFromState = (id) => {
-    const filtered = this.state.doodles.filter((d) => d.id !== id);
-    this.setState({
-      doodles: filtered,
-    });
-  };
   //DELETE
   //remove all doodle by user_id
   removeUserDoodles = (id) => {
@@ -228,12 +226,12 @@ class App extends Component {
     });
   };
 
-  //set state for selected doodle for editing
-  renderExisting = (dood) => {
-    this.setState({
-      currentlyEditing: dood,
-    });
-  };
+  // //set state for selected doodle for editing
+  // renderExisting = (dood) => {
+  //   this.setState({
+  //     currentlyEditing: dood,
+  //   });
+  // };
 
   /**
    * handle modal state : open and close
@@ -253,12 +251,12 @@ class App extends Component {
     this.setState({ showNewCanvas: true });
   };
   //doodle canvas : canvas for editing doodle
-  handleEditCanvasClose = () => {
-    this.setState({ showEditCanvas: false });
-  };
-  handleEditCanvasShow = () => {
-    this.setState({ showEditCanvas: true });
-  };
+  // handleEditCanvasClose = () => {
+  //   this.setState({ showEditCanvas: false });
+  // };
+  // handleEditCanvasShow = () => {
+  //   this.setState({ showEditCanvas: true });
+  // };
 
   /**
    * FILTER FUCTIONS : RETURN FILTERED DOODLES  ARRAY
@@ -315,6 +313,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.doodles)
     return (
       <>
         <Nav
@@ -323,6 +322,7 @@ class App extends Component {
           handleLogout={this.handleLogout}
           handleShow={this.handleShow}
           handleNewCanvasShow={this.handleNewCanvasShow}
+          doodleFetch={this.doodleFetch}
         />
         <NewCanvas
           user={this.state.currentUser}
@@ -374,26 +374,24 @@ class App extends Component {
                     <Loading />
                   ) : (
                     <Profile
-                      handleDelete={this.handleDelete}
-                      handleUpdate={this.handleUpdate}
                       user={this.state.currentUser}
                       updateLike={this.updateLike}
-                      doodles={this.filterByUser()}
                       handleNew={this.handleAddNewDoodle}
                       userUpdate={this.userUpdate}
                       userDelete={this.userDelete}
                       renderExisting={this.renderExisting}
                       handleEditCanvasShow={this.handleEditCanvasShow}
+                      newDoodle={this.state.newDoodleProfile}
                       {...routeProps}
                     />
                   )}
-                  <DoodleCanvas
+                  {/* <DoodleCanvas
                     user={this.state.currentUser}
                     handleUpdate={this.handleUpdate}
                     doodle={this.state.currentlyEditing}
                     show={this.state.showEditCanvas}
                     onHide={this.handleEditCanvasClose}
-                  />
+                  /> */}
                 </>
               )}
             />

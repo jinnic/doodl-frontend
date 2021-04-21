@@ -8,11 +8,11 @@ class Nav extends Component {
 
     render() {
 
-    const { handleLogout, currentUser, getSearchTerm, handleShow, handleNewCanvasShow } = this.props
+    const { handleLogout, currentUser, getSearchTerm, handleShow, handleNewCanvasShow, doodleFetch } = this.props
 
       return (
          <nav className="navbar fixed-top navbar-expand-md justify-content-center">
-         <Link to='/' className="navbar-brand d-flex w-50 mr-auto"><Logo className='logo'/></Link>
+         <Link to='/' onClick={doodleFetch} className="navbar-brand d-flex w-50 mr-auto"><Logo className='logo'/></Link>
          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
             <span className="navbar-toggler-icon">MENU</span>
           </button>
