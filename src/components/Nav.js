@@ -18,7 +18,7 @@ class Nav extends Component {
           </button>
          <div className="navbar-collapse collapse w-100" id="collapsingNavbar">
 
-           {!currentUser.id ? 
+           {!currentUser ? 
             <ul className="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li className="nav-item">
                   {/* <Link to='/'  data-toggle="modal" data-target="#signModal" className='nav-link' >Log In | Sign Up</Link>  */}

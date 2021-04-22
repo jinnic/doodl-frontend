@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route, useLocation} from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import DoodleContainer from "./components/DoodleContainer";
 import Nav from "./components/Nav";
@@ -15,13 +15,13 @@ class App extends Component {
   state = {
     doodles: [],
     searchTerm: "",
-    currentUser: {},
+    currentUser: null,
     loading: "",
     showSignUpIn: false,
     showNewCanvas: false,
     page: 1,
     totalPages: 1,
-    newDoodleProfile: null
+    newDoodleProfile: null,
   };
 
   /**
@@ -49,12 +49,16 @@ class App extends Component {
   doodleFetch = () => {
     this.setState({ loading: true });
     fetch("http://localhost:3000/doodles")
-    .then((r) => r.json())
-    .then((data) => {
-      this.setState({ doodles: data.doodles, totalPages: data.total_pages, page: 1});
-      this.setState({ loading: false });
-    });
-  }
+      .then((r) => r.json())
+      .then((data) => {
+        this.setState({
+          doodles: data.doodles,
+          totalPages: data.total_pages,
+          page: 1,
+        });
+        this.setState({ loading: false });
+      });
+  };
 
   handleLogin = (user) => {
     this.setState({
@@ -108,17 +112,14 @@ class App extends Component {
     fetch("http://localhost:3000/doodles", config)
       .then((r) => r.json())
       .then((newDoodle) => {
-        if(location === "/profile") {
+        if (location === "/profile") {
           this.setState({
-            newDoodleProfile: newDoodle
-          })
+            newDoodleProfile: newDoodle,
+          });
         } else {
           this.addToState(newDoodle);
         }
       });
-
-
-
   };
 
   // //HANDLE UPDATE
@@ -208,7 +209,6 @@ class App extends Component {
       doodles: [newDoodle, ...this.state.doodles],
     });
   };
-
 
   //DELETE
   //remove all doodle by user_id
@@ -307,13 +307,13 @@ class App extends Component {
     fetch(`http://localhost:3000/doodles/?page=${this.state.page}`)
       .then((r) => r.json())
       .then((data) => {
-        this.setState({ doodles: data.doodles });
+        this.setState({ doodles: data.doodles, totalPages: data.total_pages });
         this.setState({ loading: false });
       });
   };
 
   render() {
-    console.log(this.state.doodles)
+    console.log(this.state.doodles);
     return (
       <>
         <Nav
@@ -352,7 +352,7 @@ class App extends Component {
                         user={this.state.currentUser}
                         updateLike={this.updateLike}
                       />
-                      {this.state.doodles <= 6 ? (
+                      {this.state.totalPages <= 1  ? (
                         ""
                       ) : (
                         <Pagination
@@ -370,28 +370,23 @@ class App extends Component {
               path="/profile"
               render={(routeProps) => (
                 <>
-                  {this.state.loading ? (
+                  {!this.state.currentUser ? (
                     <Loading />
                   ) : (
-                    <Profile
-                      user={this.state.currentUser}
-                      updateLike={this.updateLike}
-                      handleNew={this.handleAddNewDoodle}
-                      userUpdate={this.userUpdate}
-                      userDelete={this.userDelete}
-                      renderExisting={this.renderExisting}
-                      handleEditCanvasShow={this.handleEditCanvasShow}
-                      newDoodle={this.state.newDoodleProfile}
-                      {...routeProps}
-                    />
+                    <>
+                      <Profile
+                        user={this.state.currentUser}
+                        updateLike={this.updateLike}
+                        handleNew={this.handleAddNewDoodle}
+                        userUpdate={this.userUpdate}
+                        userDelete={this.userDelete}
+                        renderExisting={this.renderExisting}
+                        handleEditCanvasShow={this.handleEditCanvasShow}
+                        newDoodle={this.state.newDoodleProfile}
+                        {...routeProps}
+                      />
+                    </>
                   )}
-                  {/* <DoodleCanvas
-                    user={this.state.currentUser}
-                    handleUpdate={this.handleUpdate}
-                    doodle={this.state.currentlyEditing}
-                    show={this.state.showEditCanvas}
-                    onHide={this.handleEditCanvasClose}
-                  /> */}
                 </>
               )}
             />

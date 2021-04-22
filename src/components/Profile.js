@@ -2,50 +2,45 @@ import React, { Component } from "react";
 import DoodleContainer from "./DoodleContainer";
 import ProfileEditForm from "./ProfileEditForm";
 import DoodleCanvas from "./DoodleCanvas";
+import Pagination from "./Pagination";
+import Loading from "./Loading";
 
 class Profile extends Component {
   state = {
     showEditForm: false,
     userDoodles: [],
     showEditCanvas: false,
-    currentlyEditing: {}
+    currentlyEditing: {},
+    page: 1,
+    totalPages: 1,
+    loading: ""
   };
 
   componentDidMount() {
-    // const token = localStorage.getItem("token");
-    // if (token) {
-    //   fetch(`http://localhost:3000/auto_login`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //     .then((resp) => resp.json())
-    //     .then((data) => {
-    //       this.setState({
-    //         currentUser: data,
-    //       });
-    //     });
-    // }
-
-
+    this.setState({ loading: true });
     fetch(`http://localhost:3000/users/${this.props.user.id}`)
       .then((r) => r.json())
       .then((data) => {
-        this.setState({ userDoodles: data.doodles });
+        this.setState({
+          userDoodles: data.doodles,
+          totalPages: data.total_pages,
+          page: 1,
+        });
       });
+      this.setState({ loading: false });
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.newDoodle !== prevProps.newDoodle) {
-      this.addToState(this.props.newDoodle)
+    if (this.props.newDoodle !== prevProps.newDoodle) {
+      this.addToState(this.props.newDoodle);
     }
   }
 
   addToState = (newDood) => {
     this.setState({
-      userDoodles: [newDood, ...this.state.userDoodles]
-    })
-  } 
+      userDoodles: [newDood, ...this.state.userDoodles],
+    });
+  };
 
   //HANDLE DELETE
   handleDelete = (id) => {
@@ -104,36 +99,47 @@ class Profile extends Component {
     const filtered = this.state.userDoodles.filter((d) => d.id !== id);
     this.setState({
       userDoodles: filtered,
+      // totalPages: Math.ceil(this.state.userDoodles/6)
+    });
+    // console.log(this.state.page, this.state.userDoodles.length )
+    if(this.state.userDoodles.length === 1 && this.state.page > 1) {
+      this.handleChangePage(-1);
+    }
+  };
+
+  //ADD
+  addToState = (newDoodle) => {
+    this.setState({
+      userDoodles: [newDoodle, ...this.state.userDoodles],
+      totalPages: Math.ceil(this.state.userDoodles/6)
+    });
+    // if(Math.ceil(this.state.userDoodles/6)) {
+    //   this.setState({
+    //     page: this.state.total_pages + 1
+    //   })
+    // }
+  };
+
+  //set state for selected doodle for editing
+  renderExisting = (dood) => {
+    this.setState({
+      currentlyEditing: dood,
     });
   };
 
-    //ADD
-    addToState = (newDoodle) => {
-      this.setState({
-        userDoodles: [newDoodle, ...this.state.userDoodles],
-      });
-    };
-
-    //set state for selected doodle for editing
-    renderExisting = (dood) => {
-      this.setState({
-        currentlyEditing: dood,
-      });
-    };
-
-    //UPDATE
-    updateState = (updatedDoodle) => {
-      const updatedDoods = this.state.userDoodles.map((doodle) => {
-        if (doodle.id === updatedDoodle.id) {
-          return updatedDoodle;
-        } else {
-          return doodle;
-        }
-      });
-      this.setState({
-        userDoodles: updatedDoods,
-      });
-    };
+  //UPDATE
+  updateState = (updatedDoodle) => {
+    const updatedDoods = this.state.userDoodles.map((doodle) => {
+      if (doodle.id === updatedDoodle.id) {
+        return updatedDoodle;
+      } else {
+        return doodle;
+      }
+    });
+    this.setState({
+      userDoodles: updatedDoods,
+    });
+  };
 
   handleClose = () => {
     this.setState({ showEditForm: false });
@@ -150,14 +156,31 @@ class Profile extends Component {
     this.setState({ showEditCanvas: true });
   };
 
+  handleChangePage = (num) => {
+    if (this.state.page + num >= 1) {
+      this.setState({ page: this.state.page + num }, () =>
+        this.updatePagination()
+      );
+    }
+  };
+
+  updatePagination = () => {
+    this.setState({ loading: true });
+    fetch(
+      `http://localhost:3000/users/${this.props.user.id}/?page=${this.state.page}`
+    )
+      .then((r) => r.json())
+      .then((data) => {
+        this.setState({
+          userDoodles: data.doodles,
+          totalPages: data.total_pages,
+          loading: false
+        });
+      });
+  };
+
   render() {
-    const {
-      user,
-      handleDelete,
-      handleUpdate,
-      userUpdate,
-      match,
-    } = this.props;
+    const { user, handleDelete, handleUpdate, userUpdate, match } = this.props;
     return (
       <div id="profile-page">
         <div>
@@ -183,25 +206,40 @@ class Profile extends Component {
               onHide={this.handleClose}
             />
           </div>
-          <DoodleContainer
-            user={user}
-            handleDelete={this.handleDelete}
-            handleUpdate={this.handleUpdate}
-            page={this.props.page}
-            updateLike={this.props.updateLike}
-            handleEditCanvasShow={this.handleEditCanvasShow}
-            match={match}
-            renderExisting={this.renderExisting}
-            doodles={this.state.userDoodles}
-          />
+          {this.state.loading ? (
+            <Loading />
+          ) : (
+            <>
+              <DoodleContainer
+                user={user}
+                handleDelete={this.handleDelete}
+                handleUpdate={this.handleUpdate}
+                page={this.props.page}
+                updateLike={this.props.updateLike}
+                handleEditCanvasShow={this.handleEditCanvasShow}
+                match={match}
+                renderExisting={this.renderExisting}
+                doodles={this.state.userDoodles}
+              />
+              {this.state.totalPages <= 1 ? (
+                ""
+              ) : (
+                <Pagination
+                  handleChangePage={this.handleChangePage}
+                  page={this.state.page}
+                  totalPages={this.state.totalPages}
+                />
+              )}{" "}
+            </>
+          )}
         </div>
         <DoodleCanvas
-                    user={user}
-                    handleUpdate={this.handleUpdate}
-                    doodle={this.state.currentlyEditing}
-                    show={this.state.showEditCanvas}
-                    onHide={this.handleEditCanvasClose}
-                  />
+          user={user}
+          handleUpdate={this.handleUpdate}
+          doodle={this.state.currentlyEditing}
+          show={this.state.showEditCanvas}
+          onHide={this.handleEditCanvasClose}
+        />
       </div>
     );
   }
