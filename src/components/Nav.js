@@ -8,7 +8,7 @@ class Nav extends Component {
 
     render() {
 
-    const { handleLogout, currentUser, getSearchTerm, handleShow, handleNewCanvasShow, doodleFetch } = this.props
+    const { handleLogout, currentUser, getSearchTerm, handleShow, handleNewCanvasShow, doodleFetch, navigateProfileHome } = this.props
 
       return (
          <nav className="navbar fixed-top navbar-expand-md justify-content-center">
@@ -32,7 +32,7 @@ class Nav extends Component {
               </ul>
              <ul className="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li className="nav-item">
-                  <Link to='/profile' className='nav-link'>Profile</Link>
+                  <Link to='/profile' value="profile" onClick={navigateProfileHome} className='nav-link'>Profile</Link>
                 </li>
                 <li className="nav-item">
                     <button data-target="#newCanvasModal" className='nav-link new-button' onClick={handleNewCanvasShow}>Draw Doodle</button>

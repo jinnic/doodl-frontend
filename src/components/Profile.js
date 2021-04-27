@@ -13,7 +13,8 @@ class Profile extends Component {
     currentlyEditing: {},
     page: 1,
     totalPages: 1,
-    loading: ""
+    loading: "",
+    profileClicked: false
   };
 
   componentDidMount() {
@@ -27,12 +28,16 @@ class Profile extends Component {
           page: 1,
         });
       });
-      this.setState({ loading: false });
+    this.setState({ loading: false });
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.newDoodle !== prevProps.newDoodle) {
       this.addToState(this.props.newDoodle);
+    }
+    if (this.props.profileClicked !== prevProps.profileClicked) {
+      this.setState({ page: 1 });
+      this.props.updateProfileClicked();
     }
   }
 
@@ -102,7 +107,7 @@ class Profile extends Component {
       // totalPages: Math.ceil(this.state.userDoodles/6)
     });
     // console.log(this.state.page, this.state.userDoodles.length )
-    if(this.state.userDoodles.length === 1 && this.state.page > 1) {
+    if (this.state.userDoodles.length === 1 && this.state.page > 1) {
       this.handleChangePage(-1);
     }
   };
@@ -111,7 +116,7 @@ class Profile extends Component {
   addToState = (newDoodle) => {
     this.setState({
       userDoodles: [newDoodle, ...this.state.userDoodles],
-      totalPages: Math.ceil(this.state.userDoodles/6)
+      totalPages: Math.ceil(this.state.userDoodles / 6),
     });
     // if(Math.ceil(this.state.userDoodles/6)) {
     //   this.setState({
@@ -158,9 +163,13 @@ class Profile extends Component {
 
   handleChangePage = (num) => {
     if (this.state.page + num >= 1) {
-      this.setState({ page: this.state.page + num }, () =>
-        this.updatePagination()
-      );
+      this.setState({ page: this.state.page + num }, () => {
+        //we only fetch on the right arrow
+        if (num > 0) {
+          this.props.updateProfileClicked();
+          this.updatePagination();
+        }
+      });
     }
   };
 
@@ -171,16 +180,29 @@ class Profile extends Component {
     )
       .then((r) => r.json())
       .then((data) => {
+        //doing the below logic to prevent fetching duplicates as we move back and forth
+        const combinedDoodles = [...this.state.userDoodles, ...data.doodles];
+        const uniqueDoodles = Array.from(
+          new Set(combinedDoodles.map((a) => a.id))
+        ).map((id) => {
+          return combinedDoodles.find((a) => a.id === id);
+        });
+
+
         this.setState({
-          userDoodles: data.doodles,
+          userDoodles: uniqueDoodles,
           totalPages: data.total_pages,
-          loading: false
+          loading: false,
         });
       });
   };
 
   render() {
     const { user, handleDelete, handleUpdate, userUpdate, match } = this.props;
+    const sliceStart = (this.state.page - 1) * 6;
+    const sliceEnd = sliceStart + 6;
+
+    console.log(this.props.navigateProfileHome);
     return (
       <div id="profile-page">
         <div>
@@ -214,12 +236,12 @@ class Profile extends Component {
                 user={user}
                 handleDelete={this.handleDelete}
                 handleUpdate={this.handleUpdate}
-                page={this.props.page}
+                page={this.state.page}
                 updateLike={this.props.updateLike}
                 handleEditCanvasShow={this.handleEditCanvasShow}
                 match={match}
                 renderExisting={this.renderExisting}
-                doodles={this.state.userDoodles}
+                doodles={this.state.userDoodles.slice(sliceStart, sliceEnd)}
               />
               {this.state.totalPages <= 1 ? (
                 ""

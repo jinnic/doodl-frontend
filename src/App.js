@@ -22,6 +22,7 @@ class App extends Component {
     page: 1,
     totalPages: 1,
     newDoodleProfile: null,
+    profileClicked: false
   };
 
   /**
@@ -312,8 +313,17 @@ class App extends Component {
       });
   };
 
+  navigateProfileHome = (e) => {
+      this.setState({profileClicked: true})
+  }
+
+  updateProfileClicked = () => {
+    this.setState({profileClicked: false})
+}
+
+
+
   render() {
-    console.log(this.state.doodles);
     return (
       <>
         <Nav
@@ -323,6 +333,7 @@ class App extends Component {
           handleShow={this.handleShow}
           handleNewCanvasShow={this.handleNewCanvasShow}
           doodleFetch={this.doodleFetch}
+          navigateProfileHome={this.navigateProfileHome}
         />
         <NewCanvas
           user={this.state.currentUser}
@@ -351,6 +362,7 @@ class App extends Component {
                         doodles={this.filterDoodles()}
                         user={this.state.currentUser}
                         updateLike={this.updateLike}
+                        page={this.state.page}
                       />
                       {this.state.totalPages <= 1  ? (
                         ""
@@ -383,6 +395,9 @@ class App extends Component {
                         renderExisting={this.renderExisting}
                         handleEditCanvasShow={this.handleEditCanvasShow}
                         newDoodle={this.state.newDoodleProfile}
+                        updateProfileClicked={this.updateProfileClicked}
+                        profileClicked={this.state.profileClicked}
+                        // navigateProfileHome={this.navigateProfileHome()}
                         {...routeProps}
                       />
                     </>
