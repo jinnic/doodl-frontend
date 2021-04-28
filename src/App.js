@@ -78,26 +78,6 @@ class App extends Component {
    * FUCTION PROPS : FETCH
    */
 
-  // ADD DOODLE
-  // addNewDoodle = (doodle) => {
-  //   const token = localStorage.getItem("token");
-  //   const config = {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //     body: JSON.stringify(doodle),
-  //   };
-  //   fetch("http://localhost:3000/doodles", config)
-  //     .then((r) => r.json())
-  //     .then((newDoodle) => {
-  //       this.addToState(newDoodle);
-  //     });
-
-  // };
-
   addNewDoodle = (doodle) => {
     const location = this.props.location.pathname;
     const token = localStorage.getItem("token");

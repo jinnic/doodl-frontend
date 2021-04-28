@@ -12,9 +12,8 @@ class Profile extends Component {
     showEditCanvas: false,
     currentlyEditing: {},
     page: 1,
-    totalPages: 1,
-    loading: "",
-    profileClicked: false
+    totalPages: null,
+    loading: ""
   };
 
   componentDidMount() {
@@ -24,11 +23,11 @@ class Profile extends Component {
       .then((data) => {
         this.setState({
           userDoodles: data.doodles,
-          totalPages: data.total_pages,
-          page: 1,
+          totalPages: data.total_pages
         });
       });
     this.setState({ loading: false });
+    this.props.updateProfileClicked();
   }
 
   componentDidUpdate(prevProps) {
@@ -41,11 +40,6 @@ class Profile extends Component {
     }
   }
 
-  addToState = (newDood) => {
-    this.setState({
-      userDoodles: [newDood, ...this.state.userDoodles],
-    });
-  };
 
   //HANDLE DELETE
   handleDelete = (id) => {
@@ -60,24 +54,6 @@ class Profile extends Component {
       .then(this.removeFromState(id));
   };
 
-  //HANDLE ADD
-  addNewDoodle = (doodle) => {
-    const token = localStorage.getItem("token");
-    const config = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(doodle),
-    };
-    fetch("http://localhost:3000/doodles", config)
-      .then((r) => r.json())
-      .then((newDoodle) => {
-        this.addToState(newDoodle);
-      });
-  };
 
   //HANDLE UPDATE
   handleUpdate = (doodle, id) => {
@@ -102,27 +78,38 @@ class Profile extends Component {
   //remove one doodle
   removeFromState = (id) => {
     const filtered = this.state.userDoodles.filter((d) => d.id !== id);
+
     this.setState({
-      userDoodles: filtered,
-      // totalPages: Math.ceil(this.state.userDoodles/6)
+      userDoodles: filtered
+    }, () => {
+      const currPageDoods = this.state.userDoodles.length % 6;
+      const currPage = this.state.page;
+      if (currPageDoods == 0) {
+        if(currPage === 1) {
+          this.updatePagination();
+        } else {
+          this.handleChangePage(-1);
+          this.setState(prevState => {
+            return { totalPages: prevState.totalPages -1}
+          })
+        }
+      }
     });
-    // console.log(this.state.page, this.state.userDoodles.length )
-    if (this.state.userDoodles.length === 1 && this.state.page > 1) {
-      this.handleChangePage(-1);
-    }
   };
+
+  //something going wrong when deleting last doodle on page - duplicating
 
   //ADD
   addToState = (newDoodle) => {
+    const newDoodles = [newDoodle, ...this.state.userDoodles]
     this.setState({
-      userDoodles: [newDoodle, ...this.state.userDoodles],
-      totalPages: Math.ceil(this.state.userDoodles / 6),
+      userDoodles: newDoodles
     });
-    // if(Math.ceil(this.state.userDoodles/6)) {
-    //   this.setState({
-    //     page: this.state.total_pages + 1
-    //   })
-    // }
+    if(this.state.totalPages < Math.ceil(newDoodles.length / 6)) {
+      this.setState({
+        totalPages: Math.ceil(newDoodles.length / 6)
+      })
+    }
   };
 
   //set state for selected doodle for editing
@@ -198,11 +185,10 @@ class Profile extends Component {
   };
 
   render() {
+    console.log(this.state.totalPages, this.state.userDoodles.length )
     const { user, handleDelete, handleUpdate, userUpdate, match } = this.props;
     const sliceStart = (this.state.page - 1) * 6;
     const sliceEnd = sliceStart + 6;
-
-    console.log(this.props.navigateProfileHome);
     return (
       <div id="profile-page">
         <div>
