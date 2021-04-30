@@ -9,7 +9,6 @@ class ProfileEditForm extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.user.user_name);
     if (this.props.user !== prevProps.user) {
       this.setState({
         user_name: this.props.user.user_name,

@@ -13,7 +13,8 @@ class Profile extends Component {
     currentlyEditing: {},
     page: 1,
     totalPages: null,
-    loading: ""
+    loading: "",
+    doodleAdded: false
   };
 
   componentDidMount() {
@@ -51,7 +52,7 @@ class Profile extends Component {
       },
     })
       .then((r) => r.json())
-      .then(this.removeFromState(id));
+      .then(data => this.removeFromState(data.id));
   };
 
 
@@ -84,7 +85,7 @@ class Profile extends Component {
     }, () => {
       const currPageDoods = this.state.userDoodles.length % 6;
       const currPage = this.state.page;
-      if (currPageDoods == 0) {
+      if (currPageDoods == 0 ) {
         if(currPage === 1) {
           this.updatePagination();
         } else {
@@ -110,6 +111,12 @@ class Profile extends Component {
         totalPages: Math.ceil(newDoodles.length / 6)
       })
     }
+    //set state true for new doodle added notification
+    this.setState({
+      doodleAdded: true
+    })
+    //set timeout
+    setTimeout(() => this.setState({doodleAdded: false}), 3000)
   };
 
   //set state for selected doodle for editing
@@ -174,8 +181,7 @@ class Profile extends Component {
         ).map((id) => {
           return combinedDoodles.find((a) => a.id === id);
         });
-
-
+        
         this.setState({
           userDoodles: uniqueDoodles,
           totalPages: data.total_pages,
@@ -185,12 +191,13 @@ class Profile extends Component {
   };
 
   render() {
-    console.log(this.state.totalPages, this.state.userDoodles.length )
     const { user, handleDelete, handleUpdate, userUpdate, match } = this.props;
     const sliceStart = (this.state.page - 1) * 6;
     const sliceEnd = sliceStart + 6;
     return (
       <div id="profile-page">
+        {this.state.doodleAdded ? <div class="doodle-added-notif">Doodl created!</div> : ""}
+        {/* <div class="doodle-added-notif">Doodl created!</div> */}
         <div>
           <div id="profile-info-container">
             <div id="profile-edit-container">
