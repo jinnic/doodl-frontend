@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Transition } from "react-transition-group";
 import DoodleContainer from "./DoodleContainer";
 import ProfileEditForm from "./ProfileEditForm";
 import DoodleCanvas from "./DoodleCanvas";
@@ -14,7 +15,7 @@ class Profile extends Component {
     page: 1,
     totalPages: null,
     loading: "",
-    doodleAdded: false
+    doodleAdded: false,
   };
 
   componentDidMount() {
@@ -24,7 +25,7 @@ class Profile extends Component {
       .then((data) => {
         this.setState({
           userDoodles: data.doodles,
-          totalPages: data.total_pages
+          totalPages: data.total_pages,
         });
       });
     this.setState({ loading: false });
@@ -41,7 +42,6 @@ class Profile extends Component {
     }
   }
 
-
   //HANDLE DELETE
   handleDelete = (id) => {
     const token = localStorage.getItem("token");
@@ -52,9 +52,8 @@ class Profile extends Component {
       },
     })
       .then((r) => r.json())
-      .then(data => this.removeFromState(data.id));
+      .then((data) => this.removeFromState(data.id));
   };
-
 
   //HANDLE UPDATE
   handleUpdate = (doodle, id) => {
@@ -80,43 +79,46 @@ class Profile extends Component {
   removeFromState = (id) => {
     const filtered = this.state.userDoodles.filter((d) => d.id !== id);
 
-    this.setState({
-      userDoodles: filtered
-    }, () => {
-      const currPageDoods = this.state.userDoodles.length % 6;
-      const currPage = this.state.page;
-      if (currPageDoods == 0 ) {
-        if(currPage === 1) {
-          this.updatePagination();
-        } else {
-          this.handleChangePage(-1);
-          this.setState(prevState => {
-            return { totalPages: prevState.totalPages -1}
-          })
+    this.setState(
+      {
+        userDoodles: filtered,
+      },
+      () => {
+        const currPageDoods = this.state.userDoodles.length % 6;
+        const currPage = this.state.page;
+        if (currPageDoods == 0) {
+          if (currPage === 1) {
+            this.updatePagination();
+          } else {
+            this.handleChangePage(-1);
+            this.setState((prevState) => {
+              return { totalPages: prevState.totalPages - 1 };
+            });
+          }
         }
       }
-    });
+    );
   };
 
   //something going wrong when deleting last doodle on page - duplicating
 
   //ADD
   addToState = (newDoodle) => {
-    const newDoodles = [newDoodle, ...this.state.userDoodles]
+    const newDoodles = [newDoodle, ...this.state.userDoodles];
     this.setState({
-      userDoodles: newDoodles
+      userDoodles: newDoodles,
     });
-    if(this.state.totalPages < Math.ceil(newDoodles.length / 6)) {
+    if (this.state.totalPages < Math.ceil(newDoodles.length / 6)) {
       this.setState({
-        totalPages: Math.ceil(newDoodles.length / 6)
-      })
+        totalPages: Math.ceil(newDoodles.length / 6),
+      });
     }
     //set state true for new doodle added notification
     this.setState({
-      doodleAdded: true
-    })
+      doodleAdded: true,
+    });
     //set timeout
-    setTimeout(() => this.setState({doodleAdded: false}), 3000)
+    setTimeout(() => this.setState({ doodleAdded: false }), 3000);
   };
 
   //set state for selected doodle for editing
@@ -181,7 +183,7 @@ class Profile extends Component {
         ).map((id) => {
           return combinedDoodles.find((a) => a.id === id);
         });
-        
+
         this.setState({
           userDoodles: uniqueDoodles,
           totalPages: data.total_pages,
@@ -194,10 +196,32 @@ class Profile extends Component {
     const { user, handleDelete, handleUpdate, userUpdate, match } = this.props;
     const sliceStart = (this.state.page - 1) * 6;
     const sliceEnd = sliceStart + 6;
+
+    const duration = 500;
+
+    const defaultStyle = {
+      transition: `opacity ${duration}ms ease`,
+      opacity: 0
+    };
+
+    const transitionStyles = {
+      entering: { opacity: 0, display: `inline-block` },
+      entered: { opacity: 1 },
+      exiting: { opacity: 0 },
+      exited: { opacity: 0, display: `none` },
+    };
     return (
       <div id="profile-page">
-        {this.state.doodleAdded ? <div class="doodle-added-notif">Doodl created!</div> : ""}
-        {/* <div class="doodle-added-notif">Doodl created!</div> */}
+        <Transition in={this.state.doodleAdded} timeout={500}>
+          {state => (
+        <div class="doodle-added-notif" style={{
+        ...defaultStyle,
+        ...transitionStyles[state]
+      }}>
+       Doodl created!
+      </div> )}
+      </Transition>
+      
         <div>
           <div id="profile-info-container">
             <div id="profile-edit-container">

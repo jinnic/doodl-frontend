@@ -425,7 +425,7 @@ p {
 .doodle-added-notif {
   color: $primary;
 //   border: 1px solid white;
-  position: absolute;
+  position: fixed;
   background: $secondary;
   left: 0;
   right: 0;
