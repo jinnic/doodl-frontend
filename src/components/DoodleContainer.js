@@ -7,7 +7,12 @@ class DoodleContainer extends Component {
     doodle: {},
   };
 
+
   renderDoodle = () => {
+
+    // const sliceStart = (this.props.page - 1) * 6;
+    // console.log(sliceStart);
+
     return this.props.doodles.slice(0, 6).map((doodle) => (
       <DoodleCard
         key={doodle.id}

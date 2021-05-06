@@ -8,17 +8,17 @@ class Nav extends Component {
 
     render() {
 
-    const { handleLogout, currentUser, getSearchTerm, handleShow, handleNewCanvasShow } = this.props
+    const { handleLogout, currentUser, getSearchTerm, handleShow, handleNewCanvasShow, doodleFetch, navigateProfileHome } = this.props
 
       return (
          <nav className="navbar fixed-top navbar-expand-md justify-content-center">
-         <Link to='/' className="navbar-brand d-flex w-50 mr-auto"><Logo className='logo'/></Link>
+         <Link to='/' onClick={doodleFetch} className="navbar-brand d-flex w-50 mr-auto"><Logo className='logo'/></Link>
          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
             <span className="navbar-toggler-icon">MENU</span>
           </button>
          <div className="navbar-collapse collapse w-100" id="collapsingNavbar">
 
-           {!currentUser.id ? 
+           {!currentUser ? 
             <ul className="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li className="nav-item">
                   {/* <Link to='/'  data-toggle="modal" data-target="#signModal" className='nav-link' >Log In | Sign Up</Link>  */}
@@ -32,7 +32,7 @@ class Nav extends Component {
               </ul>
              <ul className="nav navbar-nav ml-auto w-100 justify-content-end">
                 <li className="nav-item">
-                  <Link to='/profile' className='nav-link'>Profile</Link>
+                  <Link to='/profile' value="profile" onClick={navigateProfileHome} className='nav-link'>Profile</Link>
                 </li>
                 <li className="nav-item">
                     <button data-target="#newCanvasModal" className='nav-link new-button' onClick={handleNewCanvasShow}>Draw Doodle</button>

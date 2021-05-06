@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import DoodleContainer from "./components/DoodleContainer";
 import Nav from "./components/Nav";
@@ -15,21 +15,20 @@ class App extends Component {
   state = {
     doodles: [],
     searchTerm: "",
-    currentUser: {},
-    currentlyEditing: {},
+    currentUser: null,
     loading: "",
     showSignUpIn: false,
     showNewCanvas: false,
-    showEditCanvas: false,
     page: 1,
     totalPages: 1,
+    newDoodleProfile: null,
+    profileClicked: false
   };
 
   /**
    * Auto login on initial load
    */
   componentDidMount() {
-    this.setState({ loading: true });
     const token = localStorage.getItem("token");
     if (token) {
       fetch(`https://doodl-api.herokuapp.com/auto_login`, {
@@ -45,13 +44,22 @@ class App extends Component {
         });
     }
 
+    this.doodleFetch();
+  }
+
+  doodleFetch = () => {
+    this.setState({ loading: true });
     fetch("https://doodl-api.herokuapp.com/doodles")
       .then((r) => r.json())
       .then((data) => {
-        this.setState({ doodles: data.doodles, totalPages: data.total_pages });
+        this.setState({
+          doodles: data.doodles,
+          totalPages: data.total_pages,
+          page: 1,
+        });
         this.setState({ loading: false });
       });
-  }
+  };
 
   handleLogin = (user) => {
     this.setState({
@@ -61,7 +69,7 @@ class App extends Component {
 
   handleLogout = () => {
     this.setState({
-      currentUser: {},
+      currentUser: null,
     });
     localStorage.removeItem("token");
   };
@@ -70,8 +78,8 @@ class App extends Component {
    * FUCTION PROPS : FETCH
    */
 
-  //HANDLE ADD
   addNewDoodle = (doodle) => {
+    const location = this.props.location.pathname;
     const token = localStorage.getItem("token");
     const config = {
       method: "POST",
@@ -85,28 +93,16 @@ class App extends Component {
     fetch("https://doodl-api.herokuapp.com/doodles", config)
       .then((r) => r.json())
       .then((newDoodle) => {
-        this.addToState(newDoodle);
+        if (location === "/profile") {
+          this.setState({
+            newDoodleProfile: newDoodle,
+          });
+        } else {
+          this.addToState(newDoodle);
+        }
       });
   };
 
-  //HANDLE UPDATE
-  handleUpdate = (doodle, id) => {
-    const token = localStorage.getItem("token");
-    const config = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(doodle),
-    };
-    fetch(`https://doodl-api.herokuapp.com/doodles/${id}`, config)
-      .then((r) => r.json())
-      .then((updatedObj) => {
-        this.updateState(updatedObj);
-      });
-  };
 
   userUpdate = (user, id) => {
     const token = localStorage.getItem("token");
@@ -131,19 +127,6 @@ class App extends Component {
           () => console.log("UPDATED USER", updatedUser)
         );
       });
-  };
-
-  //HANDLE DELETE
-  handleDelete = (id) => {
-    const token = localStorage.getItem("token");
-    fetch(`https://doodl-api.herokuapp.com/doodles/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((r) => r.json())
-      .then(this.removeFromState(id));
   };
 
   userDelete = (id) => {
@@ -190,7 +173,6 @@ class App extends Component {
     });
   };
 
-  //UPDATE
   updateState = (updatedDoodle) => {
     const updatedDoods = this.state.doodles.map((doodle) => {
       if (doodle.id === updatedDoodle.id) {
@@ -204,14 +186,6 @@ class App extends Component {
     });
   };
 
-  //DELETE
-  //remove one doodle
-  removeFromState = (id) => {
-    const filtered = this.state.doodles.filter((d) => d.id !== id);
-    this.setState({
-      doodles: filtered,
-    });
-  };
   //DELETE
   //remove all doodle by user_id
   removeUserDoodles = (id) => {
@@ -228,12 +202,12 @@ class App extends Component {
     });
   };
 
-  //set state for selected doodle for editing
-  renderExisting = (dood) => {
-    this.setState({
-      currentlyEditing: dood,
-    });
-  };
+  // //set state for selected doodle for editing
+  // renderExisting = (dood) => {
+  //   this.setState({
+  //     currentlyEditing: dood,
+  //   });
+  // };
 
   /**
    * handle modal state : open and close
@@ -253,12 +227,12 @@ class App extends Component {
     this.setState({ showNewCanvas: true });
   };
   //doodle canvas : canvas for editing doodle
-  handleEditCanvasClose = () => {
-    this.setState({ showEditCanvas: false });
-  };
-  handleEditCanvasShow = () => {
-    this.setState({ showEditCanvas: true });
-  };
+  // handleEditCanvasClose = () => {
+  //   this.setState({ showEditCanvas: false });
+  // };
+  // handleEditCanvasShow = () => {
+  //   this.setState({ showEditCanvas: true });
+  // };
 
   /**
    * FILTER FUCTIONS : RETURN FILTERED DOODLES  ARRAY
@@ -309,10 +283,20 @@ class App extends Component {
     fetch(`https://doodl-api.herokuapp.com/doodles/?page=${this.state.page}`)
       .then((r) => r.json())
       .then((data) => {
-        this.setState({ doodles: data.doodles });
+        this.setState({ doodles: data.doodles, totalPages: data.total_pages });
         this.setState({ loading: false });
       });
   };
+
+  navigateProfileHome = (e) => {
+      this.setState({profileClicked: true})
+  }
+
+  updateProfileClicked = () => {
+    this.setState({profileClicked: false})
+}
+
+
 
   render() {
     return (
@@ -323,6 +307,8 @@ class App extends Component {
           handleLogout={this.handleLogout}
           handleShow={this.handleShow}
           handleNewCanvasShow={this.handleNewCanvasShow}
+          doodleFetch={this.doodleFetch}
+          navigateProfileHome={this.navigateProfileHome}
         />
         <NewCanvas
           user={this.state.currentUser}
@@ -351,8 +337,9 @@ class App extends Component {
                         doodles={this.filterDoodles()}
                         user={this.state.currentUser}
                         updateLike={this.updateLike}
+                        page={this.state.page}
                       />
-                      {this.state.doodles <= 6 ? (
+                      {this.state.totalPages <= 1  ? (
                         ""
                       ) : (
                         <Pagination
@@ -370,30 +357,26 @@ class App extends Component {
               path="/profile"
               render={(routeProps) => (
                 <>
-                  {this.state.loading ? (
+                  {!this.state.currentUser ? (
                     <Loading />
                   ) : (
-                    <Profile
-                      handleDelete={this.handleDelete}
-                      handleUpdate={this.handleUpdate}
-                      user={this.state.currentUser}
-                      updateLike={this.updateLike}
-                      doodles={this.filterByUser()}
-                      handleNew={this.handleAddNewDoodle}
-                      userUpdate={this.userUpdate}
-                      userDelete={this.userDelete}
-                      renderExisting={this.renderExisting}
-                      handleEditCanvasShow={this.handleEditCanvasShow}
-                      {...routeProps}
-                    />
+                    <>
+                      <Profile
+                        user={this.state.currentUser}
+                        updateLike={this.updateLike}
+                        handleNew={this.handleAddNewDoodle}
+                        userUpdate={this.userUpdate}
+                        userDelete={this.userDelete}
+                        renderExisting={this.renderExisting}
+                        handleEditCanvasShow={this.handleEditCanvasShow}
+                        newDoodle={this.state.newDoodleProfile}
+                        updateProfileClicked={this.updateProfileClicked}
+                        profileClicked={this.state.profileClicked}
+                        // navigateProfileHome={this.navigateProfileHome()}
+                        {...routeProps}
+                      />
+                    </>
                   )}
-                  <DoodleCanvas
-                    user={this.state.currentUser}
-                    handleUpdate={this.handleUpdate}
-                    doodle={this.state.currentlyEditing}
-                    show={this.state.showEditCanvas}
-                    onHide={this.handleEditCanvasClose}
-                  />
                 </>
               )}
             />

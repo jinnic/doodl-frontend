@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
 
 //colors
-$primary: #662DAB;
-$secondary: #C8EAE1;
+$primary: #662dab;
+$secondary: #c8eae1;
 $light-accent: white;
 $coral: rgb(255, 138, 134);
 
@@ -20,56 +20,56 @@ $smaller-font: 12px;
 
 //removing outlines and other input edits
 input:focus {
-    outline: none;
+  outline: none;
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 input::-webkit-color-swatch {
-    border: none;
+  border: none;
 }
 
 //button styling
 .button {
-    border: 2px solid $primary;
-    border-radius: $button-radius;
-    color: $primary;
-    background-color: transparent;
+  border: 2px solid $primary;
+  border-radius: $button-radius;
+  color: $primary;
+  background-color: transparent;
 }
 
 .button:hover {
-    color: $secondary;
-    background-color: $primary
+  color: $secondary;
+  background-color: $primary;
 }
 
 .profile-button {
-    border: 1px solid $secondary;
-    border-radius: $button-radius;
-    color: $secondary;
-    height: 30px;
-    align-self: center;
-    background-color: transparent;
+  border: 1px solid $secondary;
+  border-radius: $button-radius;
+  color: $secondary;
+  height: 30px;
+  align-self: center;
+  background-color: transparent;
 }
 
 .profile-button:hover {
-    background-color: $secondary;
-    color: $primary
+  background-color: $secondary;
+  color: $primary;
 }
 
 body {
-    color: $primary;
-    font-weight: 500;
-    background-color: $primary;
-    font-family: 'Roboto', sans-serif;
+  color: $primary;
+  font-weight: 500;
+  background-color: $primary;
+  font-family: "Roboto", sans-serif;
 }
 
 main {
-    margin-top: 130px;
-    padding-top: 2rem;
-    height: 100%;
-    position: relative;
+  margin-top: 130px;
+  padding-top: 2rem;
+  height: 100%;
+  position: relative;
 }
 
 /**
@@ -77,93 +77,88 @@ main {
 */
 
 nav {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 20;
-    font-weight: 400;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 20;
+  font-weight: 400;
 
-    height: 130px;
+  height: 130px;
+  background-color: $secondary;
+  padding: 30px 0;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+
+  .navbar-toggler-icon {
+    color: $primary;
+    font-size: $nav-font;
+  }
+
+  input {
+    color: $primary;
+  }
+
+  .navbar-collapse {
     background-color: $secondary;
-    padding: 30px 0;
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
+  }
 
-    .navbar-toggler-icon {
-        color: $primary;
-        font-size: $nav-font;
-    }
+  ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: $primary;
+    opacity: 0.5;
+    /* Firefox */
+  }
 
-    input{
-        color: $primary;
-    }
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: $primary;
+  }
 
-    .navbar-collapse {
-        background-color: $secondary;
-    }
-
-    ::placeholder {
-        /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: $primary;
-        opacity: 0.5;
-        /* Firefox */
-    }
-
-    :-ms-input-placeholder {
-        /* Internet Explorer 10-11 */
-        color: $primary;
-    }
-
-    ::-ms-input-placeholder {
-        /* Microsoft Edge */
-        color: $primary;
-    }
+  ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: $primary;
+  }
 }
 
 //SEARCH BAR
 
 #search-bar {
-    width: 80%;
-    border: none;
-    background-color: transparent;
-    border-bottom: 2px solid $primary;
-    font-size: $nav-font;
+  width: 80%;
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid $primary;
+  font-size: $nav-font;
 }
 
 .logo {
-    width: 140px;
-    fill: $primary;
+  width: 140px;
+  fill: $primary;
 }
 
 //nav links
 .nav-link {
-    color: $primary;
-    font-size: $nav-font;
+  color: $primary;
+  font-size: $nav-font;
 }
 
 .nav-link:hover {
-    color: $primary;
-    font-weight: 500;
-    background-color: transparent;
-    border-bottom: 2px solid $primary;
+  color: $primary;
+  font-weight: 500;
+  background-color: transparent;
+  border-bottom: 2px solid $primary;
 }
 
 button.nav-link {
-    border: none;
-    background: transparent;
+  border: none;
+  background: transparent;
 }
 
 .new-button {
-    border: none;
-    background-color: transparent;
+  border: none;
+  background-color: transparent;
 }
 
-
-
 // NAV ENDS
-
-
-
 
 /**
  * Form SCSS
@@ -171,213 +166,202 @@ button.nav-link {
 
 // signModal && profileModal
 #signModal {
-    .modal-content {
-        color: $primary;
-        background-color: $secondary;
-        padding-bottom: 2rem;
-    }
+  .modal-content {
+    color: $primary;
+    background-color: $secondary;
+    padding-bottom: 2rem;
+  }
 }
-
 
 #signModal,
 #profileModal {
+  .modal-header {
+    background-color: $primary;
+    color: $secondary;
+    font-size: 1.5rem !important;
+    border-bottom: 1px solid $primary;
+  }
 
-    .modal-header {
-        background-color: $primary;
-        color: $secondary;
-        font-size: 1.5rem !important;
-        border-bottom: 1px solid $primary;
-    }
-
-    .close {
-        color: $secondary;
-        text-shadow: 0 1px 0 $primary;
-        opacity: .8;
-    }
+  .close {
+    color: $secondary;
+    text-shadow: 0 1px 0 $primary;
+    opacity: 0.8;
+  }
 }
 
 #profileModal {
-    .modal-content {
-        margin-top: 1rem;
-        color: $primary;
-        background-color: $secondary;
-    }
+  .modal-content {
+    margin-top: 1rem;
+    color: $primary;
+    background-color: $secondary;
+  }
 
-    .modal-footer {
-        border-top: 1px solid $primary;
-    }
+  .modal-footer {
+    border-top: 1px solid $primary;
+  }
 
-    .form-group input {
-        margin-bottom: 1rem;
-    }
+  .form-group input {
+    margin-bottom: 1rem;
+  }
 }
 
-
 .sign-toogle-button {
-    border: 0px solid $primary;
-    border-radius: $button-radius;
-    color: $primary;
-    background-color: transparent;
+  border: 0px solid $primary;
+  border-radius: $button-radius;
+  color: $primary;
+  background-color: transparent;
 }
 
 .sign-toogle-button:hover {
-    border: 1px solid $primary;
-    color: $primary;
-    background-color: transparent;
+  border: 1px solid $primary;
+  color: $primary;
+  background-color: transparent;
 }
 
 .hr-text {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    border: 0;
-    line-height: 1em;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: 0;
+  line-height: 1em;
+  position: relative;
+  outline: 0;
+  border: 0;
+  color: $primary;
+  text-align: center;
+  height: 1.5em;
+  opacity: 1;
+
+  &:before {
+    content: "";
+    // use the linear-gradient for the fading effect
+    // use a solid background color for a solid bar
+    background: $primary;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+  }
+
+  &:after {
+    content: attr(data-content);
     position: relative;
-    outline: 0;
-    border: 0;
+    display: inline-block;
     color: $primary;
-    text-align: center;
-    height: 1.5em;
-    opacity: 1;
 
-    &:before {
-        content: '';
-        // use the linear-gradient for the fading effect
-        // use a solid background color for a solid bar
-        background: $primary;
-        position: absolute;
-        left: 0;
-        top: 50%;
-        width: 100%;
-        height: 1px;
-    }
-
-    &:after {
-        content: attr(data-content);
-        position: relative;
-        display: inline-block;
-        color: $primary;
-
-        padding: 0 .5em;
-        line-height: 1.5em;
-        // this is really the only tricky part, you need to specify the background color of the container element...
-        background-color: $secondary;
-    }
+    padding: 0 0.5em;
+    line-height: 1.5em;
+    // this is really the only tricky part, you need to specify the background color of the container element...
+    background-color: $secondary;
+  }
 }
 
 // signModal && profileModal ends
 
-
-
-
-
-
-
 //DOODLE CARD
 
 .modal canvas {
-    // width: 100% !important;
-    // height: 400px !important;
+  // width: 100% !important;
+  // height: 400px !important;
 }
 
 .doodle-canvas {
-    width: 100% !important;
-    // margin: 0 auto;
-    // height: 400px !important;
+  width: 100% !important;
+  // margin: 0 auto;
+  // height: 400px !important;
 }
 
-
 .doodle-card {
-    background-color: $secondary;
-    border: 3px solid $secondary;
-    border-radius: $card-radius;
-    //display: inline-block;
-    margin: 0 auto 0 auto;
-    overflow: hidden;
-    .bi-download {
-        margin-left: 0.2rem;
-    }
+  background-color: $secondary;
+  border: 3px solid $secondary;
+  border-radius: $card-radius;
+  //display: inline-block;
+  margin: 0 auto 0 auto;
+  overflow: hidden;
+  .bi-download {
+    margin-left: 0.2rem;
+  }
 
-    .bi-download:hover {
-        cursor: pointer;
-    }
-    width: 400px;
-    // height: 410px;
-    border: 3px solid $secondary;
+  .bi-download:hover {
+    cursor: pointer;
+  }
+  width: 400px;
+  // height: 410px;
+  border: 3px solid $secondary;
 }
 
 .disabled-canvas {
-    margin: 0 auto;
-    border-top-left-radius: $card-radius;
-    border-top-right-radius: $card-radius;
+  margin: 0 auto;
+  border-top-left-radius: $card-radius;
+  border-top-right-radius: $card-radius;
 }
 
 .disabled-canvas canvas {
-    border-top-left-radius: $card-radius;
-    border-top-right-radius: $card-radius;
+  border-top-left-radius: $card-radius;
+  border-top-right-radius: $card-radius;
 }
 
 .like-title-container {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
 }
 
 .doodle-name {
-    font-size: $general-font;
-    margin-bottom: 3px;
+  font-size: $general-font;
+  margin-bottom: 3px;
 }
 
 .created-by {
-    font-size: $smaller-font;
+  font-size: $smaller-font;
 }
 
-
 .edit-delete button {
-    margin-top: 5px;
-    margin-right: 5px;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 
 .popover-basic button {
-    border: none;
-    background-color: white;
+  border: none;
+  background-color: white;
 }
 
 .popover-basic svg {
-    color: $primary;
-    font-size: 1.2rem;
+  color: $primary;
+  font-size: 1.2rem;
 }
 
 .popover-body {
-    padding: .5rem;
+  padding: 0.5rem;
 }
 
 .like {
-    // display: inline-block;
-    align-self: flex-end;
-    // height: 26px;
-    // width: 30px !important;
-    // border-radius: 13px;
-    // border: 3px solid $primary;
-    fill: $primary;
-    text-align: center;
+  // display: inline-block;
+  align-self: flex-end;
+  // height: 26px;
+  // width: 30px !important;
+  // border-radius: 13px;
+  // border: 3px solid $primary;
+  fill: $primary;
+  text-align: center;
 }
 
 .liked {
-    // display: inline-block;
-    align-self: flex-end;
-    // height: 26px;
-    // width: 100px !important;
-    // border-radius: 13px;
-    // border: 3px solid $primary;
-    fill: white;
-    // border: 2px solid $primary;
-    text-align: center;
+  // display: inline-block;
+  align-self: flex-end;
+  // height: 26px;
+  // width: 100px !important;
+  // border-radius: 13px;
+  // border: 3px solid $primary;
+  fill: white;
+  // border: 2px solid $primary;
+  text-align: center;
 }
 
 p {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 //DOODLE CONTAINER
@@ -396,14 +380,14 @@ p {
 // }
 
 .flex-container {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    gap: 3rem 1.5rem;
-    width: 90%;
-    margin: auto;
-    padding: 1.5rem 0 7.5rem 0;
-    // border: 1px solid white;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 3rem 1.5rem;
+  width: 90%;
+  margin: auto;
+  padding: 1.5rem 0 7.5rem 0;
+  // border: 1px solid white;
 }
 
 // .flex-container::after {
@@ -415,227 +399,250 @@ p {
 
 //PROFILE
 
+#profile-page {
+  position: relative;
+}
+
 #profile-info-container {
-    color: $secondary;
-    width: 88%;
-    margin: 0 auto;
+  color: $secondary;
+  width: 88%;
+  margin: 0 auto;
 }
 
 #profile-edit-container {
-    width: 30%;
-    display: flex;
-    justify-content: space-between;
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
 }
 
 #line {
-    background-color: $secondary;
-    height: 2px;
-    width: 32%;
-    margin: 10px 0 35px 0;
+  background-color: $secondary;
+  height: 2px;
+  width: 32%;
+  margin: 10px 0 35px 0;
+}
+
+.doodle-added-notif {
+  color: $primary;
+//   border: 1px solid white;
+  position: fixed;
+  background: $secondary;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: fit-content;
+  padding: .5rem 1rem;
+  border-radius: .3rem;
+  font-weight: 300;
 }
 
 //PAGINATION
 .pagination-container {
-    width: 90%;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    padding: 2rem 0 2.5rem 0;
-    // border: 1px solid red;
-    position: absolute;
-    bottom: 0;
-    left: 5%;
-
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 0 2.5rem 0;
+  // border: 1px solid red;
+  position: absolute;
+  bottom: 0;
+  left: 5%;
 }
 
-.pg-button{
-    background: transparent;
-    border: none;
-    color: $secondary;
-    font-size: 2rem;
+.pg-button {
+  background: transparent;
+  border: none;
+  color: $secondary;
+  font-size: 2rem;
 }
 
 .pg-button:hover {
-    color: $coral;
-    transition: color 150ms ease;
+  color: $coral;
+  transition: color 150ms ease;
 }
 
 .pg-left {
-    transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 .disabled {
-    color: $primary;
-    pointer-events: none;
-    -webkit-text-stroke: 2px rgb(193, 193, 193);
-    // text-shadow: 0 0 5px rgb(193, 193, 193);
+  color: $primary;
+  pointer-events: none;
+  -webkit-text-stroke: 2px rgb(193, 193, 193);
+  // text-shadow: 0 0 5px rgb(193, 193, 193);
 }
 
 //DOODLE CANVAS
 
 .doodle-modal .modal-content {
-    background-color: $secondary;
-    border-radius: $card-radius;
+  background-color: $secondary;
+  border-radius: $card-radius;
 }
 
 .doodle-modal .modal-header {
-    border: none;
+  border: none;
 }
 
 .doodle-modal .modal-body {
-    padding: 0;
+  padding: 0;
 }
 
 .close {
-    color: $primary;
-    opacity: 1;
+  color: $primary;
+  opacity: 1;
 }
 
 .clear-undo {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 }
 
 .undo {
-    margin-left: 7px;
+  margin-left: 7px;
 }
 
 .tool-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: flex-end;
 }
 
 .tool-container input {
-    height: 25px;
-    border: none;
-    background-color: $secondary;
-    color: $primary;
-    text-align: center;
-    margin: 0 5px;
-    border-bottom: 2px solid $primary;
+  height: 25px;
+  border: none;
+  background-color: $secondary;
+  color: $primary;
+  text-align: center;
+  margin: 0 5px;
+  border-bottom: 2px solid $primary;
 }
 
 .brush-radius-input {
-    width: 50px;
-    padding-left: 12px;
+  width: 50px;
+  padding-left: 12px;
 }
 
 input[type="color"] {
-    width: 45px;
-    color: $light-accent;
-    height: 25px;
-    padding: 0;
+  width: 45px;
+  color: $light-accent;
+  height: 25px;
+  padding: 0;
 }
 
 input[type="color"]:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .random-button {
-    border: 1px solid $primary;
-    width: 55px;
-    font-size: $smaller-font;
-    border-radius: $button-radius;
-    color: $primary;
-    background-color: transparent;
+  border: 1px solid $primary;
+  width: 55px;
+  font-size: $smaller-font;
+  border-radius: $button-radius;
+  color: $primary;
+  background-color: transparent;
 }
 
 .random-button:hover {
-    background: linear-gradient(to right, rgb(255, 203, 106), rgb(255, 247, 129), rgb(119, 235, 119), rgb(117, 255, 255), rgb(117, 154, 255), violet);
+  background: linear-gradient(
+    to right,
+    rgb(255, 203, 106),
+    rgb(255, 247, 129),
+    rgb(119, 235, 119),
+    rgb(117, 255, 255),
+    rgb(117, 154, 255),
+    violet
+  );
 }
 
 .save-button {
-    width: 60px;
-    height: 60px;
-    margin: 5px;
-    border: none;
-    border-radius: 30px;
-    background-color: $primary;
-    color: $secondary;
-    font-weight: 500;
+  width: 60px;
+  height: 60px;
+  margin: 5px;
+  border: none;
+  border-radius: 30px;
+  background-color: $primary;
+  color: $secondary;
+  font-weight: 500;
 }
 
 .save-button:hover {
-    color: $light-accent;
-    background-color: rgb(255, 138, 134);
+  color: $light-accent;
+  background-color: rgb(255, 138, 134);
 }
 
 /*LOADER*/
 
 .centered-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 65vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 65vh;
 }
 
 .lds-ellipsis {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: $secondary;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
   }
-  .lds-ellipsis div {
-    position: absolute;
-    top: 33px;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: $secondary;
-    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  100% {
+    transform: scale(1);
   }
-  .lds-ellipsis div:nth-child(1) {
-    left: 8px;
-    animation: lds-ellipsis1 0.6s infinite;
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
   }
-  .lds-ellipsis div:nth-child(2) {
-    left: 8px;
-    animation: lds-ellipsis2 0.6s infinite;
+  100% {
+    transform: scale(0);
   }
-  .lds-ellipsis div:nth-child(3) {
-    left: 32px;
-    animation: lds-ellipsis2 0.6s infinite;
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
   }
-  .lds-ellipsis div:nth-child(4) {
-    left: 56px;
-    animation: lds-ellipsis3 0.6s infinite;
+  100% {
+    transform: translate(24px, 0);
   }
-  @keyframes lds-ellipsis1 {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  @keyframes lds-ellipsis3 {
-    0% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(0);
-    }
-  }
-  @keyframes lds-ellipsis2 {
-    0% {
-      transform: translate(0, 0);
-    }
-    100% {
-      transform: translate(24px, 0);
-    }
-  }
+}
 
 //MEDIA
 
 @media (max-width: 425px) {
-
-    .doodle-card {
-        width: 315px;
-        margin-bottom: 1.5rem;
-    }
-
+  .doodle-card {
+    width: 315px;
+    margin-bottom: 1.5rem;
+  }
 }
