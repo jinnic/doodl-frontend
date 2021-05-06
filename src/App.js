@@ -31,7 +31,7 @@ class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch(`http://localhost:3000/auto_login`, {
+      fetch(`https://doodl-api.herokuapp.com/auto_login`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -49,7 +49,7 @@ class App extends Component {
 
   doodleFetch = () => {
     this.setState({ loading: true });
-    fetch("http://localhost:3000/doodles")
+    fetch("https://doodl-api.herokuapp.com/doodles")
       .then((r) => r.json())
       .then((data) => {
         this.setState({
@@ -69,7 +69,7 @@ class App extends Component {
 
   handleLogout = () => {
     this.setState({
-      currentUser: {},
+      currentUser: null,
     });
     localStorage.removeItem("token");
   };
@@ -90,7 +90,7 @@ class App extends Component {
       },
       body: JSON.stringify(doodle),
     };
-    fetch("http://localhost:3000/doodles", config)
+    fetch("https://doodl-api.herokuapp.com/doodles", config)
       .then((r) => r.json())
       .then((newDoodle) => {
         if (location === "/profile") {
@@ -115,7 +115,7 @@ class App extends Component {
   //     },
   //     body: JSON.stringify(doodle),
   //   };
-  //   fetch(`http://localhost:3000/doodles/${id}`, config)
+  //   fetch(`https://doodl-api.herokuapp.com/doodles/${id}`, config)
   //     .then((r) => r.json())
   //     .then((updatedObj) => {
   //       this.updateState(updatedObj);
@@ -135,7 +135,7 @@ class App extends Component {
 
       body: JSON.stringify(user),
     };
-    fetch(`http://localhost:3000/users/${id}`, config)
+    fetch(`https://doodl-api.herokuapp.com/users/${id}`, config)
       .then((r) => r.json())
       .then((updatedUser) => {
         this.setState(
@@ -149,7 +149,7 @@ class App extends Component {
 
   userDelete = (id) => {
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:3000/users/${id}`, {
+    fetch(`https://doodl-api.herokuapp.com/users/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -176,7 +176,7 @@ class App extends Component {
       body: JSON.stringify(likeObj),
     };
 
-    fetch(`http://localhost:3000/doodles/${doodle_id}/likes`, config)
+    fetch(`https://doodl-api.herokuapp.com/doodles/${doodle_id}/likes`, config)
       .then((r) => r.json())
       .then((doodle) => this.updateState(doodle));
   };
@@ -188,6 +188,19 @@ class App extends Component {
   addToState = (newDoodle) => {
     this.setState({
       doodles: [newDoodle, ...this.state.doodles],
+    });
+  };
+
+  updateState = (updatedDoodle) => {
+    const updatedDoods = this.state.doodles.map((doodle) => {
+      if (doodle.id === updatedDoodle.id) {
+        return updatedDoodle;
+      } else {
+        return doodle;
+      }
+    });
+    this.setState({
+      doodles: updatedDoods,
     });
   };
 
@@ -285,7 +298,7 @@ class App extends Component {
   };
 
   updatePagination = () => {
-    fetch(`http://localhost:3000/doodles/?page=${this.state.page}`)
+    fetch(`https://doodl-api.herokuapp.com/doodles/?page=${this.state.page}`)
       .then((r) => r.json())
       .then((data) => {
         this.setState({ doodles: data.doodles, totalPages: data.total_pages });

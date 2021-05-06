@@ -16,44 +16,14 @@ class DoodleCard extends Component {
     //filter like by current user
     //set likeStatus by filter
     const doodle = this.props.doodle
+    if(this.props.user !== null) {
     const like = doodle.likes.filter(like => like.user_id === this.props.user.id)
     this.setState({
       likeStatus: like.length > 0 ? true : false
     })
-
-    // OPTIONAL, event listener that resizes canvas only on smallest
-    //screen size
-    // window.addEventListener('resize', this.onResize);
-    // this.responsiveDimensions()
+  }
   }
 
-//   onResize = (event) => {
-//     this.responsiveDimensions()
-// }
-
-// responsiveDimensions = () => {
-//   if(window.innerWidth < 425) {
-//       this.setState({
-//           height: 253,
-//           width: 315,
-//       })
-//       this.saveableCanvas.loadSaveData(
-//         JSON.stringify(this.props.doodle.doodle_data))
-//     }
-//     if(window.innerWidth > 425) {
-//       this.setState({
-//           width: 400,
-//           height: 321,
-//       })
-//       this.saveableCanvas.loadSaveData(
-//         JSON.stringify(this.props.doodle.doodle_data))
-//     }
-// }
-
-
-// componentWillUnmount() {
-//   window.removeEventListener('resize', this.onResize);
-// }
 
   componentDidUpdate(prevProps){
     if(this.props.user !== prevProps.user){
@@ -65,14 +35,9 @@ class DoodleCard extends Component {
   }
 
 
-  
-  isEmpty = (obj)=>{
-    return Object.keys(obj).length === 0;
-  }
 
   handleLike = () => {
-    if(this.isEmpty(this.props.user)){
-    }else{
+    if(this.props.user !== null){
       console.log("like status : ", this.state.likeStatus)
       this.setState(prevState => ({
         likeStatus: !prevState.likeStatus

@@ -20,7 +20,7 @@ class Profile extends Component {
 
   componentDidMount() {
     this.setState({ loading: true });
-    fetch(`http://localhost:3000/users/${this.props.user.id}`)
+    fetch(`https://doodl-api.herokuapp.com/users/${this.props.user.id}`)
       .then((r) => r.json())
       .then((data) => {
         this.setState({
@@ -45,7 +45,7 @@ class Profile extends Component {
   //HANDLE DELETE
   handleDelete = (id) => {
     const token = localStorage.getItem("token");
-    fetch(`http://localhost:3000/doodles/${id}`, {
+    fetch(`https://doodl-api.herokuapp.com/doodles/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ class Profile extends Component {
       },
       body: JSON.stringify(doodle),
     };
-    fetch(`http://localhost:3000/doodles/${id}`, config)
+    fetch(`https://doodl-api.herokuapp.com/doodles/${id}`, config)
       .then((r) => r.json())
       .then((updatedObj) => {
         this.updateState(updatedObj);
@@ -100,7 +100,28 @@ class Profile extends Component {
     );
   };
 
-  //something going wrong when deleting last doodle on page - duplicating
+  //update likes
+
+  updateLike = (doodle_id) => {
+    const likeObj = {
+      user_id: this.props.user.id,
+      doodle_id: doodle_id,
+    };
+    const token = localStorage.getItem("token");
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(likeObj),
+    };
+
+    fetch(`https://doodl-api.herokuapp.com/doodles/${doodle_id}/likes`, config)
+      .then((r) => r.json())
+      .then((doodle) => this.updateState(doodle));
+  };
 
   //ADD
   addToState = (newDoodle) => {
@@ -172,7 +193,7 @@ class Profile extends Component {
   updatePagination = () => {
     this.setState({ loading: true });
     fetch(
-      `http://localhost:3000/users/${this.props.user.id}/?page=${this.state.page}`
+      `https://doodl-api.herokuapp.com/users/${this.props.user.id}/?page=${this.state.page}`
     )
       .then((r) => r.json())
       .then((data) => {
@@ -254,7 +275,7 @@ class Profile extends Component {
                 handleDelete={this.handleDelete}
                 handleUpdate={this.handleUpdate}
                 page={this.state.page}
-                updateLike={this.props.updateLike}
+                updateLike={this.updateLike}
                 handleEditCanvasShow={this.handleEditCanvasShow}
                 match={match}
                 renderExisting={this.renderExisting}
