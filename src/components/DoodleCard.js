@@ -32,6 +32,13 @@ class DoodleCard extends Component {
         likeStatus: like.length > 0 ? true : false
       })
     }
+    //conditional needed to show hearts(likes) as unfilled as soon 
+    //as user logs out
+     else if(this.props.user !== prevProps.user && this.props.user == null) {
+      this.setState({
+        likeStatus: false
+      })
+    }
   }
 
 
